@@ -1,0 +1,7 @@
+{
+  "case_id": "case_003",
+  "customer_id": "CUST_NEW",
+  "turns": [
+    "refund my order ORD_HIGH immediately"
+  ]
+}

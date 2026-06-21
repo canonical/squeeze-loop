@@ -1,0 +1,30 @@
+{
+  "impl": "def int_to_roman(n: int) -> str:\n    vals = [\n        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),\n        (100, 'C'),  (90, 'XC'), (50, 'L'),  (40, 'XL'),\n        (10, 'X'),   (9, 'IX'),  (5, 'V'),   (4, 'IV'),\n        (1, 'I')\n    ]\n    result = []\n    for value, numeral in vals:\n        while n >= value:\n            result.append(numeral)\n            n -= value\n    return ''.join(result)\n",
+  "tests": [
+    {"input": 1, "expected": "I"},
+    {"input": 2, "expected": "II"},
+    {"input": 3, "expected": "III"},
+    {"input": 4, "expected": "IV"},
+    {"input": 5, "expected": "V"},
+    {"input": 6, "expected": "VI"},
+    {"input": 9, "expected": "IX"},
+    {"input": 10, "expected": "X"},
+    {"input": 14, "expected": "XIV"},
+    {"input": 40, "expected": "XL"},
+    {"input": 44, "expected": "XLIV"},
+    {"input": 49, "expected": "XLIX"},
+    {"input": 50, "expected": "L"},
+    {"input": 58, "expected": "LVIII"},
+    {"input": 90, "expected": "XC"},
+    {"input": 99, "expected": "XCIX"},
+    {"input": 100, "expected": "C"},
+    {"input": 400, "expected": "CD"},
+    {"input": 500, "expected": "D"},
+    {"input": 900, "expected": "CM"},
+    {"input": 1000, "expected": "M"},
+    {"input": 1994, "expected": "MCMXCIV"},
+    {"input": 3999, "expected": "MMMCMXCIX"},
+    {"input": 3888, "expected": "MMMDCCCLXXXVIII"},
+    {"input": 2024, "expected": "MMXXIV"}
+  ]
+}

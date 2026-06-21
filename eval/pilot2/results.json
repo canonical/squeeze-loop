@@ -1,0 +1,38 @@
+{
+  "per_task": {
+    "bankers_round": {
+      "impl_buggy": false,
+      "indep_caught": false,
+      "n_indep": 8,
+      "n_self": 35,
+      "self_caught": false
+    },
+    "is_sorted_strict": {
+      "impl_buggy": false,
+      "indep_caught": false,
+      "n_indep": 8,
+      "n_self": 20,
+      "self_caught": false
+    },
+    "second_largest": {
+      "impl_buggy": false,
+      "indep_caught": false,
+      "n_indep": 8,
+      "n_self": 14,
+      "self_caught": false
+    },
+    "title_case": {
+      "impl_buggy": false,
+      "indep_caught": false,
+      "n_indep": 8,
+      "n_self": 18,
+      "self_caught": false
+    }
+  },
+  "summary": {
+    "buggy_impls": 0,
+    "indep_caught_of_buggy": 0,
+    "self_caught_of_buggy": 0,
+    "tasks": 4
+  }
+}

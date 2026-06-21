@@ -1,0 +1,14 @@
+id	plane	fcode	location	status	description
+D1	literature	F3	sec:sota 2.1	FIXED	CRITIC: comparative "outperform intrinsic" stated more strongly than the cited source asserts
+D2	literature	F2	sec:sota 2.3	FIXED	debate: full-context-sharing misattributed to irving2018debate (true only of du2023debate)
+D3	literature	F3	sec:sota 2.1	FIXED	Constitutional AI: shared-weights claim not scoped to the self-critique stage
+D4	evidence	F2	fig:pipeline	FIXED	Figure 1 provenance: Gate C attributed to the P-series guide, which has only Gates A-B
+D5	evidence	F6	sec:stabilizers/app:dod	FIXED	"all three guides end with this sentence" but the three closing sentences differ
+D6	evidence	F7	app:worker	FIXED	happy-threat-agent block was abridged yet presented in a verbatim environment
+D7	literature	F3	sec:sota 2.4	FIXED	Clover: "reducing correctness to consistency" stated as fact, not as the authors' hypothesis (caught at full-text read)
+D8	evidence	F6	fig:pipeline caption vs sec:mechanics	FIXED	Figure 1 caption claimed "Gates A-B are machine-checked acceptance" but Gate A is the coordinator's editorial judgment (sec:mechanics + fig body); caught by EXTERNAL review (review1.md), not by the internal gates
+# Defects the squeeze-loop gates caught in THIS manuscript's own claims, before it shipped.
+# Sourced from docs/12-0930-paper-gap-1.md, the evidence-plane Gate C
+# (verify/reports/evidence-verification-2026-06-12.md), and the full-text pass
+# (verify/reports/fulltext-verification-2026-06-12.md). The baudin_acsl empty-year
+# fix is a metadata correction, not a coherent-and-wrong claim, so it is not listed here.

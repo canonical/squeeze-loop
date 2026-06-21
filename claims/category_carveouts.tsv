@@ -1,0 +1,6 @@
+# category_carveouts.tsv -- carve-outs from the per-instance generated-category over-reach
+# audit (verify/category_overreach.py, per self-improve.md). A generated category that
+# does NOT generalise across the four object-level instances (A/B/C/D) is scoped to where
+# it actually holds, rather than asserted generally.
+# columns: id  category  scope  overreach  carve_out  evidence
+CARVE-CAT4	CAT-4	the reflexive (paper) instance only	asserted as a general category, but NO object-level instance (A/B/C/D) carries an external-challenge record -- the "internal gates missed it, external challenge caught it" footprint exists only for the paper instance	scope CAT-4 (coherent-and-wrong caught only by external challenge / the gate-independence limit) to the reflexive paper instance; do not claim it generalises to the object-level instances. CAT-1/CAT-2/CAT-3 do generalise to all four.	verify/manuscript_defects.tsv (D8, caught by external review) exists only for the paper instance; verify/category_overreach.py

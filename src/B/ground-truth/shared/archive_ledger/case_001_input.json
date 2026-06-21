@@ -1,0 +1,8 @@
+{
+  "case_id": "case_001",
+  "customer_id": "CUST_GOOD",
+  "turns": [
+    "my order ORD_GOOD never arrived",
+    "I checked with neighbors, please refund"
+  ]
+}

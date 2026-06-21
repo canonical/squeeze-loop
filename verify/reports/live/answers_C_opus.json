@@ -1,0 +1,20 @@
+{
+  "C_patch_null_1": "UNCHANGED",
+  "C_patch_null_2": "PRESENT_S",
+  "C_patch_array_1": "REPLACED",
+  "C_disclosure_1": "ERROR_403",
+  "C_disclosure_2": "ERROR_403",
+  "C_retry_after_1": "NO_RETRY_AFTER",
+  "C_retry_after_2": "NO_RETRY_AFTER",
+  "C_retry_after_3": "HAS_RETRY_AFTER",
+  "C_taxonomy_1": "ERROR_422",
+  "C_taxonomy_2": "ERROR_401",
+  "C_taxonomy_3": "ERROR_400",
+  "C_post_idem_1": "REPLAY_ORIGINAL",
+  "C_post_idem_2": "ERROR_422",
+  "C_state_terminal_1": "ERROR_409",
+  "C_state_terminal_2": "ERROR_409",
+  "C_concurrency_1": "ERROR_412",
+  "C_concurrency_2": "v1",
+  "C_pagination_1": "7"
+}

@@ -1,0 +1,13 @@
+# category_generation_log.tsv -- O4 (Tier-1-strength) evidence for paper_upper_bound.md.
+# Per-circle TEMPORAL trace of each distinction the squeeze loop invented to resolve a
+# squeeze on ITSELF, and the strictly-later circle(s) where it was subsequently
+# ENFORCED. Supersedes the static claims/category_ledger.tsv by dating invention and
+# enforcement, so "arose under self-application AND was subsequently enforced on later
+# iterations" (clause O4) is a dated chain, not a single-cell assertion.
+# DISCHARGE RULE (verify/category_log_measures.py): every row must have
+# min(enforced_circles) > invented_circle. Loud-fail otherwise.
+# Columns: id  invented_circle  category  impasse_resolved  enforced_circles  enforcement_evidence
+CAT-1	31	hard truth vs soft truth	framing the squeeze's upper/lower-bound asymmetry	32;33	level-up "richness = the interpretation surface of the soft bound" (circle 32); U_self framing + sec:strategy Remark 1 (circle 33)
+CAT-2	32	richness = number of separable forks	the near-zero error rate forced asking what makes a task catchable	36	D's deductive difficulty ladder, a fourth instance of graded subtlety (circle 36); eval "Enriching the upper bound"
+CAT-3	32	diversity restores the trial (task-sampling vs model-stochasticity)	a byte-identical 10-cycle re-run = a fixed actor is a fixed point, so no trial happened	33	the convergence findings -- unbiased estimator, running mean converges (circle 33); the four src/*/diversity pools
+CAT-4	29	coherent-and-wrong caught only by external challenge (gate-independence limit)	D8 + the false-environment claim: an external party caught what the internal gates missed	62	U_self O2 level-crossing chain LX-3 reuses D8 as the external-challenge crossing (circle 62); the reflexive-section limitation

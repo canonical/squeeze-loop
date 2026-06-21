@@ -1,0 +1,47 @@
+{
+  "instance": "C-ladder",
+  "per_rung": [
+    {
+      "clause": "GET returns 200 with documented field",
+      "correct_conformant": true,
+      "forks_caught": 1,
+      "forks_total": 1,
+      "tier": "trivial",
+      "verdict": "PASS"
+    },
+    {
+      "clause": "auth required on mutation (401 without token)",
+      "correct_conformant": true,
+      "forks_caught": 1,
+      "forks_total": 1,
+      "tier": "easy",
+      "verdict": "PASS"
+    },
+    {
+      "clause": "no internal-id leak; clean typed errors",
+      "correct_conformant": true,
+      "forks_caught": 2,
+      "forks_total": 2,
+      "tier": "medium",
+      "verdict": "PASS"
+    },
+    {
+      "clause": "order state machine: approve-after-cancel is illegal",
+      "correct_conformant": true,
+      "forks_caught": 1,
+      "forks_total": 1,
+      "tier": "hard",
+      "verdict": "PASS"
+    },
+    {
+      "clause": "cross-plane consistency under state (read-after-write; idempotency)",
+      "correct_conformant": true,
+      "forks_caught": 2,
+      "forks_total": 2,
+      "tier": "very_hard",
+      "verdict": "PASS"
+    }
+  ],
+  "rungs": 5,
+  "rungs_pass": 5
+}

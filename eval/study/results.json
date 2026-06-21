@@ -1,0 +1,93 @@
+{
+  "bug_by_model": {
+    "haiku": 0,
+    "opus": 0,
+    "sonnet": 0
+  },
+  "discordant_indep_only": 0,
+  "discordant_self_only": 0,
+  "impls_by_model": {
+    "haiku": 8,
+    "opus": 8,
+    "sonnet": 8
+  },
+  "indep_caught_of_buggy": 0,
+  "mcnemar_p": 1.0,
+  "n_buggy": 0,
+  "n_impls": 24,
+  "per_impl": {
+    "compress_rle.haiku": {
+      "buggy": false
+    },
+    "compress_rle.opus": {
+      "buggy": false
+    },
+    "compress_rle.sonnet": {
+      "buggy": false
+    },
+    "dedup_adjacent.haiku": {
+      "buggy": false
+    },
+    "dedup_adjacent.opus": {
+      "buggy": false
+    },
+    "dedup_adjacent.sonnet": {
+      "buggy": false
+    },
+    "expand_ranges.haiku": {
+      "buggy": false
+    },
+    "expand_ranges.opus": {
+      "buggy": false
+    },
+    "expand_ranges.sonnet": {
+      "buggy": false
+    },
+    "int_to_roman.haiku": {
+      "buggy": false
+    },
+    "int_to_roman.opus": {
+      "buggy": false
+    },
+    "int_to_roman.sonnet": {
+      "buggy": false
+    },
+    "is_balanced.haiku": {
+      "buggy": false
+    },
+    "is_balanced.opus": {
+      "buggy": false
+    },
+    "is_balanced.sonnet": {
+      "buggy": false
+    },
+    "merge_intervals.haiku": {
+      "buggy": false
+    },
+    "merge_intervals.opus": {
+      "buggy": false
+    },
+    "merge_intervals.sonnet": {
+      "buggy": false
+    },
+    "most_common.haiku": {
+      "buggy": false
+    },
+    "most_common.opus": {
+      "buggy": false
+    },
+    "most_common.sonnet": {
+      "buggy": false
+    },
+    "spreadsheet_col.haiku": {
+      "buggy": false
+    },
+    "spreadsheet_col.opus": {
+      "buggy": false
+    },
+    "spreadsheet_col.sonnet": {
+      "buggy": false
+    }
+  },
+  "self_caught_of_buggy": 0
+}

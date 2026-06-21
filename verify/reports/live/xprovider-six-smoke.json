@@ -1,0 +1,216 @@
+{
+  "stamp": "smoke",
+  "reps": 1,
+  "instances": [
+    "A",
+    "B",
+    "C"
+  ],
+  "providers": {
+    "alibaba": "qwen3.6:35b",
+    "deepseek": "deepseek-r1:70b",
+    "google": "gemma4:31b",
+    "openai": "gpt-oss:120b",
+    "meta": "llama4:16x17b"
+  },
+  "summary": {
+    "alibaba": {
+      "model": "qwen3.6:35b",
+      "by_instance": {
+        "A": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 1
+          }
+        },
+        "B": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "delivered_default": 1
+          }
+        },
+        "C": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 1
+          }
+        }
+      },
+      "total": {
+        "errors": 3,
+        "n": 3,
+        "rate": 1.0
+      }
+    },
+    "deepseek": {
+      "model": "deepseek-r1:70b",
+      "by_instance": {
+        "A": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 1
+          }
+        },
+        "B": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "delivered_default": 1
+          }
+        },
+        "C": {
+          "errors": 0,
+          "n": 1,
+          "forks_wrong": {}
+        }
+      },
+      "total": {
+        "errors": 2,
+        "n": 3,
+        "rate": 0.667
+      }
+    },
+    "google": {
+      "model": "gemma4:31b",
+      "by_instance": {
+        "A": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 1
+          }
+        },
+        "B": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "delivered_default": 1
+          }
+        },
+        "C": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 1
+          }
+        }
+      },
+      "total": {
+        "errors": 3,
+        "n": 3,
+        "rate": 1.0
+      }
+    },
+    "openai": {
+      "model": "gpt-oss:120b",
+      "by_instance": {
+        "A": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 1
+          }
+        },
+        "B": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "delivered_default": 1
+          }
+        },
+        "C": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 1
+          }
+        }
+      },
+      "total": {
+        "errors": 3,
+        "n": 3,
+        "rate": 1.0
+      }
+    },
+    "meta": {
+      "model": "llama4:16x17b",
+      "by_instance": {
+        "A": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 1
+          }
+        },
+        "B": {
+          "errors": 1,
+          "n": 1,
+          "forks_wrong": {
+            "delivered_default": 1
+          }
+        },
+        "C": {
+          "errors": 0,
+          "n": 1,
+          "forks_wrong": {}
+        }
+      },
+      "total": {
+        "errors": 2,
+        "n": 3,
+        "rate": 0.667
+      }
+    }
+  },
+  "convergence": [
+    {
+      "case": "A/A_net_vs_directive_1",
+      "oracle": "A",
+      "n_providers_err": 5,
+      "n_providers_total": 5,
+      "top_wrong_reading": "B",
+      "convergence_on_top": 0.8,
+      "per_provider": {
+        "alibaba": "B",
+        "deepseek": "B",
+        "google": "B",
+        "openai": "UNPARSED",
+        "meta": "B"
+      }
+    },
+    {
+      "case": "B/B_delivered_default_1",
+      "oracle": "ESCALATE",
+      "n_providers_err": 5,
+      "n_providers_total": 5,
+      "top_wrong_reading": "REIMBURSE",
+      "convergence_on_top": 0.8,
+      "per_provider": {
+        "alibaba": "REIMBURSE",
+        "deepseek": "REIMBURSE",
+        "google": "REIMBURSE",
+        "openai": "UNPARSED",
+        "meta": "REIMBURSE"
+      }
+    },
+    {
+      "case": "C/C_patch_null_1",
+      "oracle": "DELETED",
+      "n_providers_err": 3,
+      "n_providers_total": 5,
+      "top_wrong_reading": "UNCHANGED",
+      "convergence_on_top": 0.67,
+      "per_provider": {
+        "alibaba": "UNCHANGED",
+        "deepseek": "DELETED",
+        "google": "UNCHANGED",
+        "openai": "UNPARSED",
+        "meta": "DELETED"
+      }
+    }
+  ]
+}

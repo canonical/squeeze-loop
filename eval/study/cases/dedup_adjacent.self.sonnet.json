@@ -1,0 +1,17 @@
+{
+  "impl": "def dedup_adjacent(xs):\n    if not xs:\n        return []\n    result = [xs[0]]\n    for x in xs[1:]:\n        if x != result[-1]:\n            result.append(x)\n    return result",
+  "tests": [
+    {"input": [1, 1, 2, 1], "expected": [1, 2, 1]},
+    {"input": [1, 1, 1], "expected": [1]},
+    {"input": [1, 2, 3], "expected": [1, 2, 3]},
+    {"input": [], "expected": []},
+    {"input": [1], "expected": [1]},
+    {"input": [1, 1], "expected": [1]},
+    {"input": [1, 2, 2, 3, 3, 3, 1], "expected": [1, 2, 3, 1]},
+    {"input": [5, 5, 5, 5, 5], "expected": [5]},
+    {"input": [1, 2, 1, 2], "expected": [1, 2, 1, 2]},
+    {"input": ["a", "a", "b", "a"], "expected": ["a", "b", "a"]},
+    {"input": [1, 2, 2, 2, 3, 1, 1, 4], "expected": [1, 2, 3, 1, 4]},
+    {"input": [0, 0, 0], "expected": [0]}
+  ]
+}

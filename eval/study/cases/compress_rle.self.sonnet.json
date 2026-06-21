@@ -1,0 +1,20 @@
+{
+  "impl": "def compress_rle(s):\n    if not s:\n        return \"\"\n    result = []\n    current = s[0]\n    count = 1\n    for ch in s[1:]:\n        if ch == current:\n            count += 1\n        else:\n            result.append(current + str(count))\n            current = ch\n            count = 1\n    result.append(current + str(count))\n    return \"\".join(result)\n",
+  "tests": [
+    {"input": "aaabb", "expected": "a3b2"},
+    {"input": "abc", "expected": "a1b1c1"},
+    {"input": "", "expected": ""},
+    {"input": "a", "expected": "a1"},
+    {"input": "aaa", "expected": "a3"},
+    {"input": "aabbcc", "expected": "a2b2c2"},
+    {"input": "aaabbbccc", "expected": "a3b3c3"},
+    {"input": "abba", "expected": "a1b2a1"},
+    {"input": "zzz", "expected": "z3"},
+    {"input": "aabbbbccddddee", "expected": "a2b4c2d4e2"},
+    {"input": "abcde", "expected": "a1b1c1d1e1"},
+    {"input": "aaaaaaaaaaa", "expected": "a11"},
+    {"input": "aab", "expected": "a2b1"},
+    {"input": "abb", "expected": "a1b2"},
+    {"input": "aaabbbaaa", "expected": "a3b3a3"}
+  ]
+}

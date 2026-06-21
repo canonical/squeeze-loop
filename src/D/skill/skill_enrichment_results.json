@@ -1,0 +1,725 @@
+{
+  "conceptual_leap_wall": 16,
+  "cycles": 100,
+  "final_skill": [
+    "lia",
+    "nia"
+  ],
+  "instance": "D-skill",
+  "learned_events": [
+    {
+      "cycle": 1,
+      "tactic": "lia"
+    },
+    {
+      "cycle": 8,
+      "tactic": "nia"
+    }
+  ],
+  "per_cycle": [
+    {
+      "cycle": 1,
+      "not_found": 1,
+      "skill_size": 1,
+      "solvable_miss": 1,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 2,
+      "not_found": 0,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 3,
+      "not_found": 0,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 4,
+      "not_found": 0,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 5,
+      "not_found": 0,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 6,
+      "not_found": 2,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 7,
+      "not_found": 0,
+      "skill_size": 1,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 8,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 1,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 9,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 10,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 11,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 12,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 13,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 14,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 15,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 16,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 17,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 18,
+      "not_found": 4,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 4
+    },
+    {
+      "cycle": 19,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 20,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 21,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 22,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 23,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 24,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 25,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 26,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 27,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 28,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 29,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 30,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 31,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 32,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 33,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 34,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 35,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 36,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 37,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 38,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 39,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 40,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 41,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 42,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 43,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 44,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 45,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 46,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 47,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 48,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 49,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 50,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 51,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 52,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 53,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 54,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 55,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 56,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 57,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 58,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 59,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 60,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 61,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 62,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 63,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 64,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 65,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 66,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 67,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 68,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 69,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 70,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 71,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 72,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 73,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 74,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 75,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 76,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 77,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 78,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 79,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 80,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 81,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 82,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 83,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 84,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 85,
+      "not_found": 2,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 2
+    },
+    {
+      "cycle": 86,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 87,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 88,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 89,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 90,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 91,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 92,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 93,
+      "not_found": 3,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 3
+    },
+    {
+      "cycle": 94,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 95,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 96,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 97,
+      "not_found": 1,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 1
+    },
+    {
+      "cycle": 98,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 99,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    },
+    {
+      "cycle": 100,
+      "not_found": 0,
+      "skill_size": 2,
+      "solvable_miss": 0,
+      "wall_hits": 0
+    }
+  ],
+  "sample": 5,
+  "seed": 7000,
+  "solvable_miss_first_window_mean": 0.2,
+  "solvable_miss_last_window_mean": 0.0
+}

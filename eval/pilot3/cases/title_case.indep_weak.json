@@ -1,0 +1,34 @@
+[
+  {
+    "input": "hello world",
+    "expected": "Hello World"
+  },
+  {
+    "input": "don't worry",
+    "expected": "Don't Worry"
+  },
+  {
+    "input": "the quick brown fox",
+    "expected": "The Quick Brown Fox"
+  },
+  {
+    "input": "a",
+    "expected": "A"
+  },
+  {
+    "input": "UPPERCASE TEXT",
+    "expected": "Uppercase Text"
+  },
+  {
+    "input": "multiple   spaces",
+    "expected": "Multiple Spaces"
+  },
+  {
+    "input": "it's a test",
+    "expected": "It's A Test"
+  },
+  {
+    "input": "python programming language",
+    "expected": "Python Programming Language"
+  }
+]

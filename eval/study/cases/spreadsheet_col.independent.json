@@ -1,0 +1,10 @@
+[
+  {"input": 1, "expected": "A"},
+  {"input": 26, "expected": "Z"},
+  {"input": 27, "expected": "AA"},
+  {"input": 52, "expected": "AZ"},
+  {"input": 702, "expected": "ZZ"},
+  {"input": 703, "expected": "AAA"},
+  {"input": 18278, "expected": "ZZZ"},
+  {"input": 16384, "expected": "XFD"}
+]

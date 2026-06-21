@@ -1,0 +1,10 @@
+[
+  {"input": 1, "expected": "I"},
+  {"input": 4, "expected": "IV"},
+  {"input": 9, "expected": "IX"},
+  {"input": 40, "expected": "XL"},
+  {"input": 58, "expected": "LVIII"},
+  {"input": 444, "expected": "CDXLIV"},
+  {"input": 1994, "expected": "MCMXCIV"},
+  {"input": 3999, "expected": "MMMCMXCIX"}
+]

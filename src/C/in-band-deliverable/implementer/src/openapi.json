@@ -1,0 +1,124 @@
+{
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "description": "Per-caller API key presented in the X-API-Key request header.",
+        "in": "header",
+        "name": "X-API-Key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "description": "Implementer's public contract for Use Case C (API Contract Guard). This document plane is linted by the ground-truth linter and must align with base_schema.json; the runtime server (main.py) must match it exactly.",
+    "title": "Profile API Contract",
+    "version": "v1"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/profile": {
+      "get": {
+        "description": "Read the calling user's profile, identified by the X-API-Key.",
+        "responses": {
+          "200": {
+            "description": "The caller's profile. Exposes user_uuid only; never the internal integer id.",
+            "schema": {
+              "properties": {
+                "display_name": {"description": "The user's display name.", "type": "string"},
+                "updated_at": {"description": "ISO-8601 Z timestamp of the last update.", "type": "string"},
+                "user_uuid": {"description": "Public resource UUID of the user.", "type": "string"}
+              },
+              "required": ["user_uuid", "display_name", "updated_at"],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Missing, empty, or wrong X-API-Key.",
+            "schema": {
+              "properties": {
+                "error": {"description": "Short machine-readable error code.", "type": "string"},
+                "message": {"description": "Human-readable error message; never leaks internals.", "type": "string"}
+              },
+              "required": ["error", "message"],
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Unknown route.",
+            "schema": {
+              "properties": {
+                "error": {"description": "Short machine-readable error code.", "type": "string"},
+                "message": {"description": "Human-readable error message; never leaks internals.", "type": "string"}
+              },
+              "required": ["error", "message"],
+              "type": "object"
+            }
+          }
+        },
+        "security": [{"ApiKeyAuth": []}]
+      }
+    },
+    "/api/v1/profile/update": {
+      "post": {
+        "description": "Update the calling user's display_name. The mutation is in-memory only; the storage DB is read-only.",
+        "requestBody": {
+          "schema": {
+            "properties": {
+              "display_name": {"description": "New non-empty display name for the caller.", "type": "string"}
+            },
+            "required": ["display_name"],
+            "type": "object"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update accepted. Exposes user_uuid only; never the internal integer id.",
+            "schema": {
+              "properties": {
+                "status": {"description": "Result status string, e.g. 'ok'.", "type": "string"},
+                "updated_at": {"description": "ISO-8601 Z timestamp assigned to this update.", "type": "string"},
+                "user_uuid": {"description": "Public resource UUID of the updated user.", "type": "string"}
+              },
+              "required": ["status", "user_uuid", "updated_at"],
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Malformed body: unparseable JSON, or missing/empty/wrong-typed display_name. The message never contains a traceback, file path, source line, SQL, or sqlite3 text.",
+            "schema": {
+              "properties": {
+                "error": {"description": "Short machine-readable error code.", "type": "string"},
+                "message": {"description": "Human-readable error message; never leaks internals.", "type": "string"}
+              },
+              "required": ["error", "message"],
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Missing, empty, or wrong X-API-Key.",
+            "schema": {
+              "properties": {
+                "error": {"description": "Short machine-readable error code.", "type": "string"},
+                "message": {"description": "Human-readable error message; never leaks internals.", "type": "string"}
+              },
+              "required": ["error", "message"],
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Unknown route.",
+            "schema": {
+              "properties": {
+                "error": {"description": "Short machine-readable error code.", "type": "string"},
+                "message": {"description": "Human-readable error message; never leaks internals.", "type": "string"}
+              },
+              "required": ["error", "message"],
+              "type": "object"
+            }
+          }
+        },
+        "security": [{"ApiKeyAuth": []}]
+      }
+    }
+  }
+}

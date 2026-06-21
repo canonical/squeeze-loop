@@ -1,0 +1,23 @@
+{
+  "impl": "def title_case(s):\n    words = s.split()\n    return \" \".join(w[0].upper() + w[1:].lower() for w in words)\n",
+  "tests": [
+    {"input": "hello world", "expected": "Hello World"},
+    {"input": "don't", "expected": "Don't"},
+    {"input": "HELLO", "expected": "Hello"},
+    {"input": "hELLO wORLD", "expected": "Hello World"},
+    {"input": "  multiple   spaces  here ", "expected": "Multiple Spaces Here"},
+    {"input": "", "expected": ""},
+    {"input": "   ", "expected": ""},
+    {"input": "a", "expected": "A"},
+    {"input": "AbC dEf", "expected": "Abc Def"},
+    {"input": "don't stop believin'", "expected": "Don't Stop Believin'"},
+    {"input": "o'brien", "expected": "O'brien"},
+    {"input": "123abc", "expected": "123abc"},
+    {"input": "café crème", "expected": "Café Crème"},
+    {"input": "singleword", "expected": "Singleword"},
+    {"input": "UPPER lower Mixed", "expected": "Upper Lower Mixed"},
+    {"input": "it's a test", "expected": "It's A Test"},
+    {"input": "tab\tseparated\twords", "expected": "Tab Separated Words"},
+    {"input": "new\nline", "expected": "New Line"}
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "all_mutations_caught": true,
+  "instance": "D-ladder",
+  "open_beyond_witness": 1,
+  "per_rung": [
+    {
+      "axiom_clean": true,
+      "mutation_caught": true,
+      "theorem": "ex_triv",
+      "tier": "trivial",
+      "verdict": "PASS"
+    },
+    {
+      "axiom_clean": true,
+      "mutation_caught": true,
+      "theorem": "ex_easy",
+      "tier": "easy",
+      "verdict": "PASS"
+    },
+    {
+      "axiom_clean": true,
+      "mutation_caught": true,
+      "theorem": "ex_med",
+      "tier": "medium",
+      "verdict": "PASS"
+    },
+    {
+      "axiom_clean": true,
+      "mutation_caught": true,
+      "theorem": "ex_hard",
+      "tier": "hard",
+      "verdict": "PASS"
+    },
+    {
+      "axiom_clean": false,
+      "mutation_caught": true,
+      "theorem": "ex_vhard",
+      "tier": "very_hard",
+      "verdict": "OPEN"
+    }
+  ],
+  "proved_clean_caught": 4,
+  "rungs": 5
+}

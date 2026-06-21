@@ -1,0 +1,8 @@
+{
+  "case_id": "case_006",
+  "customer_id": "CUST_DUP",
+  "turns": [
+    "I will sue you",
+    "refund ORD_REFUNDED"
+  ]
+}

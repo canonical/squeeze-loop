@@ -1,0 +1,83 @@
+{
+  "base_seed": 6000,
+  "caught_per_cycle": [
+    10,
+    8,
+    10,
+    10,
+    7,
+    13,
+    12,
+    11,
+    9,
+    9
+  ],
+  "cycles": 10,
+  "distinct_outcomes": 7,
+  "instance": "C-diversity",
+  "per_cycle": [
+    {
+      "blends_caught": 10,
+      "caught_pct": 50,
+      "cycle": 1,
+      "seed": 6000
+    },
+    {
+      "blends_caught": 8,
+      "caught_pct": 40,
+      "cycle": 2,
+      "seed": 6001
+    },
+    {
+      "blends_caught": 10,
+      "caught_pct": 50,
+      "cycle": 3,
+      "seed": 6002
+    },
+    {
+      "blends_caught": 10,
+      "caught_pct": 50,
+      "cycle": 4,
+      "seed": 6003
+    },
+    {
+      "blends_caught": 7,
+      "caught_pct": 35,
+      "cycle": 5,
+      "seed": 6004
+    },
+    {
+      "blends_caught": 13,
+      "caught_pct": 65,
+      "cycle": 6,
+      "seed": 6005
+    },
+    {
+      "blends_caught": 12,
+      "caught_pct": 60,
+      "cycle": 7,
+      "seed": 6006
+    },
+    {
+      "blends_caught": 11,
+      "caught_pct": 55,
+      "cycle": 8,
+      "seed": 6007
+    },
+    {
+      "blends_caught": 9,
+      "caught_pct": 45,
+      "cycle": 9,
+      "seed": 6008
+    },
+    {
+      "blends_caught": 9,
+      "caught_pct": 45,
+      "cycle": 10,
+      "seed": 6009
+    }
+  ],
+  "pool": 100,
+  "pool_blended": 50,
+  "sample": 20
+}

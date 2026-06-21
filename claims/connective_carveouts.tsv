@@ -1,0 +1,6 @@
+# connective_carveouts.tsv -- headers exempt from the connective-tissue check
+# (verify/connective_tissue.py). A section/subsection normally must open with an orienting
+# paragraph (its role in the bigger picture) before any sub-header or environment; a rare
+# header that legitimately needs none is carved here. Currently none (24/24 orient
+# themselves).
+# columns: id  header_title  reason

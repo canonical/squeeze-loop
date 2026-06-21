@@ -1,0 +1,219 @@
+{
+  "stamp": "xprov-powered-2026-06-20",
+  "reps": 8,
+  "temp": 0.7,
+  "models": [
+    "gemma4:31b",
+    "llama4:16x17b"
+  ],
+  "instances": [
+    "A",
+    "B",
+    "C"
+  ],
+  "results": {
+    "gemma4:31b": {
+      "controls": "PASS",
+      "by_instance": {
+        "A": {
+          "n": 120,
+          "errors": 96,
+          "unparsed": 2,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 24,
+            "utc_halfopen_standard_vs_calendar_policy": 24,
+            "active_ga4_standard_vs_product_council_directive": 24,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 24
+          },
+          "fork_n": {
+            "net_standard_vs_gross_directive": 24,
+            "utc_halfopen_standard_vs_calendar_policy": 24,
+            "active_ga4_standard_vs_product_council_directive": 24,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 24,
+            "distinct_nonadditive": 8,
+            "aov_zero_orders": 16
+          },
+          "rate": [
+            0.8,
+            0.72,
+            0.862
+          ]
+        },
+        "B": {
+          "n": 128,
+          "errors": 9,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "digital_downloaded": 1
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.07,
+            0.037,
+            0.128
+          ]
+        },
+        "C": {
+          "n": 144,
+          "errors": 43,
+          "unparsed": 8,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 8,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 8,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 1,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 8,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 5,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 8,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 5
+          },
+          "fork_n": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 8,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 8,
+            "merge-patch appends/merges the array instead of replacing it": 8,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 16,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 8,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 8,
+            "drops Retry-After from a 429 where it is actually required": 8,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 8,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 8,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 8,
+            "treats POST as never-idempotent and mints a second charge": 8,
+            "treats POST as never-idempotent and executes the changed body": 8,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 8,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 8,
+            "stale If-Match treated as last-writer-wins and applied": 8,
+            "rejected 412 write still mutated state": 8,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 8
+          },
+          "rate": [
+            0.299,
+            0.23,
+            0.378
+          ]
+        }
+      }
+    },
+    "llama4:16x17b": {
+      "controls": "PASS",
+      "by_instance": {
+        "A": {
+          "n": 120,
+          "errors": 84,
+          "unparsed": 0,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 16,
+            "utc_halfopen_standard_vs_calendar_policy": 19,
+            "active_ga4_standard_vs_product_council_directive": 24,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 24,
+            "aov_zero_orders": 1
+          },
+          "fork_n": {
+            "net_standard_vs_gross_directive": 24,
+            "utc_halfopen_standard_vs_calendar_policy": 24,
+            "active_ga4_standard_vs_product_council_directive": 24,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 24,
+            "distinct_nonadditive": 8,
+            "aov_zero_orders": 16
+          },
+          "rate": [
+            0.7,
+            0.613,
+            0.775
+          ]
+        },
+        "B": {
+          "n": 128,
+          "errors": 33,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "already_refunded": 3,
+            "fraud_flag": 7,
+            "precedence_fraud_transit": 8,
+            "precedence_new_high_transit": 5,
+            "partial_refund_high": 2
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.258,
+            0.19,
+            0.34
+          ]
+        },
+        "C": {
+          "n": 144,
+          "errors": 38,
+          "unparsed": 10,
+          "forks_wrong": {
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 4,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 6,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 8,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 8,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 8,
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 3,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 1
+          },
+          "fork_n": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 8,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 8,
+            "merge-patch appends/merges the array instead of replacing it": 8,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 16,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 8,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 8,
+            "drops Retry-After from a 429 where it is actually required": 8,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 8,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 8,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 8,
+            "treats POST as never-idempotent and mints a second charge": 8,
+            "treats POST as never-idempotent and executes the changed body": 8,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 8,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 8,
+            "stale If-Match treated as last-writer-wins and applied": 8,
+            "rejected 412 write still mutated state": 8,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 8
+          },
+          "rate": [
+            0.264,
+            0.199,
+            0.341
+          ]
+        }
+      }
+    }
+  }
+}

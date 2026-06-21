@@ -1,0 +1,15 @@
+{
+  "cite_ledger_rows": 46,
+  "cited_sources": 45,
+  "executable_instances": 3,
+  "gap_docs": 2,
+  "instance": "paper (reflexive)",
+  "per_circle_plans": 30,
+  "reading_records": 46,
+  "records_read_full": 43,
+  "result_ledger_rows": 19,
+  "self_defects_evidence": 4,
+  "self_defects_literature": 4,
+  "self_defects_total": 8,
+  "squeeze_ok": true
+}

@@ -1,0 +1,2 @@
+e3df595c7851b7ac9fd03c6974e62c1eecabfc99ea3d466f40b99e87372ce906  chapter1_ex1.v
+7f9079e8647ba3cb3aeca9a06cfced13f6ad1e7bb592aa226efff7c8980a2181  registry.sig.trunk

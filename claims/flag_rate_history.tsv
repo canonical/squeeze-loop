@@ -1,0 +1,12 @@
+# flag_rate_history.tsv -- the paper loop's monitor flag-rate, per paper-impl circle
+# (self-improve.md lesson #7: watch the trajectory, not just the pass). Append-only:
+# each circle that changes the flag landscape records one row of genuine measurements.
+# verify/flag_rate.py anchors the NEWEST row to a live recomputation (so the log cannot
+# drift from reality) and checks no plane is a permanent rubber-stamp (flag 0 across the
+# window) or permanently saturated (flag = total). A "-" marks a monitor not yet present.
+# columns: circle  gs_flag  gs_total  ov_flag  ov_total  route_flag  route_total  defects  external
+72	1	19	-	-	11	82	8	1
+73	1	19	1	4	12	83	8	1
+75	1	19	1	4	13	84	8	1
+76	1	19	1	4	13	84	8	1
+77	1	19	1	4	13	85	8	1

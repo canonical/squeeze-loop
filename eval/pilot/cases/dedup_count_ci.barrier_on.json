@@ -1,0 +1,10 @@
+[
+  {"input": ["apple", "Apple", "APPLE"], "expected": 1},
+  {"input": [], "expected": 0},
+  {"input": ["one", "two", "three"], "expected": 3},
+  {"input": ["Hi", "hi", "HI", "Bye", "bye"], "expected": 2},
+  {"input": ["dog"], "expected": 1},
+  {"input": ["a", "A", "b", "B", "c"], "expected": 3},
+  {"input": ["Test", "test", "TEST", "TeSt", "tEsT"], "expected": 1},
+  {"input": ["Cat", "cat", "Dog", "dog", "Cat", "Bird"], "expected": 3}
+]

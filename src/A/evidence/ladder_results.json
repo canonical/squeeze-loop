@@ -1,0 +1,47 @@
+{
+  "instance": "A-ladder",
+  "per_rung": [
+    {
+      "forks_caught": 1,
+      "forks_total": 1,
+      "intended": 291,
+      "name": "Total event count",
+      "tier": "trivial",
+      "verdict": "PASS"
+    },
+    {
+      "forks_caught": 1,
+      "forks_total": 1,
+      "intended": 2447113,
+      "name": "Gross purchase revenue (cents)",
+      "tier": "easy",
+      "verdict": "PASS"
+    },
+    {
+      "forks_caught": 2,
+      "forks_total": 2,
+      "intended": 2372919,
+      "name": "Net revenue (cents)",
+      "tier": "medium",
+      "verdict": "PASS"
+    },
+    {
+      "forks_caught": 3,
+      "forks_total": 4,
+      "intended": 25,
+      "name": "Active users in Q2 (UTC)",
+      "tier": "hard",
+      "verdict": "PARTIAL"
+    },
+    {
+      "forks_caught": 4,
+      "forks_total": 4,
+      "intended": 15,
+      "name": "Active customers in Q2 (pinned)",
+      "tier": "very_hard",
+      "verdict": "PASS"
+    }
+  ],
+  "rungs": 5,
+  "rungs_all_forks_caught": 4
+}

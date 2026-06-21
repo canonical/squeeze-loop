@@ -1,0 +1,30 @@
+# framing_invariants.tsv -- the mechanized memory of cross-section soft-claim consistency.
+#
+# WHY: the squeeze's machine gates verify EVIDENCE-BOUND claims (CITE/RESULT). They do not
+# verify mutual consistency of INTERPRETIVE / framing claims across sections -- a soft-truth
+# vs soft-truth comparison with no executable lower bound (see paper-impl.md, "completing the
+# gates"). That residual is caught only by a disjoint editorial pass (Gate A). This ledger
+# makes the residual SHRINK monotonically: every coherent-and-wrong framing the editorial
+# pass catches is recorded here as a hard check, so it can never silently return.
+#
+# It does NOT (cannot) catch a brand-new, unregistered framing defect -- coverage is the
+# ceiling. That is why editorial_gate.py keeps a disjoint Gate A as a STANDING gate.
+#
+# Row kinds (tab-separated), checked against tex/paper.tex (LaTeX commands stripped,
+# whitespace collapsed, case-insensitive):
+#   BANNED <regex> <rationale>          -- a previously-caught coherent-and-wrong phrasing;
+#                                          FAIL if it reappears anywhere.
+#   MAX    <regex> <n> <rationale>      -- this pattern may match at most n times; FAIL if
+#                                          exceeded (superlative / ranking uniqueness).
+#
+# To register a NEW invariant after an editorial catch: add the corrected canonical position
+# to the rationale and the stale phrasing as BANNED (or a uniqueness cap as MAX).
+
+BANNED	strongest in-house efficacy evidence	circle 119: in-house evidence is TWO complementary strands (live instance-B result + reflexive n=1); calling the reflexive case the single "strongest" contradicts the abstract. Caught by the reflexive editorial pass.
+BANNED	one piece of efficacy evidence we do have today is reflexive	circle 119: false post-R2/R3; the live instance-B underspecification/cross-model result is also efficacy evidence. Corrected to "two kinds: a live one and a reflexive one".
+BANNED	closest in-house evidence that the disjoint gate catches coherent-and-wrong is reflexive	circle 118: superseded by the two-strand framing; the live result is the more direct validation.
+BANNED	piloted but deferred	R6 (circle 113): the pipeline comparison was EXECUTED as an exploratory study; "piloted but deferred" understates it. Powered/multi-tier version is what remains future work.
+BANNED	cross-model casts are an ablation	circle 118: the cross-model cast was RUN and measured (R3); framing it as a planned ablation undersells a result we hold.
+BANNED	(strongest|sole|single strongest|principal)[^.]{0,35}?reflexive	review5 #3 rerank: the reflexive n=1 self-application is an ILLUSTRATION, not the strongest evidence; the two live findings (external UEFI defects + instance-B underspecification) are. Ranking the reflexive study top re-creates the circle-118/119 coherent-and-wrong.
+MAX	(strongest|closest|primary|sole|principal)[^.]{0,70}?\bevidence\b	2	review5 #3 (deliberate rerank, replacing the old "two coordinate strands, neither ranked"): the framing now has an evidence HIERARCHY -- the two LIVE findings (external UEFI defects + the live-model instance-B underspecification) are the strongest/load-bearing evidence, above the seeded consistency-check instances and the reflexive n=1. Exactly two superlatives license that ranking (abstract + contribution iii); a THIRD needs review, and ranking the reflexive study top is BANNED above.
+MAX	\bevidence\b[^.]{0,40}?(strongest|closest|primary|sole|principal)	0	circle 119: the disjoint Gate A caught an evidence-ranking superlative in the OTHER word order ("evidence ... strongest on real, non-seeded") that the first MAX rule missed -- coverage is a floor, not a ceiling. This row mechanizes that catch so the evidence-before-superlative order cannot return either.

@@ -1,0 +1,18 @@
+{
+  "active_customer": {
+    "learned_cycle": 7,
+    "lesson": "metric family 'active_customer': the obvious query is a wrong fork; use the intended reading"
+  },
+  "dau_grain": {
+    "learned_cycle": 3,
+    "lesson": "metric family 'dau_grain': the obvious query is a wrong fork; use the intended reading"
+  },
+  "net_rev": {
+    "learned_cycle": 10,
+    "lesson": "metric family 'net_rev': the obvious query is a wrong fork; use the intended reading"
+  },
+  "survivorship": {
+    "learned_cycle": 52,
+    "lesson": "metric family 'survivorship': the obvious query is a wrong fork; use the intended reading"
+  }
+}

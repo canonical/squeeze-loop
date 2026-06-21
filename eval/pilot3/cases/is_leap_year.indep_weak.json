@@ -1,0 +1,10 @@
+[
+  {"input": 2024, "expected": true},
+  {"input": 2000, "expected": true},
+  {"input": 1900, "expected": false},
+  {"input": 2100, "expected": false},
+  {"input": 2004, "expected": true},
+  {"input": 2001, "expected": false},
+  {"input": 2400, "expected": true},
+  {"input": 1800, "expected": false}
+]

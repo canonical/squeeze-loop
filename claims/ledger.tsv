@@ -1,0 +1,94 @@
+CLM-id	TYPE	section	binding	status	date
+CLM-001	CITE	W-sota	yao2022react (abstract: reasoning/acting interleaved, external obs)	SUPPORTED*	2026-06-12
+CLM-002	CITE	W-sota	wang2023voyager (abstract: iterative skills vs embodied env)	SUPPORTED*	2026-06-12
+CLM-003	CITE	W-sota	madaan2023selfrefine (abstract: single LLM gen/refine/feedback)	SUPPORTED*	2026-06-12
+CLM-004	CITE	W-sota	shinn2023reflexion (abstract: verbal reflection; test signals one mode)	SUPPORTED*	2026-06-12
+CLM-005	CITE	W-sota	bai2022constitutional (abstract: self-critique vs principles; SL stage)	SUPPORTED*	2026-06-12
+CLM-006	CITE	W-sota	gou2023critic (abstract: external feedback crucial)	SUPPORTED*	2026-06-12
+CLM-007	CITE	W-sota	lightman2023verify (abstract: process>outcome supervision)	SUPPORTED*	2026-06-12
+CLM-008	CITE	W-sota	huang2023cannot (abstract: no self-correct w/o feedback; degrades)	SUPPORTED*	2026-06-12
+CLM-009	CITE	W-sota	panickssery2024llm (abstract: linear corr self-recognition/self-pref)	SUPPORTED*	2026-06-12
+CLM-010	CITE	W-sota	zheng2023judging (abstract: position+verbosity+self-enhancement bias)	SUPPORTED*	2026-06-12
+CLM-011	CITE	W-sota	sharma2023sycophancy (abstract: match user belief over truth)	SUPPORTED*	2026-06-12
+CLM-012	CITE	W-sota	li2023camel (abstract+eval: role-play > single-shot baseline)	SUPPORTED*	2026-06-12
+CLM-013	CITE	W-sota	wu2023autogen (abstract: conversation programming)	SUPPORTED*	2026-06-12
+CLM-014	CITE	W-sota	hong2023metagpt (abstract+body: SOPs, structured-output message pool)	SUPPORTED*	2026-06-12
+CLM-015	CITE	W-sota	qian2023chatdev (abstract: chat-chain software dev framework)	SUPPORTED*	2026-06-12
+CLM-016	CITE	W-sota	du2023debate (abstract: instances debate over rounds)	SUPPORTED*	2026-06-12
+CLM-017	CITE	W-sota	irving2018debate (abstract: argue before judge, length-limited)	SUPPORTED*	2026-06-12
+CLM-018	CITE	W-sota	bowman2022scalable (abstract: supervise systems that outperform us)	SUPPORTED*	2026-06-12
+CLM-019	CITE	W-sota	burns2023weak (abstract: weak supervision elicits strong capability)	SUPPORTED*	2026-06-12
+CLM-020	CITE	W-sota	jimenez2023swebench (full text: FAIL_TO_PASS/PASS_TO_PASS held-out)	SUPPORTED*	2026-06-12
+CLM-021	CITE	W-sota	yang2024sweagent (abstract: evaluated on SWE-bench harness)	SUPPORTED*	2026-06-12
+CLM-022	CITE	W-sota	ridnik2024alphacodium (full text: public + AI-generated test flow)	SUPPORTED*	2026-06-12
+CLM-023	CITE	W-sota	kambhampati2024position (abstract: LLM + external model-based verifiers)	SUPPORTED*	2026-06-12
+CLM-024	CITE	W-sota	sun2023clover (FULL: §-consistency checks; "Clover hypothesis" conjecture; CloverBench 0% FP)	SUPPORTED	2026-06-12
+CLM-025	CITE	W-sota	filliatre2013why3 (platform: deductive verification, proof obligations)	SUPPORTED*	2026-06-12
+CLM-026	CITE	W-sota	avizienis1985nversion (canonical N-version approach)	SUPPORTED*	2026-06-12
+CLM-027	CITE	W-sota	knight1986independence (primary abstract: correlated failures, H0 rejected)	SUPPORTED*	2026-06-12
+CLM-028	CITE	W-sota	fagan1976inspections (formal inspection roles, author separation)	SUPPORTED*	2026-06-12
+CLM-029	CITE	W-sota	mills1987cleanroom (no developer execution; separate cert team)	SUPPORTED*	2026-06-12
+CLM-030	CITE	W-sota	beck2003tdd (tests-first as executable spec)	SUPPORTED*	2026-06-12
+CLM-031	CITE	W-sota	meyer1992contract (pre/post/invariant as runtime-checkable spec)	SUPPORTED*	2026-06-12
+CLM-032	CITE	W-sota	clark1987comparison (separation of duties; certifier != implementer)	SUPPORTED*	2026-06-12
+CLM-033	CITE	W-sota	saltzer1975protection (separation-of-privilege principle)	SUPPORTED*	2026-06-12
+CLM-034	CITE	W-sota	popper1959logic (falsificationism: trust via surviving refutation)	SUPPORTED*	2026-06-12
+CLM-035	CITE	W-caseA	baudin_acsl (acsl-language repo: at.tex, binders.tex)	SUPPORTED*	2026-06-12
+CLM-036	CITE	W-sota	demillo1978hints (FULL: program-mutation origin; kill criterion; competent-programmer/coupling)	SUPPORTED	2026-06-12
+CLM-037	CITE	W-sota	jia2011analysis (FULL via author copy: mutation-testing survey; mutant killed if a test distinguishes it; mutation score)	SUPPORTED	2026-06-12
+CLM-038	CITE	W-sota	mckeeman1998differential (FULL: differential testing; disagreement=defect, agreement=oracle)	SUPPORTED	2026-06-12
+CLM-039	RESULT	W-caseD	src/A/evidence/results.json#defects_caught/seeded_defects (5/5, 100%)	SUPPORTED	2026-06-12
+CLM-040	RESULT	W-caseD	src/A/evidence/results.json#three_way_agreements (8/8 positive cells)	SUPPORTED	2026-06-12
+CLM-041	RESULT	W-caseD	src/A/evidence/results.json#coherent_wrong_caught (true; gross-vs-net impl rejected at Gate B)	SUPPORTED	2026-06-12
+CLM-042	RESULT	W-caseD	src/A/evidence/results.json#additivity_stable (true; ledger sha256 323cbd5e…)	SUPPORTED	2026-06-12
+CLM-043	RESULT	W-caseD	src/A/evidence/results.json#{metrics=2,clauses=5,positive_cells=8,users=50,events=291,certified=24}	SUPPORTED	2026-06-12
+CLM-044	CITE	W-sota	barr2015oracle (FULL: oracle problem; specified/derived/implicit/no-oracle taxonomy)	SUPPORTED	2026-06-12
+CLM-045	RESULT	W-caseD	src/A/evidence/results.json#ablation (barrier-on 5/5 vs barrier-off 0/5 seeded defects caught)	SUPPORTED	2026-06-12
+CLM-046	RESULT	W-reflexive	verify/manuscript_defects.tsv (7 own-claim defects caught: 4 literature, 3 evidence)	SUPPORTED	2026-06-12
+CLM-048	CITE	W-caseE	perez2022ignore (FULL: prompt-injection / goal-hijacking of LLM apps)	SUPPORTED	2026-06-12
+CLM-049	CITE	W-caseE	greshake2023injection (FULL: compromising action-taking LLM-integrated apps)	SUPPORTED	2026-06-12
+CLM-050	RESULT	W-caseE	src/B/evidence/results.json (5 scenarios pass; archive 6/6 recompute; seeded 4/4 barrier-on, 0/4 off)	SUPPORTED	2026-06-12
+CLM-051	RESULT	W-eval	verify/coupling_measure.py (barrier-on evidence<->impl bigram coupling: A 2.6%, B 0.7%, C 1.4%; all catch all seeded defects)	SUPPORTED	2026-06-12
+CLM-054	RESULT	W-synthesis	verify/synthesis.py (across 3 terrains/archetypes: 13/13 seeded caught barrier-on, 0/13 off)	SUPPORTED	2026-06-12
+CLM-055	RESULT	W-reflexive	verify/reflexive_measures.py (loop produced+verified 3 executable instances, one per archetype, as its own evidence base)	SUPPORTED	2026-06-12
+CLM-056	CITE	W-reflexive	hofstadter1979geb (SECONDARY: strange-loop / self-reference motif for the reflexive case study)	SUPPORTED	2026-06-12
+CLM-057	RESULT	W-eval	verify/eval_protocol.py (protocol harness: 1/4 hypotheses measured [H2], 3/4 + 3/5 baseline configs stubbed with prerequisites)	SUPPORTED	2026-06-12
+CLM-058	RESULT	W-eval	eval/pilot/ (real-agent H2 pilot, 4 tasks: barrier-on 4/4 vs barrier-off 4/4 caught; no measurable difference; n=1, single model, weak barrier-off)	SUPPORTED	2026-06-12
+CLM-059	RESULT	W-eval	eval/pilot2/ (stronger barrier-off = self-authorship, 4 tasks: 0/4 self-authored impls buggy, so self-preference escape unobservable; inconclusive, reported not cherry-picked)	SUPPORTED	2026-06-12
+CLM-060	RESULT	W-eval	eval/pilot3/ (self-authorship with a WEAKER model, 5 textbook-tricky tasks: still 0/5 buggy; effect not surfaced; needs powered study with calibrated non-textbook tasks)	SUPPORTED	2026-06-12
+CLM-061	RESULT	W-eval	eval/study/ (powered: 24 impls x 3 model tiers x 8 harder tasks: 0 buggy; barrier comparison vacuous; near-zero per-impl error rate, not low N; needs real-world bugs or seeded design)	SUPPORTED	2026-06-12
+CLM-062	RESULT	W-eval	eval/swebench/ (real-bug study wired to SWE-bench-Lite: 15 real instances / 35 held-out FAIL_TO_PASS fetched; protocol mapped; execution PENDING per-repo Docker harness)	SUPPORTED	2026-06-12
+CLM-052	CITE	W-caseF	atlidakis2019restler (FULL: RESTler; spec-derived REST API testing catches runtime drift / 500s)	SUPPORTED	2026-06-12
+CLM-053	RESULT	W-caseF	src/C/evidence/results.json (5 conformance cases pass; doc-plane + TY0 ok; seeded 4/4 barrier-on, 0/4 off)	SUPPORTED	2026-06-12
+CLM-047	RESULT	W-reflexive	verify/reflexive_measures.py (reading records, read-FULL count, CITE+RESULT ledger rows, per-circle docs -> tex/macros/reflexive.tex; all regenerated, none hand-typed)	SUPPORTED	2026-06-12
+CLM-063	CITE	W-sota	manheim2018goodhart (FULL: Categorizing Variants of Goodhart's Law; taxonomy of proxy-optimization failure modes)	SUPPORTED	2026-06-12
+CLM-064	CITE	W-sota	krakovna2020specification (FULL: specification-gaming catalogue; RL agents exploit misspecified reward)	SUPPORTED	2026-06-12
+CLM-065	CITE	W-sota	amodei2016concrete (FULL sec4: reward hacking; optimized proxies are gamed -- literal objective diverges from intent)	SUPPORTED	2026-06-12
+CLM-066	RESULT	W-eval	src/D/diversity/diversity_results.json (level-up D: 100-exercise pool, 19 beyond `intros; lia`; 10 cycles solved 14-20/20, 7 distinct -- random sampling restores a varying trial)	SUPPORTED	2026-06-13
+CLM-067	RESULT	W-eval	src/A/diversity/diversity_results.json (level-up A: 100 metric tasks, 30 obvious-query-diverges; 10 cycles errors 5-10/20)	SUPPORTED	2026-06-13
+CLM-068	RESULT	W-eval	src/B/diversity/diversity_results.json (level-up B: 100 discussions x random characters; 10 cycles bot errors 12-17/20)	SUPPORTED	2026-06-13
+CLM-069	RESULT	W-eval	src/C/diversity/diversity_results.json (level-up C: 100 conformance checks, 50 blended; 10 cycles caught 7-13/20)	SUPPORTED	2026-06-13
+CLM-070	OPN	W-eval	per-model error gradient up the difficulty ladder -- apparatus built, NOT measured; needs a live model per drawn task (conjecture, hedged)	OPEN	2026-06-13
+CLM-071	RESULT	W-eval	verify/convergence_measures.py (level-up loops are unbiased estimators: B exact population error 342/500 over all discussions x characters; Monte-Carlo running mean converges, gap 0.8->0.1 of 20 from 10 to 100 cycles)	SUPPORTED	2026-06-13
+CLM-072	RESULT	W-reflexive	claims/category_ledger.tsv (4 categories generated WHILE self-applying and re-applied to the paper -- the squeeze forces new-concept creation; U_self O4 evidence)	SUPPORTED	2026-06-13
+CLM-073	OPN	W-reflexive	strange-loop selfhood bounded by paper_upper_bound.md (U_self): all O1-O5 now DISCHARGED (O1/O5 structural, self_model.json+self_model_check.py) and §7 prerequisites met (N1/N2 restored, NOT-claims hold), so Tier 1 is ADMISSIBLE -- but the paper deliberately HOLDS at Tier 2 (ResLoopTier=2) per loud-fail + spec §4: the Tier-1 prose move is a recorded human decision, not automatic; O1/O5 discharge is structural with the caused-vs-convergent question disclosed. Tier 0 forbidden	OPEN	2026-06-14
+CLM-074	RESULT	W-caseG	src/D/evidence/results.json (Use Case D, deductive transcription instance: good proof type-checks + axiom-clean; Admitted cheat caught; 2/2 seeded caught barrier-on, 0/2 off -- the fourth executable instance, real Rocq)	SUPPORTED	2026-06-13
+CLM-075	RESULT	W-eval	verify/skill_measures.py over src/{A,B,C,D}/skill/skill_enrichment_results.json (caught->consolidate skill loop on all 4 instances: skill base enriches 0->N over 100 cycles, 19 skills total e.g. B 0->8; solvable error rate falls to 0 on every instance; causal -- empty-skill replay remakes the errors -- and deterministic; programmatic learners NOT live models, gradient stays OPN CLM-070)	SUPPORTED	2026-06-14
+CLM-076	RESULT	W-eval	src/D/skill/skill_enrichment_results.json + d_tactic_tiers.json (D bounded conceptual leap: prover acquires 2 tactics lia,nia on real-Rocq-verified walls; residual 16/100 conceptual-leap wall persists -- the deferred-mechanism frontier, reported as a floor not solved)	SUPPORTED	2026-06-14
+CLM-077	RESULT	W-reflexive	claims/level_crossings.tsv (U_self O2 discharge: 3 logged level-crossing chains where a self-representation forced a substrate change; canonical endogenous chain = the loop's self-count -> Gate C reconciliation -> tex/macros/reflexive.tex regenerated; honest count 3, not the 8-row defect audit. Grounds Tier 2; does NOT advance to Tier 1)	SUPPORTED	2026-06-14
+CLM-078	RESULT	W-reflexive	verify/closure_check.py + fig:closure (U_self O3 discharge: the reflexive cycle is EXECUTED and returns to origin -- reflexive.tex is a regeneration fixed point and its citation/result self-counts re-enter the ledger the next circle reads; ResLoopClosure=2 reconciled self-counts. Closure executed, not asserted. Grounds Tier 2; does NOT advance to Tier 1)	SUPPORTED	2026-06-14
+CLM-079	RESULT	W-reflexive	claims/category_generation_log.tsv + verify/category_log_measures.py (U_self O4 Tier-1-strength discharge: ResLoopCategoriesEnforced=4 categories each carved at one circle and enforced on a STRICTLY LATER circle -- dated, not asserted; check loud-fails on same-circle enforcement. Raises O4 from logged-partial to discharged)	SUPPORTED	2026-06-14
+CLM-080	RESULT	W-reflexive	claims/self_model.json + verify/self_model_check.py (U_self O1+O5 STRUCTURAL discharge: a derived self-model -- fixed point -- consulted to pick next_target, with read->act as priority-consistency over >=2 circles and >=1 behaviour-changing redirect. Structural only: does NOT prove model-caused vs plan-convergent selection; ResLoopTier held at 2)	SUPPORTED	2026-06-14
+CLM-081	RESULT	W-eval	verify/skill_consistency.py + verify/gate_s_measures.py (Gate S, disjointness applied to skills: a monitor squeeze holding each instance's upper bound + executable oracle audits ResGateSSkills=19 accumulated skills across ResGateSInstances=4 instances, flags ResGateSFlagged=1 over-generalized signal -- carved -- and clears the rest; deterministic/recomputable over the level-up pools)	SUPPORTED	2026-06-14
+CLM-082	RESULT	W-reflexive	verify/reflexive_gate_s.py (reflexive Gate S: Gate S turned on the paper's own claim ledger; classifies each claim evidence-bound vs interpretive, checks coverage (no bare/unhedged claim), and ROUTES interpretive/high-risk claims -- incl. the strange-loop reading -- to a disjoint base (re-run instances / external review) rather than self-certifying; operationalizes the single-team independence limit. Deterministic; hard-fails only on a coverage breach)	SUPPORTED	2026-06-14
+CLM-083	RESULT	W-reflexive	verify/category_overreach.py (generated-category over-reach audit: Gate S turned on the paper's own self-generated categories; for each category x instance an objective artifact marker tests whether the category generalises across the ResCategoryInstances=4 object-level instances. ResCategoryGeneralise=3 of ResCategoryTotal=4 generalise (hard/soft split, forks-as-richness, diversity-restores-the-trial); the gate-independence limit over-reaches -- reflexive-only -- and is carved in claims/category_carveouts.tsv. Deterministic; markers are objective proxies, ambiguous fits route to review; loud-fails on an uncarved over-reach)	SUPPORTED	2026-06-14
+CLM-084	RESULT	W-reflexive	verify/flag_rate.py (flag-rate calibration, self-improve.md lesson #7: a healthy monitor flags a strict nonempty subset, not zero (rubber-stamp) and not all (saturation). Confirms ResCalibMonitors=3 monitoring planes discriminate -- Gate S 1/19 skills, category audit 1/4, reflexive gate routing ResCalibRouted=13/ResCalibClaims=85 claims; and that ResCalibExternalCatches=1 of ResCalibDefects=8 own-claim defects needed external review, so a good internal flag-rate is necessary not sufficient. Longitudinal: an append-only claims/flag_rate_history.tsv tracks the flag-rate per circle across ResCalibHistory=5 circles, the newest row anchored to a live recomputation; no plane drifted to a rubber-stamp or saturation. Deterministic; loud-fails on a rubber-stamp/saturated plane, a degenerate trajectory, a stale anchor, or zero external catches)	SUPPORTED	2026-06-15
+CLM-085	RESULT	W-reflexive	verify/perturbation.py (perturbation gate, self-improve.md #3: single-anchor verification passes a cherry-pick, so the anchor is perturbed. ResPerturbStrongCites=3 comparative citation claims must survive a full-text re-open beyond the abstract -- the failure mode behind this manuscript's own literature defects D1-D3/D7 -- and ResPerturbSeedInstances=4 instances' sampling results must vary across seeds (>=2 distinct outcomes per seeded cycles), a real trial not a lucky draw. Deterministic; loud-fails on a strong claim resting on a non-FULL reading record or a result that does not vary across seeds)	SUPPORTED	2026-06-15
+# All W-caseD RESULT rows regenerate via src/A/evidence/measure_squeeze.py -> tex/macros/results.tex
+# (byte-identical on re-run). No Use-Case-A number is hand-typed in the manuscript.
+# 2026-06-12 full-text pass: reading records written for all cited sources in bib/records/.
+#   - 26 arXiv sources: read:FULL via ar5iv/arxiv-html; PDFs archived in bib/archive/ with SHA256SUMS. Promote SUPPORTED* -> SUPPORTED.
+#   - classics: knight, avizienis, mills, fagan, clark, saltzer, meyer, popper(partial), filliatre, baudin read FULL/PARTIAL/SECONDARY per record header; see verify/reports/fulltext-verification-2026-06-12.md.
+#   - Goodhart co-cites manheim2018goodhart, krakovna2020specification, amodei2016concrete now read FULL and ledgered (CLM-063..065): proxy-gaming claim in sec:sota 2.2 + intro. PDFs archived.
+# SUPPORTED* (rows above) = upgrade to SUPPORTED where a read:FULL record now exists; the asterisk only remains for any source not read in full.
+# Claims of the paper's OWN contribution (the Definitions, the 13 stabilizers, the 3 archetypes) are MATH/DEFN/OPN-typed and bound to the companion guides (evidence plane); not yet ledgered — the guides are not in this repo.

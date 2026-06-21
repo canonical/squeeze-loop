@@ -1,0 +1,19 @@
+{
+  "impl": "def second_largest(nums):\n    distinct = set(nums)\n    if len(distinct) < 2:\n        return None\n    distinct.discard(max(distinct))\n    return max(distinct)\n",
+  "tests": [
+    {"input": [1, 2, 3], "expected": 2},
+    {"input": [3, 2, 1], "expected": 2},
+    {"input": [5, 5, 5], "expected": null},
+    {"input": [], "expected": null},
+    {"input": [7], "expected": null},
+    {"input": [4, 4, 2], "expected": 2},
+    {"input": [1, 2, 2, 3, 3], "expected": 2},
+    {"input": [-1, -2, -3], "expected": -2},
+    {"input": [10, 20], "expected": 10},
+    {"input": [3.5, 1.0, 3.5, 2.2], "expected": 2.2},
+    {"input": [0, 0, 0, 1], "expected": 0},
+    {"input": [100, 100, 99], "expected": 99},
+    {"input": [2, 2], "expected": null},
+    {"input": [-5, -5, -10, -10], "expected": -10}
+  ]
+}

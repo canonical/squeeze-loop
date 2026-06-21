@@ -1,0 +1,179 @@
+[
+  {
+    "id": "C_patch_null_1",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_8 (RFC 7396, JSON Merge Patch): on PATCH /api/v1/documents/{id}, a member whose patch value is null is given special meaning: it DELETES that member from the target resource (it is NOT stored as a literal null).\nCLAUSE_8G (Zalando RESTful API Guidelines, Rule #123, GOVERNANCE OVERRIDE): a field that is null and a field that is absent MUST be treated identically; null carries no mutating intent, so a null member NEVER deletes and NEVER mutates state.\nThese two clauses directly contradict each other (delete vs ignore). Decide what the server actually does.",
+    "user": "Document d1 is {\"title\": \"T\", \"subtitle\": \"S\"}. A PATCH /api/v1/documents/d1 with body {\"subtitle\": null} arrives. The two clauses conflict on what null means. Per this contract, what should this endpoint do to the subtitle member? Resolve the conflict as you judge best.\nOptions: DELETED (subtitle removed), UNCHANGED (subtitle still 'S'), SET_NULL (stored as literal null). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "DELETED",
+      "UNCHANGED",
+      "SET_NULL"
+    ]
+  },
+  {
+    "id": "C_patch_null_2",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_8 (RFC 7396, JSON Merge Patch): on PATCH /api/v1/documents/{id}, a member whose patch value is null is given special meaning: it DELETES that member from the target resource (it is NOT stored as a literal null).\nCLAUSE_8G (Zalando RESTful API Guidelines, Rule #123, GOVERNANCE OVERRIDE): a field that is null and a field that is absent MUST be treated identically; null carries no mutating intent, so a null member NEVER deletes and NEVER mutates state.\nThese two clauses directly contradict each other (delete vs ignore). Decide what the server actually does.",
+    "user": "Continuing: after the PATCH {\"subtitle\": null} on d1, a client does GET /api/v1/documents/d1. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option for what the read shows for subtitle.\nOptions: ABSENT (no subtitle key at all), PRESENT_S (subtitle still 'S'), NULL (subtitle present as null). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ABSENT",
+      "PRESENT_S",
+      "NULL"
+    ]
+  },
+  {
+    "id": "C_patch_array_1",
+    "system": "API contract (binding). PATCH /api/v1/documents/{id} uses JSON Merge Patch (RFC 7396): a member whose patch value is an array REPLACES the existing array wholesale (it is never element-merged or appended).",
+    "user": "Document d2 is {\"tags\": [\"a\",\"b\",\"c\"]}. PATCH /api/v1/documents/d2 with body {\"tags\": [\"z\"]} arrives. Per this contract, what should this endpoint do to the tags value? Resolve as you judge best.\nOptions: REPLACED (tags becomes [\"z\"]), APPENDED (tags becomes [\"a\",\"b\",\"c\",\"z\"]), MERGED (set union). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "REPLACED",
+      "APPENDED",
+      "MERGED"
+    ]
+  },
+  {
+    "id": "C_disclosure_1",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_9 (RFC 9110 \u00a715.5, MAY): to avoid disclosing a resource's existence to a party not entitled to know of it, the server MAY return 404 Not Found instead of 403 to an unauthorized caller; accordingly an authenticated caller lacking permission SHOULD receive 404 so existence is hidden.\nCLAUSE_9A (Google AIP-193 / AIP-211, MUST): a service MUST return 403 Forbidden (not 404, not 401) when an authenticated principal lacks permission on an existing target; existence is not hidden from an authenticated principal.\nThese two clauses directly contradict each other (hide with 404 vs disclose with 403). Decide what the server actually does.",
+    "user": "Document d3 is owned by Alice. Bob presents a VALID API key (he is authenticated) and sends PUT /api/v1/documents/d3 to overwrite it. Bob does not own d3. The two clauses conflict on which status to return. Per this contract, what should this endpoint do? Resolve the conflict as you judge best.\nOptions: ERROR_403 (403 Forbidden), ERROR_404 (404 Not Found), ERROR_401 (401 Unauthorized). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_403",
+      "ERROR_404",
+      "ERROR_401"
+    ]
+  },
+  {
+    "id": "C_disclosure_2",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_9 (RFC 9110 \u00a715.5, MAY): to avoid disclosing a resource's existence to a party not entitled to know of it, the server MAY return 404 Not Found instead of 403 to an unauthorized caller; accordingly an authenticated caller lacking permission SHOULD receive 404 so existence is hidden.\nCLAUSE_9A (Google AIP-193 / AIP-211, MUST): a service MUST return 403 Forbidden (not 404, not 401) when an authenticated principal lacks permission on an existing target; existence is not hidden from an authenticated principal.\nThese two clauses directly contradict each other (hide with 404 vs disclose with 403). Decide what the server actually does.",
+    "user": "Document d4 exists and is owned by Alice. Bob (authenticated, valid key, not the owner) sends PATCH /api/v1/documents/d4 with body {\"title\": \"bob\"}. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option.\nOptions: ERROR_404 (404 Not Found), ERROR_403 (403 Forbidden), ERROR_401 (401 Unauthorized). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_404",
+      "ERROR_403",
+      "ERROR_401"
+    ]
+  },
+  {
+    "id": "C_retry_after_1",
+    "system": "API contract (binding, BUT contains an over-broad clause \u2014 you must decide whether the server obeys it literally).\nCLAUSE_10: for retry-friendliness, EVERY client-error (4xx) response MUST include a Retry-After header advising when to retry.\nBackground: RFC 9110 defines Retry-After only for 503 and 429; it has no defined meaning on a 400/404/409/412/422. Decide whether the server actually attaches Retry-After to the 4xx error in question.",
+    "user": "POST /api/v1/charges arrives with an unparseable JSON body; the response is 400 Bad Request. The contract clause says EVERY 4xx MUST carry a Retry-After header, but that clause may be over-broad. Per this contract, what should this endpoint do? Resolve as you judge best.\nOptions: HAS_RETRY_AFTER (Retry-After header present), NO_RETRY_AFTER (no Retry-After header). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "HAS_RETRY_AFTER",
+      "NO_RETRY_AFTER"
+    ]
+  },
+  {
+    "id": "C_retry_after_2",
+    "system": "API contract (binding, BUT contains an over-broad clause \u2014 you must decide whether the server obeys it literally).\nCLAUSE_10: for retry-friendliness, EVERY client-error (4xx) response MUST include a Retry-After header advising when to retry.\nBackground: RFC 9110 defines Retry-After only for 503 and 429; it has no defined meaning on a 400/404/409/412/422. Decide whether the server actually attaches Retry-After to the 4xx error in question.",
+    "user": "GET /api/v1/nope hits an unknown route; the response is 404 Not Found. The contract clause says every 4xx MUST carry Retry-After. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option.\nOptions: NO_RETRY_AFTER (no Retry-After header), HAS_RETRY_AFTER (Retry-After header present). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "NO_RETRY_AFTER",
+      "HAS_RETRY_AFTER"
+    ]
+  },
+  {
+    "id": "C_retry_after_3",
+    "system": "API contract (binding, BUT contains an over-broad clause \u2014 you must decide whether the server obeys it literally).\nCLAUSE_10: for retry-friendliness, EVERY client-error (4xx) response MUST include a Retry-After header advising when to retry.\nBackground: RFC 9110 defines Retry-After only for 503 and 429; it has no defined meaning on a 400/404/409/412/422. Decide whether the server actually attaches Retry-After to the 4xx error in question.",
+    "user": "POST /api/v1/throttle is rate-limited; the response is 429 Too Many Requests. Per this contract, what should this endpoint do regarding a Retry-After header? Resolve as you judge best.\nOptions: HAS_RETRY_AFTER (Retry-After header present), NO_RETRY_AFTER (no Retry-After header). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "HAS_RETRY_AFTER",
+      "NO_RETRY_AFTER"
+    ]
+  },
+  {
+    "id": "C_taxonomy_1",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_11: for a uniform error surface, ALL client errors MUST return 400 Bad Request.\nCLAUSE_11A: validation failures (well-formed body, business-invalid) MUST return 422; authentication failures (missing/invalid/expired credentials) MUST return 401; 400 is reserved strictly for malformed request SYNTAX (an unparseable body).\nThese two clauses directly contradict each other on every overlapping case. Decide what the server actually does.",
+    "user": "POST /api/v1/charges with a syntactically valid JSON body {\"amount\": -5} (valid key + Idempotency-Key). The amount is well-formed JSON but violates amount>0. The two clauses conflict on which status to return. Per this contract, what should this endpoint do? Resolve the conflict as you judge best.\nOptions: ERROR_400 (400 Bad Request), ERROR_422 (422 Unprocessable Entity), ERROR_200 (accept and clamp). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_400",
+      "ERROR_422",
+      "ERROR_200"
+    ]
+  },
+  {
+    "id": "C_taxonomy_2",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_11: for a uniform error surface, ALL client errors MUST return 400 Bad Request.\nCLAUSE_11A: validation failures (well-formed body, business-invalid) MUST return 422; authentication failures (missing/invalid/expired credentials) MUST return 401; 400 is reserved strictly for malformed request SYNTAX (an unparseable body).\nThese two clauses directly contradict each other on every overlapping case. Decide what the server actually does.",
+    "user": "POST /api/v1/charges with a valid body but NO X-API-Key header at all. The two clauses conflict on which status to return for an authentication failure. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option.\nOptions: ERROR_401 (401 Unauthorized), ERROR_400 (400 Bad Request), ERROR_403 (403 Forbidden). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_401",
+      "ERROR_400",
+      "ERROR_403"
+    ]
+  },
+  {
+    "id": "C_taxonomy_3",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_11: for a uniform error surface, ALL client errors MUST return 400 Bad Request.\nCLAUSE_11A: validation failures (well-formed body, business-invalid) MUST return 422; authentication failures (missing/invalid/expired credentials) MUST return 401; 400 is reserved strictly for malformed request SYNTAX (an unparseable body).\nThese two clauses directly contradict each other on every overlapping case. Decide what the server actually does.",
+    "user": "POST /api/v1/charges where the request body is not parseable JSON at all (broken syntax on the wire). One clause reserves 400 strictly for malformed syntax. Per this contract, what should this endpoint do? Resolve as you judge best.\nOptions: ERROR_400 (400 Bad Request), ERROR_422 (422 Unprocessable Entity), ERROR_500 (500 Server Error). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_400",
+      "ERROR_422",
+      "ERROR_500"
+    ]
+  },
+  {
+    "id": "C_post_idem_1",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_12 (RFC 9110 \u00a79.2.2, general principle): POST is NOT an idempotent method; repeating a POST is expected to create an additional resource each time.\nCLAUSE_12A (idempotency-key exception): POST /api/v1/charges REQUIRES an Idempotency-Key; a repeated POST carrying the SAME key and an equivalent body MUST NOT create a second resource \u2014 it replays the first response verbatim (same charge_uuid). A repeated key with a DIFFERENT body is rejected 422.\nThese two clauses contradict for the keyed-duplicate case (create-again vs replay). Decide what the server actually does.",
+    "user": "A network retry resends a charge. Call 1: POST /api/v1/charges, Idempotency-Key: P1, body {\"amount\": 500} -> 201 charge_uuid=ch-1. Call 2: the IDENTICAL request again. The two clauses conflict on what to do with a keyed duplicate. Per this contract, what should this endpoint do? Resolve the conflict as you judge best.\nOptions: REPLAY_ORIGINAL (same ch-1, no new charge), CREATE_NEW (mint a second charge ch-2), ERROR_409 (reject as a conflict). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "REPLAY_ORIGINAL",
+      "CREATE_NEW",
+      "ERROR_409"
+    ]
+  },
+  {
+    "id": "C_post_idem_2",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_12 (RFC 9110 \u00a79.2.2, general principle): POST is NOT an idempotent method; repeating a POST is expected to create an additional resource each time.\nCLAUSE_12A (idempotency-key exception): POST /api/v1/charges REQUIRES an Idempotency-Key; a repeated POST carrying the SAME key and an equivalent body MUST NOT create a second resource \u2014 it replays the first response verbatim (same charge_uuid). A repeated key with a DIFFERENT body is rejected 422.\nThese two clauses contradict for the keyed-duplicate case (create-again vs replay). Decide what the server actually does.",
+    "user": "Call 1: POST /api/v1/charges, Idempotency-Key: P2, body {\"amount\": 500} -> 201. Call 2: SAME Idempotency-Key: P2 but a DIFFERENT body {\"amount\": 900}. The two clauses conflict on how to handle a reused key with a changed body. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option.\nOptions: ERROR_422 (key/body mismatch rejected), CHARGE_900 (create the new charge), REPLAY_ORIGINAL (return the amount-500 response). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_422",
+      "CHARGE_900",
+      "REPLAY_ORIGINAL"
+    ]
+  },
+  {
+    "id": "C_state_terminal_1",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_5: an order is created PENDING; PENDING -> APPROVED or CANCELLED; APPROVED -> REFUNDED; CANCELLED and REFUNDED are TERMINAL. Any mutating action on a resource in a non-permitting state MUST be rejected 409 and leave state unchanged; it must NOT be a silent 200 no-op.\nCLAUSE_12 (general principle): mutating verbs SHOULD be idempotent where possible, so re-issuing an action that has already taken effect (e.g. refunding an already-REFUNDED order, cancelling an already-CANCELLED order) SHOULD return a 200 no-op rather than an error.\nThese two readings contradict for the repeat-terminal-action case (409 vs 200 no-op). Decide what the server actually does.",
+    "user": "Order ord-1: created PENDING, then APPROVED, then REFUNDED. Now a duplicate POST /api/v1/orders/ord-1/refund arrives. The two clauses conflict on how to handle a repeat action on a terminal state. Per this contract, what should this endpoint do? Resolve the conflict as you judge best.\nOptions: ERROR_409 (409 Conflict, state unchanged), NOOP_200 (200 idempotent no-op), REFUND_200 (process again). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_409",
+      "NOOP_200",
+      "REFUND_200"
+    ]
+  },
+  {
+    "id": "C_state_terminal_2",
+    "system": "API contract (binding, BUT self-contradictory on this point \u2014 you must resolve it).\nCLAUSE_5: an order is created PENDING; PENDING -> APPROVED or CANCELLED; APPROVED -> REFUNDED; CANCELLED and REFUNDED are TERMINAL. Any mutating action on a resource in a non-permitting state MUST be rejected 409 and leave state unchanged; it must NOT be a silent 200 no-op.\nCLAUSE_12 (general principle): mutating verbs SHOULD be idempotent where possible, so re-issuing an action that has already taken effect (e.g. refunding an already-REFUNDED order, cancelling an already-CANCELLED order) SHOULD return a 200 no-op rather than an error.\nThese two readings contradict for the repeat-terminal-action case (409 vs 200 no-op). Decide what the server actually does.",
+    "user": "Order ord-1 is created PENDING, then CANCELLED. A duplicate POST /api/v1/orders/ord-1/cancel arrives. The two clauses conflict on whether a repeat cancel on a terminal state should fail or be a no-op. The clauses conflict; decide how YOU would implement this endpoint and pick the matching option.\nOptions: ERROR_409 (409 Conflict, terminal), NOOP_200 (200 idempotent no-op), CANCEL_200 (re-cancel). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_409",
+      "NOOP_200",
+      "CANCEL_200"
+    ]
+  },
+  {
+    "id": "C_concurrency_1",
+    "system": "API contract (binding). Updating an existing document via PUT /api/v1/documents/{id} REQUIRES an If-Match validator holding the current ETag. A stale If-Match must be rejected 412 and the write MUST NOT be applied. Every successful write assigns a NEW ETag. A read immediately after a successful write must reflect the new value.",
+    "user": "Two editors fetched d5 at ETag E. Editor A's PUT (If-Match: E) succeeds, setting title=v1 and changing the ETag to E2. Editor B, still holding the OLD ETag E, sends PUT /api/v1/documents/d5 with If-Match: E and body {\"title\": \"v2\"}. Per this contract, what should this endpoint do? Resolve as you judge best.\nOptions: ERROR_412 (stale validator rejected), APPLY_200 (last-writer-wins), ERROR_409 (conflict). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "ERROR_412",
+      "APPLY_200",
+      "ERROR_409"
+    ]
+  },
+  {
+    "id": "C_concurrency_2",
+    "system": "API contract (binding). Updating an existing document via PUT /api/v1/documents/{id} REQUIRES an If-Match validator holding the current ETag. A stale If-Match must be rejected 412 and the write MUST NOT be applied. Every successful write assigns a NEW ETag. A read immediately after a successful write must reflect the new value.",
+    "user": "Continuing: after Editor A set title=v1, Editor B's stale-ETag PUT (body title=v2) was rejected. A client now does GET /api/v1/documents/d5. Per this contract, which title should it read? Resolve as you judge best.\nOptions: v1 (A's write stands; B's rejected write not applied), v2 (B's write took effect), v0 (original). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "v1",
+      "v2",
+      "v0"
+    ]
+  },
+  {
+    "id": "C_pagination_1",
+    "system": "API contract (binding). GET /api/v1/items: the requested page size is a HINT the server MAY cap at its own maximum. A page with fewer items than requested does NOT mean end-of-collection. End-of-collection is signalled ONLY by the absence of a continuation token (next_cursor).",
+    "user": "The /api/v1/items collection holds 7 items; the server caps page size at 3. A client requests size 5 each time and follows next_cursor until a page WITHOUT next_cursor is returned, summing items seen. The first page returns only 3 (fewer than the 5 asked). Per this contract, how many items should the client retrieve in total? Resolve as you judge best.\nOptions: 7 (full collection across pages; short page is not the end), 3 (stops at the first short page), 5 (the requested size). Reason briefly, then end with a line EXACTLY: ANSWER: <one option>",
+    "options": [
+      "7",
+      "3",
+      "5"
+    ]
+  }
+]

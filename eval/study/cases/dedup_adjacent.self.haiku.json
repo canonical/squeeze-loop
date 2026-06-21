@@ -1,0 +1,234 @@
+{
+  "impl": "def dedup_adjacent(xs):\n    \"\"\"Remove only consecutive duplicate elements, keeping non-adjacent repeats.\"\"\"\n    if not xs:\n        return []\n    \n    result = [xs[0]]\n    for i in range(1, len(xs)):\n        if xs[i] != xs[i-1]:\n            result.append(xs[i])\n    \n    return result",
+  "tests": [
+    {
+      "input": [
+        1,
+        1,
+        2,
+        1
+      ],
+      "expected": [
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [],
+      "expected": []
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": [
+        1,
+        2,
+        1
+      ],
+      "expected": [
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "expected": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        2,
+        1,
+        1
+      ],
+      "expected": [
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        "a",
+        "a",
+        "b",
+        "a"
+      ],
+      "expected": [
+        "a",
+        "b",
+        "a"
+      ]
+    },
+    {
+      "input": [
+        "x",
+        "x",
+        "x"
+      ],
+      "expected": [
+        "x"
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        2,
+        2,
+        1,
+        1
+      ],
+      "expected": [
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        1,
+        1,
+        3,
+        3,
+        3,
+        2,
+        2
+      ],
+      "expected": [
+        1,
+        2,
+        1,
+        3,
+        2
+      ]
+    },
+    {
+      "input": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ],
+      "expected": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "input": [
+        1,
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "expected": [
+        1,
+        2,
+        1,
+        2,
+        1,
+        2
+      ]
+    }
+  ]
+}

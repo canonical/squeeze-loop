@@ -1,0 +1,22 @@
+{
+  "clean_error": {
+    "learned_cycle": 4,
+    "lesson": "honor the 'clean_error' clause; stop blending the planes"
+  },
+  "idempotency": {
+    "learned_cycle": 13,
+    "lesson": "honor the 'idempotency' clause; stop blending the planes"
+  },
+  "no_id_leak": {
+    "learned_cycle": 4,
+    "lesson": "honor the 'no_id_leak' clause; stop blending the planes"
+  },
+  "pagination": {
+    "learned_cycle": 6,
+    "lesson": "honor the 'pagination' clause; stop blending the planes"
+  },
+  "state_machine": {
+    "learned_cycle": 7,
+    "lesson": "honor the 'state_machine' clause; stop blending the planes"
+  }
+}

@@ -1,0 +1,10 @@
+[
+  {"input": "hello world", "expected": "Hello World"},
+  {"input": "don't stop", "expected": "Don't Stop"},
+  {"input": "HELLO WORLD", "expected": "Hello World"},
+  {"input": "hello   world", "expected": "Hello World"},
+  {"input": "mIxEd CaSe", "expected": "Mixed Case"},
+  {"input": "O'BRIEN", "expected": "O'brien"},
+  {"input": "  leading and trailing  ", "expected": "Leading And Trailing"},
+  {"input": "a", "expected": "A"}
+]

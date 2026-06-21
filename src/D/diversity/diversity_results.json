@@ -1,0 +1,104 @@
+{
+  "base_seed": 7000,
+  "cycles": 10,
+  "distinct_outcomes": 7,
+  "found_per_cycle": [
+    20,
+    14,
+    17,
+    15,
+    16,
+    18,
+    19,
+    18,
+    17,
+    15
+  ],
+  "instance": "D-diversity",
+  "per_cycle": [
+    {
+      "cycle": 1,
+      "found": 20,
+      "found_pct": 100,
+      "not_found": 0,
+      "sample": 20,
+      "seed": 7000
+    },
+    {
+      "cycle": 2,
+      "found": 14,
+      "found_pct": 70,
+      "not_found": 6,
+      "sample": 20,
+      "seed": 7001
+    },
+    {
+      "cycle": 3,
+      "found": 17,
+      "found_pct": 85,
+      "not_found": 3,
+      "sample": 20,
+      "seed": 7002
+    },
+    {
+      "cycle": 4,
+      "found": 15,
+      "found_pct": 75,
+      "not_found": 5,
+      "sample": 20,
+      "seed": 7003
+    },
+    {
+      "cycle": 5,
+      "found": 16,
+      "found_pct": 80,
+      "not_found": 4,
+      "sample": 20,
+      "seed": 7004
+    },
+    {
+      "cycle": 6,
+      "found": 18,
+      "found_pct": 90,
+      "not_found": 2,
+      "sample": 20,
+      "seed": 7005
+    },
+    {
+      "cycle": 7,
+      "found": 19,
+      "found_pct": 95,
+      "not_found": 1,
+      "sample": 20,
+      "seed": 7006
+    },
+    {
+      "cycle": 8,
+      "found": 18,
+      "found_pct": 90,
+      "not_found": 2,
+      "sample": 20,
+      "seed": 7007
+    },
+    {
+      "cycle": 9,
+      "found": 17,
+      "found_pct": 85,
+      "not_found": 3,
+      "sample": 20,
+      "seed": 7008
+    },
+    {
+      "cycle": 10,
+      "found": 15,
+      "found_pct": 75,
+      "not_found": 5,
+      "sample": 20,
+      "seed": 7009
+    }
+  ],
+  "pool": 100,
+  "pool_not_found": 19,
+  "prover": "intros; lia",
+  "sample": 20
+}

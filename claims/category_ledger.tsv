@@ -1,0 +1,9 @@
+# category_ledger.tsv -- O4 evidence for paper_upper_bound.md (U_self):
+# new distinctions the squeeze loop generated WHILE APPLYING ITSELF, then re-applied
+# to itself on later iterations. This is the "squeezing forces the creation of new
+# concepts" result (the genuine contribution under the strange-loop frame).
+# Columns: id  category  arose_from  reapplied_to
+CAT-1	hard truth vs soft truth	circle 31: the upper/lower-bound asymmetry surfaced while framing the squeeze	paper_upper_bound.md (U_self) framing; the level-up axis "richness = the interpretation surface of the soft bound"
+CAT-2	richness = number of separable forks	level-up: the reviewer's near-zero error rate forced asking what makes a task catchable	the A/B/C/D difficulty ladders and the eval paragraph "Enriching the upper bound"
+CAT-3	diversity restores the trial (task-sampling vs model-stochasticity)	the 10-cycle run came back byte-identical -- a fixed actor is a fixed point, so no trial happened	the four diversity pools (src/*/diversity) and the eval honest-scope caveat
+CAT-4	coherent-and-wrong caught only by external challenge (the gate-independence limit)	D8 + the false environment claim: an external party caught what the internal gates missed	the reflexive-section limitation and U_self O2 (level-crossing candidate)

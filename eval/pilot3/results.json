@@ -1,0 +1,43 @@
+{
+  "per_task": {
+    "bankers_round": {
+      "buggy": false,
+      "indep_strong": false,
+      "indep_weak": false,
+      "self": false
+    },
+    "is_leap_year": {
+      "buggy": false,
+      "indep_strong": false,
+      "indep_weak": false,
+      "self": false
+    },
+    "roman_to_int": {
+      "buggy": false,
+      "indep_strong": false,
+      "indep_weak": false,
+      "self": false
+    },
+    "second_largest": {
+      "buggy": false,
+      "indep_strong": false,
+      "indep_weak": false,
+      "self": false
+    },
+    "title_case": {
+      "buggy": false,
+      "indep_strong": false,
+      "indep_weak": false,
+      "self": false
+    }
+  },
+  "summary": {
+    "buggy_impls": 0,
+    "caught_of_buggy": {
+      "indep_strong": 0,
+      "indep_weak": 0,
+      "self": 0
+    },
+    "tasks": 5
+  }
+}

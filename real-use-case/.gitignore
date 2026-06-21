@@ -1,0 +1,12 @@
+# Build artifacts from the compile-check tooling
+/build/
+/target/
+
+# Stale Creusot test-harness expected-output files (corpus is plain Rust now)
+training-data/**/*.stderr
+
+# Creusot proof-scaffold projects created by creusot-sl runs (cargo creusot new)
+/cwork/
+/sl_*/
+/lace/
+/reopen_*/

@@ -1,0 +1,35 @@
+{
+  "exercise_id": "EX_ROCQ_074",
+  "theorem_name": "exercise_42",
+  "mutations": [
+    {
+      "mutation_id": "MUT_001_IDENTITY_FLIP",
+      "target_clauses": [
+        "CLAUSE_2"
+      ],
+      "description": "Mutates the right-hand equality target to inject a successor mismatch (n + m = m + S n).",
+      "mutation_file": "exercise_mut_identity_flip.v",
+      "mutated_theorem_statement": "Theorem exercise_42_mut : forall n m : nat, n + m = m + S n.",
+      "expected_compiler_feedback": {
+        "status": "FAIL",
+        "phase": "type_check",
+        "error_token": "Unable to unify"
+      }
+    },
+    {
+      "mutation_id": "MUT_002_VACUOUS_HYPOTHESIS_GUARD",
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_3"
+      ],
+      "description": "Guards against a vacuous/inconsistent formalization: a False-hypothesis-guarded goal must not be discharged dishonestly (ignoring the hypothesis).",
+      "mutation_file": "exercise_mut_vacuous_guard.v",
+      "mutated_theorem_statement": "Theorem exercise_42_vacuous : False -> forall n m : nat, n + m = m + n.",
+      "expected_compiler_feedback": {
+        "status": "FAIL",
+        "phase": "axiom_audit",
+        "error_token": "Unable to unify"
+      }
+    }
+  ]
+}

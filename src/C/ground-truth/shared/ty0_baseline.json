@@ -1,0 +1,59 @@
+{
+  "db_columns": {
+    "api_keys": [
+      "api_key",
+      "user_uuid"
+    ],
+    "users": [
+      "id",
+      "user_uuid",
+      "display_name",
+      "updated_at"
+    ]
+  },
+  "hash": "c33775b5fbe96e3a3038519ee3edf7fdc1a42674e8c51e628b67810d587f06cd",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/api/v1/profile",
+      "responses": {
+        "200": [
+          "display_name",
+          "updated_at",
+          "user_uuid"
+        ],
+        "401": [
+          "error",
+          "message"
+        ],
+        "404": [
+          "error",
+          "message"
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/profile/update",
+      "responses": {
+        "200": [
+          "status",
+          "updated_at",
+          "user_uuid"
+        ],
+        "400": [
+          "error",
+          "message"
+        ],
+        "401": [
+          "error",
+          "message"
+        ],
+        "404": [
+          "error",
+          "message"
+        ]
+      }
+    }
+  ]
+}

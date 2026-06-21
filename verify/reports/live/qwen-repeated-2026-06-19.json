@@ -1,0 +1,163 @@
+{
+  "stamp": "2026-06-19",
+  "reps": 3,
+  "temp": 0.7,
+  "models": [
+    "qwen3.6:27b-mlx",
+    "qwen3.5:4b-mlx"
+  ],
+  "instances": [
+    "A",
+    "C"
+  ],
+  "results": {
+    "qwen3.6:27b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "A": {
+          "n": 45,
+          "errors": 33,
+          "unparsed": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 9,
+            "utc_halfopen_standard_vs_calendar_policy": 6,
+            "active_ga4_standard_vs_product_council_directive": 9,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 9
+          },
+          "fork_n": {
+            "net_standard_vs_gross_directive": 9,
+            "utc_halfopen_standard_vs_calendar_policy": 9,
+            "active_ga4_standard_vs_product_council_directive": 9,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 9,
+            "distinct_nonadditive": 3,
+            "aov_zero_orders": 6
+          },
+          "rate": [
+            0.733,
+            0.59,
+            0.84
+          ]
+        },
+        "C": {
+          "n": 54,
+          "errors": 37,
+          "unparsed": 32,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 3,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 3,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 6,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 2,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 2,
+            "treats POST as never-idempotent and mints a second charge": 2,
+            "treats POST as never-idempotent and executes the changed body": 3,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 3,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 3,
+            "stale If-Match treated as last-writer-wins and applied": 2,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 3,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 2,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 2,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 1
+          },
+          "fork_n": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 3,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 3,
+            "merge-patch appends/merges the array instead of replacing it": 3,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 6,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 3,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 3,
+            "drops Retry-After from a 429 where it is actually required": 3,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 3,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 3,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 3,
+            "treats POST as never-idempotent and mints a second charge": 3,
+            "treats POST as never-idempotent and executes the changed body": 3,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 3,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 3,
+            "stale If-Match treated as last-writer-wins and applied": 3,
+            "rejected 412 write still mutated state": 3,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 3
+          },
+          "rate": [
+            0.685,
+            0.553,
+            0.793
+          ]
+        }
+      }
+    },
+    "qwen3.5:4b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "A": {
+          "n": 45,
+          "errors": 31,
+          "unparsed": 1,
+          "forks_wrong": {
+            "net_standard_vs_gross_directive": 9,
+            "utc_halfopen_standard_vs_calendar_policy": 7,
+            "active_ga4_standard_vs_product_council_directive": 7,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 6,
+            "aov_zero_orders": 2
+          },
+          "fork_n": {
+            "net_standard_vs_gross_directive": 9,
+            "utc_halfopen_standard_vs_calendar_policy": 9,
+            "active_ga4_standard_vs_product_council_directive": 9,
+            "survivorship_pointintime_standard_vs_gdpr_directive": 9,
+            "distinct_nonadditive": 3,
+            "aov_zero_orders": 6
+          },
+          "rate": [
+            0.689,
+            0.543,
+            0.805
+          ]
+        },
+        "C": {
+          "n": 54,
+          "errors": 34,
+          "unparsed": 25,
+          "forks_wrong": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 3,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 3,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 5,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 2,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 2,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 2,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 3,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 2,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 3,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 3,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 3,
+            "treats POST as never-idempotent and mints a second charge": 1,
+            "treats POST as never-idempotent and executes the changed body": 2
+          },
+          "fork_n": {
+            "follows Zalando #123 (ignore null) instead of RFC 7396 (delete)": 3,
+            "Zalando-style ignore keeps subtitle='S' after a null patch": 3,
+            "merge-patch appends/merges the array instead of replacing it": 3,
+            "follows RFC 9110 404-hide instead of AIP-193 403-MUST": 6,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 400": 3,
+            "obeys over-broad CLAUSE_10 and adds Retry-After to a 404": 3,
+            "drops Retry-After from a 429 where it is actually required": 3,
+            "collapses a 422 business error to 400 per the over-general CLAUSE_11": 3,
+            "collapses a 401 auth failure to 400 per the over-general CLAUSE_11": 3,
+            "lumps a genuine syntax error into 422, losing the 400/422 line": 3,
+            "treats POST as never-idempotent and mints a second charge": 3,
+            "treats POST as never-idempotent and executes the changed body": 3,
+            "double-refund treated as an idempotent 200 no-op instead of 409": 3,
+            "double-cancel treated as an idempotent 200 no-op instead of 409": 3,
+            "stale If-Match treated as last-writer-wins and applied": 3,
+            "rejected 412 write still mutated state": 3,
+            "treats a short page as end-of-collection; retrieves 3 not 7": 3
+          },
+          "rate": [
+            0.63,
+            0.496,
+            0.746
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "case_id": "case_002",
+  "customer_id": "CUST_LEGAL",
+  "turns": [
+    "I want a manual credit now",
+    "if not I am filing with my legal counsel"
+  ]
+}

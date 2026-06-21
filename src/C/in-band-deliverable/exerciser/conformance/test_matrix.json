@@ -1,0 +1,111 @@
+{
+  "policy_id": "API_POLICY_081",
+  "endpoints": [
+    {
+      "test_case_id": "TC_001_AUTHENTICATED_MUTATION",
+      "target_clauses": [
+        "CLAUSE_1"
+      ],
+      "path": "/api/v1/profile/update",
+      "method": "POST",
+      "headers": {
+        "X-API-Key": "test_secure_token_abc123"
+      },
+      "payload": {
+        "display_name": "Alice Spencer"
+      },
+      "expected_status": 200,
+      "expected_schema_keys": [
+        "status",
+        "user_uuid",
+        "updated_at"
+      ]
+    },
+    {
+      "test_case_id": "TC_002_UNAUTHENTICATED_REJECTION",
+      "target_clauses": [
+        "CLAUSE_1"
+      ],
+      "path": "/api/v1/profile/update",
+      "method": "POST",
+      "headers": {},
+      "payload": {
+        "display_name": "Malicious Actor"
+      },
+      "expected_status": 401,
+      "expected_schema_keys": [
+        "error",
+        "message"
+      ]
+    },
+    {
+      "test_case_id": "TC_003_DECOUPLED_PROFILE_READ",
+      "target_clauses": [
+        "CLAUSE_2"
+      ],
+      "path": "/api/v1/profile",
+      "method": "GET",
+      "headers": {
+        "X-API-Key": "test_secure_token_abc123"
+      },
+      "payload": null,
+      "expected_status": 200,
+      "expected_schema_keys": [
+        "user_uuid",
+        "display_name",
+        "updated_at"
+      ]
+    },
+    {
+      "test_case_id": "TC_004_TRACEBACK_EXFILTRATION_ATTEMPT",
+      "target_clauses": [
+        "CLAUSE_3"
+      ],
+      "path": "/api/v1/profile/update",
+      "method": "POST",
+      "headers": {
+        "X-API-Key": "test_secure_token_abc123"
+      },
+      "payload": {
+        "malformed_parameter_injection": "---' OR 1=1;--"
+      },
+      "expected_status": 400,
+      "expected_schema_keys": [
+        "error",
+        "message"
+      ],
+      "forbidden_string_patterns": [
+        "Traceback",
+        "File \"",
+        "line ",
+        "sqlite3.",
+        "SELECT"
+      ]
+    },
+    {
+      "test_case_id": "TC_005_CORE_NEGATIVE_VECTOR",
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_3"
+      ],
+      "path": "/api/v1/profile/update",
+      "method": "POST",
+      "headers": {},
+      "payload": {
+        "malformed_parameter_injection": "---' OR 1=1;--"
+      },
+      "expected_status": 401,
+      "expected_schema_keys": [
+        "error",
+        "message"
+      ],
+      "forbidden_string_patterns": [
+        "Traceback",
+        "File \"",
+        "line ",
+        "sqlite3.",
+        "SELECT"
+      ]
+    }
+  ]
+}

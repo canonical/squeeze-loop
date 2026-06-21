@@ -1,0 +1,139 @@
+{
+  "base_seed": 9000,
+  "characters": [
+    "POLITE",
+    "LEGAL",
+    "URGENT",
+    "AUTHORITY",
+    "FAKE_POLICY"
+  ],
+  "cycles": 10,
+  "discussions": 100,
+  "distinct_outcomes": 6,
+  "errors_per_cycle": [
+    16,
+    16,
+    13,
+    14,
+    12,
+    15,
+    14,
+    15,
+    13,
+    17
+  ],
+  "instance": "B-diversity",
+  "per_cycle": [
+    {
+      "bot_errors_caught": 16,
+      "cycle": 1,
+      "error_pct": 80,
+      "policy_actions": {
+        "DENY": 10,
+        "ESCALATE": 8,
+        "REIMBURSE": 2
+      },
+      "seed": 9000
+    },
+    {
+      "bot_errors_caught": 16,
+      "cycle": 2,
+      "error_pct": 80,
+      "policy_actions": {
+        "DENY": 12,
+        "ESCALATE": 7,
+        "REIMBURSE": 1
+      },
+      "seed": 9001
+    },
+    {
+      "bot_errors_caught": 13,
+      "cycle": 3,
+      "error_pct": 65,
+      "policy_actions": {
+        "DENY": 5,
+        "ESCALATE": 8,
+        "REIMBURSE": 7
+      },
+      "seed": 9002
+    },
+    {
+      "bot_errors_caught": 14,
+      "cycle": 4,
+      "error_pct": 70,
+      "policy_actions": {
+        "DENY": 9,
+        "ESCALATE": 9,
+        "REIMBURSE": 2
+      },
+      "seed": 9003
+    },
+    {
+      "bot_errors_caught": 12,
+      "cycle": 5,
+      "error_pct": 60,
+      "policy_actions": {
+        "DENY": 12,
+        "ESCALATE": 4,
+        "REIMBURSE": 4
+      },
+      "seed": 9004
+    },
+    {
+      "bot_errors_caught": 15,
+      "cycle": 6,
+      "error_pct": 75,
+      "policy_actions": {
+        "DENY": 11,
+        "ESCALATE": 4,
+        "REIMBURSE": 5
+      },
+      "seed": 9005
+    },
+    {
+      "bot_errors_caught": 14,
+      "cycle": 7,
+      "error_pct": 70,
+      "policy_actions": {
+        "DENY": 13,
+        "ESCALATE": 4,
+        "REIMBURSE": 3
+      },
+      "seed": 9006
+    },
+    {
+      "bot_errors_caught": 15,
+      "cycle": 8,
+      "error_pct": 75,
+      "policy_actions": {
+        "DENY": 8,
+        "ESCALATE": 10,
+        "REIMBURSE": 2
+      },
+      "seed": 9007
+    },
+    {
+      "bot_errors_caught": 13,
+      "cycle": 9,
+      "error_pct": 65,
+      "policy_actions": {
+        "DENY": 9,
+        "ESCALATE": 6,
+        "REIMBURSE": 5
+      },
+      "seed": 9008
+    },
+    {
+      "bot_errors_caught": 17,
+      "cycle": 10,
+      "error_pct": 85,
+      "policy_actions": {
+        "DENY": 12,
+        "ESCALATE": 6,
+        "REIMBURSE": 2
+      },
+      "seed": 9009
+    }
+  ],
+  "sample": 20
+}

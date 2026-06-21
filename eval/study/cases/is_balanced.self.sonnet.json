@@ -1,0 +1,28 @@
+{
+  "impl": "def is_balanced(s: str) -> bool:\n    stack = []\n    matching = {')': '(', ']': '[', '}': '{'}\n    for ch in s:\n        if ch in '([{':\n            stack.append(ch)\n        elif ch in ')]}':\n            if not stack or stack[-1] != matching[ch]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n",
+  "tests": [
+    {"input": "([])", "expected": true},
+    {"input": "([)]", "expected": false},
+    {"input": "((", "expected": false},
+    {"input": "", "expected": true},
+    {"input": "()", "expected": true},
+    {"input": "[]", "expected": true},
+    {"input": "{}", "expected": true},
+    {"input": "({[]})", "expected": true},
+    {"input": "({[}])", "expected": false},
+    {"input": "((()))", "expected": true},
+    {"input": "((())", "expected": false},
+    {"input": "hello world", "expected": true},
+    {"input": "a(b[c{d}e]f)g", "expected": true},
+    {"input": "a(b[c{d}e]f", "expected": false},
+    {"input": "]", "expected": false},
+    {"input": ")", "expected": false},
+    {"input": "}", "expected": false},
+    {"input": "([]{})", "expected": true},
+    {"input": "([{}])", "expected": true},
+    {"input": "([{)}]", "expected": false},
+    {"input": "{[()]}", "expected": true},
+    {"input": "(([]){[()]})", "expected": true},
+    {"input": "(([]){[()]}", "expected": false}
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "stamp": "powered-B-2026-06-20",
+  "reps": 8,
+  "temp": 0.7,
+  "models": [
+    "qwen3.6:27b-mlx",
+    "qwen3.5:27b-mlx",
+    "qwen3.5:9b-mlx",
+    "qwen3.5:4b-mlx"
+  ],
+  "instances": [
+    "B"
+  ],
+  "results": {
+    "qwen3.6:27b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "B": {
+          "n": 128,
+          "errors": 26,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "fraud_flag": 7,
+            "precedence_fraud_transit": 8,
+            "already_refunded": 1,
+            "digital_downloaded": 2
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.203,
+            0.143,
+            0.281
+          ]
+        }
+      }
+    },
+    "qwen3.5:27b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "B": {
+          "n": 128,
+          "errors": 18,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "fraud_flag": 5,
+            "precedence_fraud_transit": 3,
+            "digital_downloaded": 2
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.141,
+            0.091,
+            0.211
+          ]
+        }
+      }
+    },
+    "qwen3.5:9b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "B": {
+          "n": 128,
+          "errors": 25,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "fraud_flag": 7,
+            "precedence_fraud_transit": 8,
+            "inapplicable_consumer_act": 1,
+            "already_refunded": 1
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.195,
+            0.136,
+            0.272
+          ]
+        }
+      }
+    },
+    "qwen3.5:4b-mlx": {
+      "controls": "PASS",
+      "by_instance": {
+        "B": {
+          "n": 128,
+          "errors": 18,
+          "unparsed": 0,
+          "forks_wrong": {
+            "delivered_default": 8,
+            "fraud_flag": 4,
+            "precedence_fraud_transit": 3,
+            "physical_in_transit_window": 1,
+            "inapplicable_ftc": 1,
+            "precedence_new_high_transit": 1
+          },
+          "fork_n": {
+            "delivered_default": 8,
+            "in_transit_distress": 8,
+            "already_refunded": 8,
+            "legal_threat": 8,
+            "fraud_flag": 8,
+            "partial_refund": 8,
+            "partial_refund_high": 8,
+            "open_dispute_flag": 8,
+            "open_dispute_said": 8,
+            "digital_downloaded": 8,
+            "digital_not_downloaded": 8,
+            "physical_in_transit_window": 8,
+            "precedence_new_high_transit": 8,
+            "precedence_fraud_transit": 8,
+            "inapplicable_ftc": 8,
+            "inapplicable_consumer_act": 8
+          },
+          "rate": [
+            0.141,
+            0.091,
+            0.211
+          ]
+        }
+      }
+    }
+  }
+}

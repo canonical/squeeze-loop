@@ -1,0 +1,46 @@
+# apparatus_manifest.tsv -- the manifest that closes the apparatus-vs-description drift class.
+#
+# WHY: circle 122's Gate-A pass found the manuscript had gone coherent-and-wrong about its OWN
+# apparatus -- it described a 4-member reflexive-monitor family while circles 119-121 had wired
+# three more gates. That is a class NO prior gate covers: claim_consistency.py is prose-vs-prose,
+# editorial_gate.py is prose-vs-evidence; this is CODE-vs-prose drift (the tooling changed, the
+# manuscript's description did not).
+#
+# verify/apparatus_described.py enforces, against this manifest:
+#   1. every script wired into execute_squeeze STEPS is classified here (a NEW gate added to the
+#      squeeze forces a described/internal decision -- the drift cannot enter silently);
+#   2. every `described` script is \code-referenced in tex/paper.tex AND exists on disk
+#      (a described gate missing from the manuscript = drift = hard fail);
+#   3. every verify/*.py the manuscript \code-references exists on disk and is listed here
+#      (a dangling or unclassified reference = fail).
+#
+# visibility:
+#   described -- part of the manuscript's self-described apparatus; paper.tex MUST name it.
+#   internal  -- object-level mechanics or a paper-impl writing principle; not in the paper's
+#                narrative (documented in paper-impl.md instead).
+#
+# Columns: script <TAB> visibility <TAB> note
+
+# --- described in the manuscript (tex/paper.tex) ---
+reflexive_gate_s.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+category_overreach.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+perturbation.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+flag_rate.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+claim_consistency.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+editorial_gate.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+cross_provider_review.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+closure_check.py	internal	reflexive-apparatus script; Appendix A cut in the review6 revision, so no longer in the manuscript narrative (documented in paper-impl.md / the scripts)
+self_model_check.py	internal	O1+O5 self-model mechanics; detail moved to paper-impl.md in the circle-124 appendix trim (no longer in the manuscript narrative)
+eval_protocol.py	described	evaluation protocol harness -- generator, not a STEP (Section eval)
+synthesis.py	described	cross-instance synthesis -- generator, not a STEP (Section synthesis/Table)
+
+# --- internal mechanics / paper-impl principles (not described in the manuscript narrative) ---
+validate_handbook.py	internal	read-before-cite mechanics (upper-bound plane)
+gate_checks.py	internal	Gates A & C structural mechanics (upper-bound plane)
+verify_ground_truth.py	internal	determinism + build + cite-resolution mechanics (lower-bound plane)
+verify_claims.py	internal	exerciser: re-derives ledgered claims (in-band plane)
+skill_consistency.py	internal	object-level Gate S; the reflexive analogue (reflexive_gate_s.py) is the described one
+category_log_measures.py	internal	O4 category-generation log mechanics
+connective_tissue.py	internal	paper-impl writing principle (documented in paper-impl.md, not the manuscript)
+self_contained.py	internal	paper-impl writing principle (documented in paper-impl.md, not the manuscript)
+apparatus_described.py	internal	this gate: code-vs-prose meta-check; a writing-discipline gate like connective/self-contained, documented in paper-impl.md (avoids self-describing regress)

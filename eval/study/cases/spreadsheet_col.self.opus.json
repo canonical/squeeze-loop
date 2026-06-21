@@ -1,0 +1,15 @@
+{
+  "impl": "def spreadsheet_col(n):\n    result = \"\"\n    while n > 0:\n        n, rem = divmod(n - 1, 26)\n        result = chr(ord('A') + rem) + result\n    return result\n",
+  "tests": [
+    {"input": 1, "expected": "A"},
+    {"input": 2, "expected": "B"},
+    {"input": 26, "expected": "Z"},
+    {"input": 27, "expected": "AA"},
+    {"input": 28, "expected": "AB"},
+    {"input": 52, "expected": "AZ"},
+    {"input": 53, "expected": "BA"},
+    {"input": 702, "expected": "ZZ"},
+    {"input": 703, "expected": "AAA"},
+    {"input": 704, "expected": "AAB"}
+  ]
+}

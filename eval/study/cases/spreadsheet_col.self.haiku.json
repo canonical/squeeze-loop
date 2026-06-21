@@ -1,0 +1,105 @@
+{
+  "impl": "def spreadsheet_col(n: int) -> str:\n    \"\"\"\n    Convert a 1-indexed column number to its spreadsheet letters.\n    Uses bijective base-26 encoding (no zero digit).\n    \n    Args:\n        n: A positive integer representing the column number (1-indexed)\n    \n    Returns:\n        A string of uppercase letters representing the column\n    \n    Examples:\n        1 -> A\n        26 -> Z\n        27 -> AA\n        28 -> AB\n        52 -> AZ\n        702 -> ZZ\n        703 -> AAA\n    \"\"\"\n    result = \"\"\n    while n > 0:\n        # Subtract 1 to handle bijective base-26 (1-indexed, no zero)\n        n -= 1\n        # Get the remainder (0-25 maps to A-Z)\n        result = chr(ord('A') + n % 26) + result\n        # Divide by 26 for next iteration\n        n //= 26\n    return result",
+  "tests": [
+    {
+      "input": 1,
+      "expected": "A"
+    },
+    {
+      "input": 2,
+      "expected": "B"
+    },
+    {
+      "input": 3,
+      "expected": "C"
+    },
+    {
+      "input": 25,
+      "expected": "Y"
+    },
+    {
+      "input": 26,
+      "expected": "Z"
+    },
+    {
+      "input": 27,
+      "expected": "AA"
+    },
+    {
+      "input": 28,
+      "expected": "AB"
+    },
+    {
+      "input": 29,
+      "expected": "AC"
+    },
+    {
+      "input": 51,
+      "expected": "AY"
+    },
+    {
+      "input": 52,
+      "expected": "AZ"
+    },
+    {
+      "input": 53,
+      "expected": "BA"
+    },
+    {
+      "input": 78,
+      "expected": "BZ"
+    },
+    {
+      "input": 79,
+      "expected": "CA"
+    },
+    {
+      "input": 676,
+      "expected": "YZ"
+    },
+    {
+      "input": 677,
+      "expected": "ZA"
+    },
+    {
+      "input": 701,
+      "expected": "ZY"
+    },
+    {
+      "input": 702,
+      "expected": "ZZ"
+    },
+    {
+      "input": 703,
+      "expected": "AAA"
+    },
+    {
+      "input": 704,
+      "expected": "AAB"
+    },
+    {
+      "input": 729,
+      "expected": "ABA"
+    },
+    {
+      "input": 730,
+      "expected": "ABB"
+    },
+    {
+      "input": 1378,
+      "expected": "AZZ"
+    },
+    {
+      "input": 1379,
+      "expected": "BAA"
+    },
+    {
+      "input": 16384,
+      "expected": "XFD"
+    },
+    {
+      "input": 18278,
+      "expected": "ZZZ"
+    }
+  ]
+}

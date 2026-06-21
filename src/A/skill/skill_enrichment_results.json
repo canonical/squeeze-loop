@@ -1,0 +1,636 @@
+{
+  "consolidate_k": 3,
+  "cycles": 100,
+  "errors_first_window_mean": 1.0,
+  "errors_last_window_mean": 0.0,
+  "final_skill_size": 4,
+  "instance": "A-skill",
+  "learned_events": [
+    {
+      "cycle": 3,
+      "family": "dau_grain"
+    },
+    {
+      "cycle": 7,
+      "family": "active_customer"
+    },
+    {
+      "cycle": 10,
+      "family": "net_rev"
+    },
+    {
+      "cycle": 52,
+      "family": "survivorship"
+    }
+  ],
+  "per_cycle": [
+    {
+      "cycle": 1,
+      "error_pct": 50,
+      "errors": 2,
+      "skill_size": 0
+    },
+    {
+      "cycle": 2,
+      "error_pct": 50,
+      "errors": 2,
+      "skill_size": 0
+    },
+    {
+      "cycle": 3,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 1
+    },
+    {
+      "cycle": 4,
+      "error_pct": 50,
+      "errors": 2,
+      "skill_size": 1
+    },
+    {
+      "cycle": 5,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 1
+    },
+    {
+      "cycle": 6,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 1
+    },
+    {
+      "cycle": 7,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 2
+    },
+    {
+      "cycle": 8,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 2
+    },
+    {
+      "cycle": 9,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 2
+    },
+    {
+      "cycle": 10,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 3
+    },
+    {
+      "cycle": 11,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 12,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 13,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 14,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 15,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 16,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 17,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 18,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 19,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 20,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 21,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 22,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 23,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 24,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 25,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 26,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 27,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 28,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 29,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 30,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 31,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 32,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 33,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 34,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 35,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 36,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 37,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 38,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 39,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 40,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 41,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 42,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 43,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 44,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 45,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 46,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 3
+    },
+    {
+      "cycle": 47,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 48,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 49,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 50,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 51,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 3
+    },
+    {
+      "cycle": 52,
+      "error_pct": 25,
+      "errors": 1,
+      "skill_size": 4
+    },
+    {
+      "cycle": 53,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 54,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 55,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 56,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 57,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 58,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 59,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 60,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 61,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 62,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 63,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 64,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 65,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 66,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 67,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 68,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 69,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 70,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 71,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 72,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 73,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 74,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 75,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 76,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 77,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 78,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 79,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 80,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 81,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 82,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 83,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 84,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 85,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 86,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 87,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 88,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 89,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 90,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 91,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 92,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 93,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 94,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 95,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 96,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 97,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 98,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 99,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    },
+    {
+      "cycle": 100,
+      "error_pct": 0,
+      "errors": 0,
+      "skill_size": 4
+    }
+  ],
+  "sample": 4,
+  "seed": 8000,
+  "skills": [
+    "active_customer",
+    "dau_grain",
+    "net_rev",
+    "survivorship"
+  ]
+}

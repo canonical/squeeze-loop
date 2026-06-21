@@ -1,0 +1,76 @@
+{
+  "configs": {
+    "barrier_off": {
+      "details": {
+        "dedup_count_ci": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "median": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "net": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "running_max_count": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        }
+      },
+      "spec_validity_pct": 100,
+      "tasks_caught": 4,
+      "tasks_total": 4
+    },
+    "barrier_on": {
+      "details": {
+        "dedup_count_ci": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "median": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "net": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        },
+        "running_max_count": {
+          "caught": true,
+          "n_cases": 8,
+          "spec_correct": 8
+        }
+      },
+      "spec_validity_pct": 100,
+      "tasks_caught": 4,
+      "tasks_total": 4
+    }
+  },
+  "per_task": {
+    "dedup_count_ci": {
+      "barrier_off": true,
+      "barrier_on": true
+    },
+    "median": {
+      "barrier_off": true,
+      "barrier_on": true
+    },
+    "net": {
+      "barrier_off": true,
+      "barrier_on": true
+    },
+    "running_max_count": {
+      "barrier_off": true,
+      "barrier_on": true
+    }
+  }
+}

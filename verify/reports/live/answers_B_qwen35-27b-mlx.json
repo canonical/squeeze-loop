@@ -1,0 +1,18 @@
+{
+  "B_delivered_default_1": "REIMBURSE",
+  "B_in_transit_distress_2": "REIMBURSE",
+  "B_already_refunded_3": "DENY",
+  "B_legal_threat_4": "ESCALATE",
+  "B_fraud_flag_5": "REIMBURSE",
+  "B_partial_refund_6": "DENY",
+  "B_partial_refund_high_7": "DENY",
+  "B_open_dispute_flag_8": "ESCALATE",
+  "B_open_dispute_said_9": "ESCALATE",
+  "B_digital_downloaded_10": "DENY",
+  "B_digital_not_downloaded_11": "REIMBURSE",
+  "B_physical_in_transit_window_12": "REIMBURSE",
+  "B_precedence_new_high_transit_13": "DENY",
+  "B_precedence_fraud_transit_14": "REIMBURSE",
+  "B_inapplicable_ftc_15": "ESCALATE",
+  "B_inapplicable_consumer_act_16": "ESCALATE"
+}

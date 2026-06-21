@@ -1,0 +1,119 @@
+{
+  "metric_id": "METRIC_001",
+  "negatives": [
+    {
+      "description": "Summing all amounts without an event_type filter adds refunds instead of subtracting them.",
+      "expected_fault": {
+        "reason": "DIVERGENT_VALUE_ERROR",
+        "site": "event_type_filter_block"
+      },
+      "mutation": "NO_TYPE_FILTER",
+      "target_clauses": [
+        "CLAUSE_2"
+      ],
+      "test_case_id": "TC_M001_NO_TYPE_FILTER",
+      "window": {
+        "end": "2025-04-01T00:00:00Z",
+        "start": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "description": "Reporting gross purchase revenue without subtracting refunds over-reports the figure.",
+      "expected_fault": {
+        "reason": "DIVERGENT_VALUE_ERROR",
+        "site": "refund_subtraction_block"
+      },
+      "mutation": "OMIT_REFUND_SUBTRACTION",
+      "target_clauses": [
+        "CLAUSE_3"
+      ],
+      "test_case_id": "TC_M001_OMIT_REFUND_SUBTRACTION",
+      "window": {
+        "end": "2025-04-01T00:00:00Z",
+        "start": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "description": "Binning by a local (-8h) offset instead of UTC moves boundary events into the wrong quarter.",
+      "expected_fault": {
+        "reason": "DIVERGENT_VALUE_ERROR",
+        "site": "utc_window_block"
+      },
+      "mutation": "LOCAL_TZ_SHIFT",
+      "target_clauses": [
+        "CLAUSE_1"
+      ],
+      "test_case_id": "TC_M001_LOCAL_TZ_SHIFT",
+      "window": {
+        "end": "2025-07-01T00:00:00Z",
+        "start": "2025-04-01T00:00:00Z"
+      }
+    }
+  ],
+  "positives": [
+    {
+      "description": "Net revenue over the clean UTC window 2025_Q1.",
+      "expected_output": {
+        "value": 1987.21
+      },
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_2",
+        "CLAUSE_3"
+      ],
+      "test_case_id": "TC_M001_2025_Q1_STANDARD_RUN",
+      "window": {
+        "end": "2025-04-01T00:00:00Z",
+        "start": "2025-01-01T00:00:00Z"
+      }
+    },
+    {
+      "description": "Net revenue over the clean UTC window 2025_Q2.",
+      "expected_output": {
+        "value": 5126.26
+      },
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_2",
+        "CLAUSE_3"
+      ],
+      "test_case_id": "TC_M001_2025_Q2_STANDARD_RUN",
+      "window": {
+        "end": "2025-07-01T00:00:00Z",
+        "start": "2025-04-01T00:00:00Z"
+      }
+    },
+    {
+      "description": "Net revenue over the clean UTC window 2025_Q3.",
+      "expected_output": {
+        "value": 10009.43
+      },
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_2",
+        "CLAUSE_3"
+      ],
+      "test_case_id": "TC_M001_2025_Q3_STANDARD_RUN",
+      "window": {
+        "end": "2025-10-01T00:00:00Z",
+        "start": "2025-07-01T00:00:00Z"
+      }
+    },
+    {
+      "description": "Net revenue over the clean UTC window 2025_Q4.",
+      "expected_output": {
+        "value": 6606.29
+      },
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_2",
+        "CLAUSE_3"
+      ],
+      "test_case_id": "TC_M001_2025_Q4_STANDARD_RUN",
+      "window": {
+        "end": "2026-01-01T00:00:00Z",
+        "start": "2025-10-01T00:00:00Z"
+      }
+    }
+  ]
+}

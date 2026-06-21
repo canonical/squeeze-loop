@@ -1,0 +1,45 @@
+{
+  "instances": 15,
+  "n_repos": 2,
+  "repos": [
+    "astropy/astropy",
+    "django/django"
+  ],
+  "steps": [
+    {
+      "needs": [],
+      "runnable": true,
+      "step": "acquire real instances"
+    },
+    {
+      "needs": [],
+      "runnable": true,
+      "step": "characterize defect population"
+    },
+    {
+      "needs": [
+        "repository checkout at base_commit",
+        "an LLM coding agent"
+      ],
+      "runnable": false,
+      "step": "implementer patch (from issue, tests held out)"
+    },
+    {
+      "needs": [
+        "repository checkout",
+        "an LLM coding agent"
+      ],
+      "runnable": false,
+      "step": "independent exerciser tests (from issue, patch unseen)"
+    },
+    {
+      "needs": [
+        "SWE-bench per-repo Docker harness",
+        "per-repo dependency environments"
+      ],
+      "runnable": false,
+      "step": "execute: apply patch + run FAIL_TO_PASS/PASS_TO_PASS"
+    }
+  ],
+  "total_fail_to_pass": 35
+}

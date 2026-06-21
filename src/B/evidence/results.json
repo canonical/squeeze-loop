@@ -1,0 +1,14 @@
+{
+  "ablation_barrier_off_caught": 0,
+  "ablation_barrier_on_caught": 4,
+  "archive_cases": 6,
+  "archive_regression_ok": true,
+  "clauses": 3,
+  "detection_rate_pct": 100,
+  "ground_truth_verify_ok": true,
+  "isolation_ok": true,
+  "scenarios": 5,
+  "seeded_defects": 4,
+  "squeeze_ok": true,
+  "upper_bound_validate_ok": true
+}

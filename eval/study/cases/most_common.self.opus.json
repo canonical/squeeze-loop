@@ -1,0 +1,15 @@
+{
+  "impl": "def most_common(xs):\n    if not xs:\n        return None\n    counts = {}\n    for x in xs:\n        counts[x] = counts.get(x, 0) + 1\n    best = max(counts.values())\n    return min(k for k, v in counts.items() if v == best)\n",
+  "tests": [
+    {"input": [1, 2, 2, 3, 3], "expected": 2},
+    {"input": [], "expected": null},
+    {"input": [5], "expected": 5},
+    {"input": [1, 1, 1, 2, 2], "expected": 1},
+    {"input": [4, 4, 1, 1, 9], "expected": 1},
+    {"input": [7, 7, 7], "expected": 7},
+    {"input": [3, 1, 2], "expected": 1},
+    {"input": [-1, -1, -2, -2], "expected": -2},
+    {"input": [10, 20, 20, 10, 30], "expected": 10},
+    {"input": [2, 2, 2, 3, 3, 3, 1], "expected": 2}
+  ]
+}

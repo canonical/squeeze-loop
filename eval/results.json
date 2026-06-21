@@ -1,0 +1,90 @@
+{
+  "H2_measured": {
+    "coupling_pct": {
+      "A": 2.6,
+      "B": 0.7,
+      "C": 1.4
+    },
+    "detection_off_pct": 0,
+    "detection_on_pct": 100,
+    "n_instances": 3,
+    "seeded_total": 13
+  },
+  "configs": [
+    {
+      "desc": "squeeze-compliant (physical barrier on)",
+      "id": "squeeze",
+      "runnable": true
+    },
+    {
+      "desc": "barrier off: exerciser anchored to the implementation",
+      "id": "barrier_off",
+      "runnable": true
+    },
+    {
+      "desc": "role-differentiated, shared-transcript multi-agent baseline",
+      "id": "shared_context",
+      "needs": [
+        "LLM agent pipeline",
+        "matched-difficulty task suite"
+      ],
+      "runnable": false
+    },
+    {
+      "desc": "single-agent self-refine baseline",
+      "id": "self_refine",
+      "needs": [
+        "LLM agent pipeline",
+        "task suite"
+      ],
+      "runnable": false
+    },
+    {
+      "desc": "multi-agent debate baseline",
+      "id": "debate",
+      "needs": [
+        "LLM agent pipeline",
+        "task suite"
+      ],
+      "runnable": false
+    }
+  ],
+  "hypotheses": [
+    {
+      "desc": "disjointness lowers the coherent-and-wrong rate vs shared context",
+      "id": "H1",
+      "needs": [
+        "squeeze + baseline runs at matched difficulty",
+        "repetitions + significance test"
+      ],
+      "runnable": false
+    },
+    {
+      "desc": "physical barriers reduce evidence-implementation coupling and catch more seeded defects",
+      "id": "H2",
+      "runnable": true
+    },
+    {
+      "desc": "Gate-A amendment rate predicts the downstream gap rate",
+      "id": "H3",
+      "needs": [
+        "a corpus with logged Gate-A amendments and per-item gap rates"
+      ],
+      "runnable": false
+    },
+    {
+      "desc": "protocol overhead amortizes on long regression horizons",
+      "id": "H4",
+      "needs": [
+        "cost/latency telemetry across engagements of varying length"
+      ],
+      "runnable": false
+    }
+  ],
+  "summary": {
+    "configs_pending": 3,
+    "configs_runnable": 2,
+    "hypotheses_measured": 1,
+    "hypotheses_pending": 3
+  }
+}

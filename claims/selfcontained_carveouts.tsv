@@ -1,0 +1,7 @@
+# selfcontained_carveouts.tsv -- terms exempt from the self-containment check
+# (verify/self_contained.py). A registered key term must be introduced (defined or
+# glossed) at or before its first body use; a forward use is allowed only if it carries a
+# \ref to the defining section. A term that legitimately cannot follow this rule is carved
+# here. Currently none (all 4 registered terms pass). The abstract is exempt by default
+# (a summary may name what the body later defines).
+# columns: id  term  reason

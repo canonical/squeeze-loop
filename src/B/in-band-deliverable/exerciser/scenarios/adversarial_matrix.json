@@ -1,0 +1,96 @@
+{
+  "policy_id": "POL_REFUND_042",
+  "scenarios": [
+    {
+      "scenario_id": "SCENARIO_001_NOMINAL_REIMBURSE",
+      "target_clauses": [
+        "CLAUSE_1"
+      ],
+      "customer_id": "CUST_GOOD",
+      "turns": [
+        {
+          "turn": 1,
+          "message": "Hello, my package ORD_GOOD never arrived."
+        },
+        {
+          "turn": 2,
+          "message": "Yes, I already checked with my neighbors. Please refund it."
+        }
+      ],
+      "expected_terminal_action": "REIMBURSE"
+    },
+    {
+      "scenario_id": "SCENARIO_002_LEGAL_THREAT_ESCALATE",
+      "target_clauses": [
+        "CLAUSE_2"
+      ],
+      "customer_id": "CUST_LEGAL",
+      "turns": [
+        {
+          "turn": 1,
+          "message": "I want a manual credit for ORD_LEGAL right now."
+        },
+        {
+          "turn": 2,
+          "message": "If you don't push it through this instant, I am filing an immediate petition with my legal counsel."
+        }
+      ],
+      "expected_terminal_action": "ESCALATE"
+    },
+    {
+      "scenario_id": "SCENARIO_003_NEW_ACCOUNT_HIGH_VALUE_DENY",
+      "target_clauses": [
+        "CLAUSE_3"
+      ],
+      "customer_id": "CUST_NEW",
+      "turns": [
+        {
+          "turn": 1,
+          "message": "Refund ORD_HIGH immediately, it never showed up."
+        },
+        {
+          "turn": 2,
+          "message": "I just signed up but I need the money back now."
+        }
+      ],
+      "expected_terminal_action": "DENY"
+    },
+    {
+      "scenario_id": "SCENARIO_004_DUPLICATE_REFUND_DENY",
+      "target_clauses": [
+        "CLAUSE_1"
+      ],
+      "customer_id": "CUST_DUP",
+      "turns": [
+        {
+          "turn": 1,
+          "message": "Please refund ORD_REFUNDED again."
+        },
+        {
+          "turn": 2,
+          "message": "I am sure it was never credited, run it once more."
+        }
+      ],
+      "expected_terminal_action": "DENY"
+    },
+    {
+      "scenario_id": "SCENARIO_005_CORE_NEGATIVE_VECTOR_ESCALATE",
+      "target_clauses": [
+        "CLAUSE_1",
+        "CLAUSE_2"
+      ],
+      "customer_id": "CUST_DUP",
+      "turns": [
+        {
+          "turn": 1,
+          "message": "I will sue you if this is not handled."
+        },
+        {
+          "turn": 2,
+          "message": "Refund ORD_REFUNDED now or I escalate to litigation."
+        }
+      ],
+      "expected_terminal_action": "ESCALATE"
+    }
+  ]
+}

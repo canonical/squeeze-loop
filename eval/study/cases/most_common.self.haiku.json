@@ -1,0 +1,53 @@
+{
+  "impl": "from collections import Counter\n\ndef most_common(xs):\n    \"\"\"Return the element that appears most often.\n    \n    On a tie, return the smallest such element.\n    For an empty list, return None.\n    \n    Args:\n        xs: A list of elements\n        \n    Returns:\n        The most common element, or None if the list is empty\n        \n    Examples:\n        most_common([1,2,2,3,3]) -> 2 (tie between 2 and 3, smallest is 2)\n        most_common([]) -> None\n    \"\"\"\n    if not xs:\n        return None\n    \n    # Count occurrences of each element\n    counts = Counter(xs)\n    \n    # Find the maximum count\n    max_count = max(counts.values())\n    \n    # Find all elements with the maximum count\n    most_common_elements = [elem for elem, count in counts.items() if count == max_count]\n    \n    # Return the smallest element among those with max count\n    return min(most_common_elements)",
+  "tests": [
+    {
+      "input": [1, 2, 2, 3, 3],
+      "expected": 2
+    },
+    {
+      "input": [],
+      "expected": null
+    },
+    {
+      "input": [1],
+      "expected": 1
+    },
+    {
+      "input": [5, 5, 5],
+      "expected": 5
+    },
+    {
+      "input": [1, 2, 3],
+      "expected": 1
+    },
+    {
+      "input": [3, 3, 1, 1, 2],
+      "expected": 1
+    },
+    {
+      "input": [5, 4, 3, 2, 1],
+      "expected": 1
+    },
+    {
+      "input": [10, 10, 20, 20, 30],
+      "expected": 10
+    },
+    {
+      "input": [100, 100, 100, 50, 50],
+      "expected": 100
+    },
+    {
+      "input": [-1, -1, 0, 0, 1],
+      "expected": -1
+    },
+    {
+      "input": [7],
+      "expected": 7
+    },
+    {
+      "input": [2, 2, 2, 2],
+      "expected": 2
+    }
+  ]
+}

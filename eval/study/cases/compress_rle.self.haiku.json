@@ -1,0 +1,85 @@
+{
+  "impl": "def compress_rle(s):\n    \"\"\"Run-length encode s as character followed by count, always including count.\"\"\"\n    if not s:\n        return \"\"\n    \n    result = []\n    i = 0\n    while i < len(s):\n        char = s[i]\n        count = 1\n        while i + count < len(s) and s[i + count] == char:\n            count += 1\n        result.append(char + str(count))\n        i += count\n    \n    return \"\".join(result)",
+  "tests": [
+    {
+      "input": "aaabb",
+      "expected": "a3b2"
+    },
+    {
+      "input": "abc",
+      "expected": "a1b1c1"
+    },
+    {
+      "input": "",
+      "expected": ""
+    },
+    {
+      "input": "a",
+      "expected": "a1"
+    },
+    {
+      "input": "aaaa",
+      "expected": "a4"
+    },
+    {
+      "input": "aabbbcccc",
+      "expected": "a2b3c4"
+    },
+    {
+      "input": "aba",
+      "expected": "a1b1a1"
+    },
+    {
+      "input": "xxxxxxxxxxx",
+      "expected": "x11"
+    },
+    {
+      "input": "abcabc",
+      "expected": "a1b1c1a1b1c1"
+    },
+    {
+      "input": "aabbaa",
+      "expected": "a2b2a2"
+    },
+    {
+      "input": "zzzzzzz",
+      "expected": "z7"
+    },
+    {
+      "input": "aa",
+      "expected": "a2"
+    },
+    {
+      "input": "aabb",
+      "expected": "a2b2"
+    },
+    {
+      "input": "aaabbbaaabbb",
+      "expected": "a3b3a3b3"
+    },
+    {
+      "input": "aabbccddee",
+      "expected": "a2b2c2d2e2"
+    },
+    {
+      "input": "abcdefghij",
+      "expected": "a1b1c1d1e1f1g1h1i1j1"
+    },
+    {
+      "input": "aabbccddeeaabbccddee",
+      "expected": "a2b2c2d2e2a2b2c2d2e2"
+    },
+    {
+      "input": "aaaaaaaaaaaaaaa",
+      "expected": "a15"
+    },
+    {
+      "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "expected": "a123"
+    },
+    {
+      "input": "aaaxbbbx",
+      "expected": "a3x1b3x1"
+    }
+  ]
+}

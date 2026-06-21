@@ -1,0 +1,34 @@
+{
+  "circle": 69,
+  "clauses": {
+    "O1": "discharged",
+    "O2": "discharged",
+    "O3": "discharged",
+    "O4": "discharged",
+    "O5": "discharged"
+  },
+  "derived": true,
+  "history": [
+    {
+      "circle": 65,
+      "target": "G-N"
+    },
+    {
+      "circle": 66,
+      "target": "G-O4"
+    },
+    {
+      "circle": 67,
+      "target": "G-O1O5"
+    },
+    {
+      "circle": 68,
+      "target": "G-O1O5"
+    },
+    {
+      "circle": 69,
+      "target": "G-tier-review"
+    }
+  ],
+  "next_target": "G-tier-review"
+}

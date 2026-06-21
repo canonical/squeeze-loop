@@ -1,0 +1,14 @@
+bibkey: zheng2023judging
+citation: Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric P. Xing, Hao Zhang, Joseph E. Gonzalez, Ion Stoica. "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena." arXiv:2306.05685, 2023 (NeurIPS 2023).
+arxiv: 2306.05685   read: FULL (via ar5iv/arxiv-html)   access-date: 2026-06-12
+CLAIM CARDS (each: a <25-word verbatim quote + section/figure/table anchor + your paraphrase)
+- "Most LLM judges favor the first position" [§3.3, Table 2 caption] -> Position bias is real and directional: judges systematically prefer the answer shown first when order is swapped.
+- "Only GPT-4 outputs consistent results in more than 60% of cases" [§3.3] -> Quantifies position bias: weaker judges (Claude-v1, GPT-3.5) flip their verdict under order swaps far more than GPT-4.
+- "All LLMs may be prone to verbosity bias though GPT-4 defends significantly better" [§3.3, re Table 4] -> Verbosity bias measured via a "repetitive list attack"; most judges (Claude-v1, GPT-3.5 ~91% failure) prefer needlessly longer answers, GPT-4 (~8.7%) resists.
+- "Position bias can be very significant" [§3.3] -> Authors emphasize the magnitude of position bias as a concrete, measured limitation of LLM judges.
+METHOD (three sentences)
+The authors study GPT-4, GPT-3.5, and Claude-v1 as automated judges (pairwise comparison and single-answer grading) against human preferences from MT-Bench (80 multi-turn questions, 8 categories) and Chatbot Arena (~30K crowdsourced votes). Position bias is measured by presenting two answers in both orders and checking consistency (Table 2); verbosity bias is measured via a "repetitive list attack" that rephrases list answers to be longer without adding content and tests whether judges prefer the inflated version (23 answers, Table 4). They also probe self-enhancement bias and limited math/reasoning ability of judges.
+LIMITATIONS (authors' own)
+The authors note (§6) the paper emphasizes helpfulness while largely neglecting safety/honesty/harmlessness; multiple helpfulness dimensions (accuracy, relevance, creativity) are collapsed into a single metric; and the bias mitigations proposed (§3.4) are preliminary, with more advanced methods anticipated.
+CONTRIBUTION (why this paper is cited here; which manuscript claim it supports; verdict)
+Cited to support that LLM judges have "systematic position and verbosity biases." The body measures BOTH specifically: position bias is quantified via order-swap consistency (Table 2, "Most LLM judges favor the first position"), and verbosity bias via the repetitive-list attack (Table 4). VERDICT: SUPPORTED. Both named biases are body-verified with quantified experiments; the word "systematic" is fair given the consistent directional effects. Minor nuance the manuscript could note: GPT-4 substantially resists both biases, so the effect is strongest for weaker judges.

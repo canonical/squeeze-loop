@@ -1,0 +1,50 @@
+% Numbers for the real-world application (Section~\ref{sec:realworld}).
+% TRANSCRIBED from the run's on-disk artifacts under real-use-case/ -- there is no
+% measurement harness emitting these (the experiment used cargo creusot directly via
+% Bash, not a macro-emitting script), so each macro carries the artifact it comes from
+% and Gate~C re-derives it against that artifact. Do not hand-edit to a value the
+% artifact does not show.
+%
+% Sources:
+%   real-use-case/lace-attack-surface.md      (ROBUST / PARTIAL / BLOCKED counts)
+%   real-use-case/lace-issues/README.md       (the four defects; how found)
+%   real-use-case/lace-claims-validation.md   (the unsafe-site counts)
+%   real-use-case/report.md                   (the warm-up corpus run)
+%
+% --- the four real defects (lace-issues/README.md) ---
+\newcommand{\ResRWBugs}{four}
+\newcommand{\ResRWBugsNum}{4}
+\newcommand{\ResRWBugsVC}{three}          % found as unproved Creusot VCs (ISSUE-1..3)
+\newcommand{\ResRWBugsCallGraph}{one}     % found by call-graph analysis (ISSUE-4)
+%
+% --- coverage of the untrusted-input attack surface (lace-attack-surface.md) ---
+\newcommand{\ResRWRobust}{25}             % input-facing functions proven ROBUST
+\newcommand{\ResRWRobustPOne}{8}          % priority-1 (disk/ESP)
+\newcommand{\ResRWRobustPTwo}{17}         % priority-2 (peripheral/firmware/derived)
+\newcommand{\ResRWInputFns}{38}           % ~38 input-facing functions targeted
+\newcommand{\ResRWPartial}{2}             % panic-safe, residual is SMT incompleteness
+\newcommand{\ResRWBlocked}{6}             % blocked by creusot-std modeling gaps
+%
+% --- reconciled disposition (sum of the four disjoint categories above) ---
+% Robust(25) + defect-bearing(4) + blocked(6) + partial(2) = 37 verdict-slots. The
+% categories are disjoint EXCEPT ISSUE-4 (the recursion, found by call-graph) lies in a
+% BLOCKED file, so it is counted once as defect-bearing and once as blocked: 37 slots
+% over 36 DISTINCT functions. (ResRWInputFns=38 above was the loosely-counted "targeted"
+% figure -- leaf helpers/iterators counted as rows; the reconciled per-verdict count is 36.)
+\newcommand{\ResRWVerdictSlots}{37}
+\newcommand{\ResRWDistinctFns}{36}
+% --- the warm-up corpus run (report.md) ---
+\newcommand{\ResRWCorpusFiles}{241}
+\newcommand{\ResRWCorpusProved}{74}
+\newcommand{\ResRWCorpusPartial}{8}
+\newcommand{\ResRWCorpusFailed}{6}
+\newcommand{\ResRWCorpusTrivial}{153}
+% \ResRWFabCaught retired: the 10-fabrication warm-up count was a skill-training exercise,
+% not a paper result. The faithfulness-gate MECHANISM (a fabricated proof cannot survive a
+% strip-and-recompile check) is kept in prose; the count is deliberately not reported.
+%
+% --- a static structural claim re-checked (lace-claims-validation.md, claim 5) ---
+\newcommand{\ResRWUnsafePlatform}{77}
+\newcommand{\ResRWUnsafeUtil}{5}
+\newcommand{\ResRWUnsafeStubble}{3}
+\newcommand{\ResRWUnsafeSpeedboot}{0}

@@ -1,0 +1,10 @@
+[
+  {"input": "hello world", "expected": "Hello World"},
+  {"input": "HELLO WORLD", "expected": "Hello World"},
+  {"input": "the quick brown FOX", "expected": "The Quick Brown Fox"},
+  {"input": "don't stop", "expected": "Don't Stop"},
+  {"input": "  multiple   spaces  here  ", "expected": "Multiple Spaces Here"},
+  {"input": "mIxEd CaSe wORDs", "expected": "Mixed Case Words"},
+  {"input": "a", "expected": "A"},
+  {"input": "", "expected": ""}
+]

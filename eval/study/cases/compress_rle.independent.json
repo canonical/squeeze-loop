@@ -1,0 +1,10 @@
+[
+  {"input": "aaabb", "expected": "a3b2"},
+  {"input": "abc", "expected": "a1b1c1"},
+  {"input": "", "expected": ""},
+  {"input": "a", "expected": "a1"},
+  {"input": "aaaa", "expected": "a4"},
+  {"input": "aabbbcccc", "expected": "a2b3c4"},
+  {"input": "aba", "expected": "a1b1a1"},
+  {"input": "xxxxxxxxxxx", "expected": "x11"}
+]

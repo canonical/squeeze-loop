@@ -1,0 +1,25 @@
+{
+  "impl": "def is_balanced(s):\n    pairs = {')': '(', ']': '[', '}': '{'}\n    opening = set('([{')\n    stack = []\n    for ch in s:\n        if ch in opening:\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return not stack\n",
+  "tests": [
+    {"input": "([])", "expected": true},
+    {"input": "([)]", "expected": false},
+    {"input": "((", "expected": false},
+    {"input": "", "expected": true},
+    {"input": "(", "expected": false},
+    {"input": ")", "expected": false},
+    {"input": "{}", "expected": true},
+    {"input": "{[]}", "expected": true},
+    {"input": "a(b)c", "expected": true},
+    {"input": "([{}])", "expected": true},
+    {"input": "(]", "expected": false},
+    {"input": "[(])", "expected": false},
+    {"input": "}{", "expected": false},
+    {"input": "abc", "expected": true},
+    {"input": "(((())))", "expected": true},
+    {"input": "(()", "expected": false},
+    {"input": "())", "expected": false},
+    {"input": "{[()]}", "expected": true},
+    {"input": "x[y]z{w}", "expected": true},
+    {"input": "]", "expected": false}
+  ]
+}

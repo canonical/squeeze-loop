@@ -1,0 +1,10 @@
+[
+  {"input": [], "expected": 0},
+  {"input": [["credit", 100]], "expected": 100},
+  {"input": [["debit", 50]], "expected": -50},
+  {"input": [["credit", 200], ["debit", 50]], "expected": 150},
+  {"input": [["credit", 100], ["transfer", 999], ["debit", 30]], "expected": 70},
+  {"input": [["foo", 10], ["bar", 20]], "expected": 0},
+  {"input": [["credit", 10.5], ["debit", -5]], "expected": 15.5},
+  {"input": [["credit", 10], ["credit", 20], ["debit", 5], ["debit", 5]], "expected": 20}
+]

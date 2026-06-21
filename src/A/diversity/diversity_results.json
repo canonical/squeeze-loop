@@ -1,0 +1,83 @@
+{
+  "base_seed": 8000,
+  "cycles": 10,
+  "distinct_outcomes": 5,
+  "errors_per_cycle": [
+    7,
+    10,
+    8,
+    5,
+    8,
+    5,
+    6,
+    8,
+    6,
+    10
+  ],
+  "instance": "A-diversity",
+  "per_cycle": [
+    {
+      "cycle": 1,
+      "error_pct": 35,
+      "errors_caught": 7,
+      "seed": 8000
+    },
+    {
+      "cycle": 2,
+      "error_pct": 50,
+      "errors_caught": 10,
+      "seed": 8001
+    },
+    {
+      "cycle": 3,
+      "error_pct": 40,
+      "errors_caught": 8,
+      "seed": 8002
+    },
+    {
+      "cycle": 4,
+      "error_pct": 25,
+      "errors_caught": 5,
+      "seed": 8003
+    },
+    {
+      "cycle": 5,
+      "error_pct": 40,
+      "errors_caught": 8,
+      "seed": 8004
+    },
+    {
+      "cycle": 6,
+      "error_pct": 25,
+      "errors_caught": 5,
+      "seed": 8005
+    },
+    {
+      "cycle": 7,
+      "error_pct": 30,
+      "errors_caught": 6,
+      "seed": 8006
+    },
+    {
+      "cycle": 8,
+      "error_pct": 40,
+      "errors_caught": 8,
+      "seed": 8007
+    },
+    {
+      "cycle": 9,
+      "error_pct": 30,
+      "errors_caught": 6,
+      "seed": 8008
+    },
+    {
+      "cycle": 10,
+      "error_pct": 50,
+      "errors_caught": 10,
+      "seed": 8009
+    }
+  ],
+  "pool": 100,
+  "pool_diverging": 30,
+  "sample": 20
+}

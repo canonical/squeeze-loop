@@ -1,0 +1,20 @@
+{
+  "domain": "Peano arithmetic (prelude + PeanoNat), self-contained",
+  "rungs": [
+    {"id": "EX_ROCQ_L1", "tier": "trivial",   "theorem": "ex_triv",  "statement": "forall n, n + 0 = n",
+     "good": "trivial_good.v",  "mut": "trivial_mut.v",  "proof_status": "proved",
+     "clauses": ["CLAUSE_1: universally quantified over nat", "CLAUSE_2: identity of +0 on the right"]},
+    {"id": "EX_ROCQ_L2", "tier": "easy",       "theorem": "ex_easy",  "statement": "forall n m, n + m = m + n",
+     "good": "easy_good.v",     "mut": "easy_mut.v",     "proof_status": "proved",
+     "clauses": ["CLAUSE_1: universally quantified over nat", "CLAUSE_2: commutativity n+m=m+n", "CLAUSE_3: induction over O and S"]},
+    {"id": "EX_ROCQ_L3", "tier": "medium",     "theorem": "ex_med",   "statement": "forall n m p, (n+m)+p = n+(m+p)",
+     "good": "medium_good.v",   "mut": "medium_mut.v",   "proof_status": "proved",
+     "clauses": ["CLAUSE_1: universally quantified over nat", "CLAUSE_2: associativity grouping preserved", "CLAUSE_3: induction over the first summand"]},
+    {"id": "EX_ROCQ_L4", "tier": "hard",       "theorem": "ex_hard",  "statement": "forall n m, n * m = m * n",
+     "good": "hard_good.v",     "mut": "hard_mut.v",     "proof_status": "proved",
+     "clauses": ["CLAUSE_1: universally quantified over nat", "CLAUSE_2: multiplicative commutativity", "CLAUSE_3: derive or cite mult_n_Sm; no false axiom"]},
+    {"id": "EX_ROCQ_L5", "tier": "very_hard",  "theorem": "ex_vhard", "statement": "forall n, n <= 2 ^ n",
+     "good": "veryhard_good.v", "mut": "veryhard_mut.v", "proof_status": "open",
+     "clauses": ["CLAUSE_1: universally quantified over nat", "CLAUSE_2: the exponential bound n <= 2^n", "CLAUSE_3: induction with 2^(S n) = 2 * 2^n"]}
+  ]
+}
