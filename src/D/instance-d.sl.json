@@ -1,0 +1,67 @@
+{
+  "sl_version": "1.0",
+  "id": "instance-d",
+  "kind": "base",
+  "terrain": ["A"],
+  "monitors": null,
+  "description": "Instance D (Transcription, deductive lower bound): formally verified Rocq proofs of textbook arithmetic (e.g. commutativity of + on nat). Dominant coherent-and-wrong: the prover discharges (Qed.) an adjacent weaker claim (e.g. right-identity n+0=n instead of n+m=m+n) under the intended theorem name, or smuggles an axiom.",
+  "sources": [
+    {"id": "textbook_manifest", "name": "Textbook exercise manifest (English + scope clauses)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "textbook_manifest.md, EX_ROCQ_074; CLAUSE_1..N scope boundary"},
+    {"id": "rocq_stdlib", "name": "Pinned Rocq standard library", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "/opt/squeeze/shared/rocq_stdlib, root 0555; immutable axiom/inductive base"},
+    {"id": "coqc", "name": "Rocq kernel checker (coqc 8.20.1)", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "compiles a .v; exit 0 required"},
+    {"id": "rocqchk", "name": "Axiom auditor (rocqchk --print-assumptions)", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "must report 'Closed under the global context'; rejects Admitted/Axiom"},
+    {"id": "proof_registry", "name": "Prior-proofs registry + signature (invariant plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "proof_registry/*.v + registry.sig; recompiled each cycle (no regression)"},
+    {"id": "formal_statement", "name": "Formalizer's naked theorem statement", "type": "artifact", "provenance": "authored", "produced_by": "formalizer", "executable": true, "notes": "exercise_sig.v (statement + definitions, no proof)"},
+    {"id": "proof_script", "name": "Prover's tactical proof", "type": "artifact", "provenance": "internal", "produced_by": "prover", "executable": true, "notes": "exercise.v"},
+    {"id": "mutation_matrix", "name": "Exerciser's false-theorem mutations", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": true, "notes": "mutation_matrix.json + mutation_*.v; each must FAIL to compile"}
+  ],
+  "actors": [
+    {
+      "id": "sentinel", "name": "Gate sentinel / orchestrator", "role": "coordinator",
+      "builds": "plan approval, gate verdicts, the axiom audit, and the loop's SL-1.0 instance-d.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "the manifest clauses it gates the plan and coverage against", "sources": ["textbook_manifest"]},
+      "lower_bound": {"text": "registry recompiled (no regression), proof compiled, axiom audit clean, every mutation rejected", "sources": ["rocq_stdlib", "coqc", "rocqchk", "proof_registry", "proof_script", "mutation_matrix"], "executable": true},
+      "forbidden_moves": ["alter the manifest, stdlib, or registry after dispatch", "skip the axiom audit or the mutation catchability check", "rubber-stamp"],
+      "must_not_see": []
+    },
+    {
+      "id": "formalizer", "name": "Theorem formalizer", "role": "property_author",
+      "builds": "the formal theorem statement (the precise upper bound) from the English exercise",
+      "produces": ["formal_statement"],
+      "upper_bound": {"text": "the textbook exercise and its scope clauses", "sources": ["textbook_manifest"]},
+      "lower_bound": {"text": "expressibility: the statement must type-check under coqc with the stdlib", "sources": ["rocq_stdlib", "coqc"], "executable": true},
+      "forbidden_moves": ["append a proof / Qed to the statement", "read the prover's proof or the mutations"],
+      "must_not_see": ["proof_script", "mutation_matrix"]
+    },
+    {
+      "id": "prover", "name": "Tactical prover", "role": "implementer",
+      "builds": "the tactical proof that discharges the formalizer's statement",
+      "produces": ["proof_script"],
+      "upper_bound": {"text": "the immutable formal statement it must discharge unchanged", "sources": ["formal_statement"]},
+      "lower_bound": {"text": "compiles to Qed under coqc + stdlib and passes the axiom audit (no Admitted/Axiom)", "sources": ["rocq_stdlib", "coqc", "rocqchk"], "executable": true},
+      "forbidden_moves": ["alter the theorem statement", "use Admitted / Axiom / admit", "read the mutations"],
+      "must_not_see": ["mutation_matrix"]
+    },
+    {
+      "id": "exerciser", "name": "Mutation exerciser", "role": "exerciser",
+      "builds": "false-theorem mutations that the kernel must reject",
+      "produces": ["mutation_matrix"],
+      "upper_bound": {"text": "the manifest clauses and the formal statement it perturbs into falsehoods", "sources": ["textbook_manifest", "formal_statement"]},
+      "lower_bound": {"text": "each mutation must FAIL to compile under coqc + stdlib (it is genuinely false)", "sources": ["rocq_stdlib", "coqc"], "executable": true},
+      "forbidden_moves": ["write a valid proof", "read the prover's proof"],
+      "must_not_see": ["proof_script"]
+    }
+  ],
+  "disjointness": {
+    "rationale": "The formalizer holds only the English manifest (never the proof or mutations); the prover holds only the formal statement and the kernel (never the mutations); the exerciser holds the manifest and the statement and authors falsehoods the kernel must reject (never the proof). The deductive kernel (coqc + rocqchk) is the immutable lower bound none of them can alter, and the registry pins prior proofs against regression.",
+    "load_bearing_barrier": "the prover never sees the mutations and the exerciser never sees the proof; the formalizer sees neither (Unix 0700 homedirs; the prover imports the statement one-way via coqc Require only)",
+    "catchability": [
+      {"actor": "formalizer", "blind_spot": "a vacuous or inconsistent statement (e.g. a false hypothesis that trivialises the goal)", "caught_by": "exerciser", "via": "a vacuous-hypothesis mutation that should be rejected; the kernel/axiom audit catches smuggled axioms"},
+      {"actor": "prover", "blind_spot": "discharges an adjacent weaker theorem under the intended name", "caught_by": "exerciser", "via": "identity-flip mutations the kernel must reject; type cross-check of the proof against the statement"},
+      {"actor": "exerciser", "blind_spot": "omits a mutation for some scope clause", "caught_by": "sentinel", "via": "Gate C requires every manifest clause to appear in some mutation's target_clauses"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": null
+  }
+}

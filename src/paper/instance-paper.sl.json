@@ -1,0 +1,131 @@
+{
+  "sl_version": "1.0",
+  "id": "instance-paper",
+  "kind": "monitor",
+  "terrain": ["A", "B", "C"],
+  "monitors": null,
+  "description": "The reflexive instance: the paper produced under the strategy it describes, AND the monitor over the four object instances A-D (its verifier re-derives each ledgered claim — including claims about A-D's results — from the hard ground truth, never from the writer's prose). Dominant coherent-and-wrong: a manuscript whose prose reads as faithful to the literature while a reported number does not recompute or overclaims a result. The four sub_loop bridge rows link down to instance-a..d; their returned results are the mediated channel the paper re-derives from. The reflexive soft-side claim (selfhood / faithful reading of the literature) has no executable refuter and is closed at the human/external reviewer terminus.",
+  "sources": [
+    {"id": "read_literature", "name": "Read literature (archived reading records)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "bib/records/*; every cite has an archived read record"},
+    {"id": "paper_spec", "name": "Paper-spec (paper-impl.md / paper-spec)", "type": "soft_authority", "provenance": "authored", "produced_by": "paper_lit", "executable": false, "notes": "the authored normative ceiling for the manuscript"},
+    {"id": "repo_ground_truth", "name": "Raw repository ground truth", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "the real src/A..D outputs, eval/ and verify/ artifacts the harness must faithfully recompute from"},
+    {"id": "recompute_harness", "name": "Recompute + build harness (the hard lower bound)", "type": "executable_oracle", "provenance": "internal", "produced_by": "paper_bench", "executable": true, "notes": "every number recomputes from a generator, manuscript compiles, every cite resolves"},
+    {"id": "manuscript", "name": "The manuscript (tex/paper.tex)", "type": "artifact", "provenance": "internal", "produced_by": "paper_writer", "executable": false, "notes": "the writer's prose deliverable"},
+    {"id": "claim_ledger", "name": "Claim ledger (claims/ledger.tsv)", "type": "artifact", "provenance": "internal", "produced_by": "paper_writer", "executable": false, "notes": "the writer's ledger of CITE/RESULT claims"},
+    {"id": "verifier_rederivation", "name": "Verifier's independent re-derivation", "type": "artifact", "provenance": "internal", "produced_by": "paper_verifier", "executable": false, "notes": "each ledgered claim re-derived from source/artifact, never from the writer's prose"},
+    {"id": "result_a", "name": "Instance A returned results", "type": "artifact", "provenance": "internal", "produced_by": "sub_a", "executable": false, "notes": "mediated returned outputs of instance-a (sub_loop bridge)"},
+    {"id": "result_b", "name": "Instance B returned results", "type": "artifact", "provenance": "internal", "produced_by": "sub_b", "executable": false, "notes": "mediated returned outputs of instance-b"},
+    {"id": "result_c", "name": "Instance C returned results", "type": "artifact", "provenance": "internal", "produced_by": "sub_c", "executable": false, "notes": "mediated returned outputs of instance-c"},
+    {"id": "result_d", "name": "Instance D returned results", "type": "artifact", "provenance": "internal", "produced_by": "sub_d", "executable": false, "notes": "mediated returned outputs of instance-d"},
+    {"id": "external_review", "name": "External / human reviewer judgment", "type": "human_judgment", "provenance": "human", "produced_by": "human_reviewer", "executable": false, "notes": "closes the reflexive soft side; no executable refuter"}
+  ],
+  "actors": [
+    {
+      "id": "coordinator", "name": "Main-thread coordinator (the only judge)", "role": "coordinator",
+      "builds": "approvals, gate verdicts, the claim-ledger reconciliation, and the loop's SL-1.0 instance-paper.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "the read literature and the paper-spec it judges the bridge against", "sources": ["read_literature", "paper_spec"]},
+      "lower_bound": {"text": "the recompute/build harness and the bands' artifacts it reconciles (writer ledger vs verifier re-derivation vs instance results)", "sources": ["recompute_harness", "manuscript", "claim_ledger", "verifier_rederivation", "result_a", "result_b", "result_c", "result_d"], "executable": true},
+      "forbidden_moves": ["edit the manuscript or the verifier's evidence", "accept an item whose bridge it has not editorially judged", "rubber-stamp"],
+      "must_not_see": []
+    },
+    {
+      "id": "paper_lit", "name": "Literature agent (soft upper-bound guard)", "role": "property_author",
+      "builds": "the paper-spec and the read-before-cite guard over the literature",
+      "produces": ["paper_spec"],
+      "upper_bound": {"text": "the read literature it transcribes and guards", "sources": ["read_literature"]},
+      "lower_bound": {"text": "expressibility: every cite must resolve to bib AND an archived read record when the harness runs", "sources": ["recompute_harness"], "executable": true},
+      "forbidden_moves": ["read or anchor to the writer's manuscript", "let a cite stand without a read record"],
+      "must_not_see": ["manuscript", "claim_ledger"]
+    },
+    {
+      "id": "paper_writer", "name": "Writer agent (the deliverable)", "role": "implementer",
+      "builds": "the manuscript and the claim ledger",
+      "produces": ["manuscript", "claim_ledger"],
+      "upper_bound": {"text": "faithful to the paper-spec and the read literature (claims no more than they license)", "sources": ["paper_spec", "read_literature"]},
+      "lower_bound": {"text": "consistent with the hard truth: every number recomputes and the manuscript builds when the harness runs", "sources": ["recompute_harness"], "executable": true},
+      "forbidden_moves": ["weaken a claim to land", "touch the verifier's re-derivation"],
+      "must_not_see": ["verifier_rederivation"]
+    },
+    {
+      "id": "paper_verifier", "name": "Verifier agent (independent re-derivation)", "role": "exerciser",
+      "builds": "the independent re-derivation of every ledgered claim",
+      "produces": ["verifier_rederivation"],
+      "upper_bound": {"text": "the paper-spec's required claims and the literature, re-derived independently", "sources": ["paper_spec", "read_literature"]},
+      "lower_bound": {"text": "each claim re-derived from the hard ground truth and the instances' returned results — never the writer's prose", "sources": ["recompute_harness", "result_a", "result_b", "result_c", "result_d"], "executable": true},
+      "forbidden_moves": ["read the writer's manuscript or ledger", "derive a claim from the prose instead of the source"],
+      "must_not_see": ["manuscript", "claim_ledger"]
+    },
+    {
+      "id": "paper_bench", "name": "Bench agent (hard lower-bound builder)", "role": "probe",
+      "builds": "the recompute + build harness that pins every number to its generator",
+      "produces": ["recompute_harness"],
+      "upper_bound": {"text": "the single claim under test: each reported number recomputes deterministically", "sources": ["paper_spec"]},
+      "lower_bound": {"text": "the raw repository ground truth the harness must faithfully recompute from", "sources": ["repo_ground_truth"], "executable": true},
+      "forbidden_moves": ["implement a fix in the manuscript", "build the harness to match the writer's claimed numbers"],
+      "must_not_see": ["manuscript", "claim_ledger"]
+    },
+    {
+      "id": "sub_a", "name": "Bridge -> instance-a", "role": "sub_loop", "expands_to": "instance-a",
+      "builds": "instance-a collapsed to one row; returns its machine-verdicted results",
+      "produces": ["result_a"],
+      "upper_bound": {"text": "instance-a's own bounds (see its document)", "sources": []},
+      "lower_bound": {"text": "instance-a's machine verdict, returned", "sources": [], "executable": true},
+      "forbidden_moves": ["expose instance-a's internal sources directly to the monitor"],
+      "must_not_see": []
+    },
+    {
+      "id": "sub_b", "name": "Bridge -> instance-b", "role": "sub_loop", "expands_to": "instance-b",
+      "builds": "instance-b collapsed to one row; returns its machine-verdicted results",
+      "produces": ["result_b"],
+      "upper_bound": {"text": "instance-b's own bounds (see its document)", "sources": []},
+      "lower_bound": {"text": "instance-b's machine verdict, returned", "sources": [], "executable": true},
+      "forbidden_moves": ["expose instance-b's internal sources directly to the monitor"],
+      "must_not_see": []
+    },
+    {
+      "id": "sub_c", "name": "Bridge -> instance-c", "role": "sub_loop", "expands_to": "instance-c",
+      "builds": "instance-c collapsed to one row; returns its machine-verdicted results",
+      "produces": ["result_c"],
+      "upper_bound": {"text": "instance-c's own bounds (see its document)", "sources": []},
+      "lower_bound": {"text": "instance-c's machine verdict, returned", "sources": [], "executable": true},
+      "forbidden_moves": ["expose instance-c's internal sources directly to the monitor"],
+      "must_not_see": []
+    },
+    {
+      "id": "sub_d", "name": "Bridge -> instance-d", "role": "sub_loop", "expands_to": "instance-d",
+      "builds": "instance-d collapsed to one row; returns its machine-verdicted results",
+      "produces": ["result_d"],
+      "upper_bound": {"text": "instance-d's own bounds (see its document)", "sources": []},
+      "lower_bound": {"text": "instance-d's machine verdict, returned", "sources": [], "executable": true},
+      "forbidden_moves": ["expose instance-d's internal sources directly to the monitor"],
+      "must_not_see": []
+    },
+    {
+      "id": "human_reviewer", "name": "External / human reviewer (terminus)", "role": "human_terminus",
+      "builds": "the terminal editorial judgment that closes the reflexive soft side",
+      "produces": ["external_review"],
+      "upper_bound": {"text": "the paper-spec and literature: is the reflexive reading faithful?", "sources": ["paper_spec", "read_literature"]},
+      "lower_bound": {"text": "no executable oracle — the reflexive selfhood claim has no hard refuter; this absence is why the reviewer is the terminus", "sources": [], "absent_reason": "the soft-side faithfulness/selfhood claim is not mechanically decidable; closed by a disjoint human reviewer, not a machine"},
+      "forbidden_moves": ["claim the automation alone closed the soft side"],
+      "must_not_see": []
+    }
+  ],
+  "disjointness": {
+    "rationale": "The reflexive cast holds disjoint bases — lit holds the literature (never the manuscript), writer holds the spec+literature and the build (never the verifier's evidence), verifier re-derives from the hard truth and the instances' returned results (never the writer's prose), bench pins the hard truth from raw repo data (never the writer's claims). The four sub_loop bridges link to A-D by their returned results, NOT their internal sources, so the monitor never bounds itself on an instance-internal artifact. The coordinator's editorial judgment — the one soft-side hole — is closed at the human/external reviewer terminus, by disjoint authority, not mechanically.",
+    "load_bearing_barrier": "the verifier (and bench) never see the writer's manuscript/ledger and re-derive independently; the monitor reads only the instances' returned results via the bridges, never their internals",
+    "catchability": [
+      {"actor": "coordinator", "blind_spot": "its own un-squeezed editorial judgment of whether the paper faithfully reads the literature", "caught_by": "human_reviewer", "via": "external/human review — the terminus that closes the soft side"},
+      {"actor": "paper_lit", "blind_spot": "an over-broad reading: a cite that does not actually support the claim", "caught_by": "paper_verifier", "via": "independent re-derivation requires each claim's source to actually support it"},
+      {"actor": "paper_writer", "blind_spot": "coherent-and-wrong prose: faithful-looking text whose number does not recompute or overclaims", "caught_by": "paper_verifier", "via": "re-derivation from the hard ground truth; Gate B recompute mismatch"},
+      {"actor": "paper_verifier", "blind_spot": "a re-derivation that silently skips a ledgered claim", "caught_by": "coordinator", "via": "Gate C ledger<->reflexive-macro coverage reconciliation"},
+      {"actor": "paper_bench", "blind_spot": "a harness that computes a consistent-but-wrong number not matching raw data", "caught_by": "paper_verifier", "via": "the verifier re-derives from raw source independently of the harness build"},
+      {"actor": "sub_a", "blind_spot": "instance-a reports a coherent-and-wrong result", "caught_by": "paper_verifier", "via": "the verifier re-derives A's claimed result from A's returned ground-truth outputs"},
+      {"actor": "sub_b", "blind_spot": "instance-b reports a coherent-and-wrong result", "caught_by": "paper_verifier", "via": "re-derivation from B's returned outputs"},
+      {"actor": "sub_c", "blind_spot": "instance-c reports a coherent-and-wrong result", "caught_by": "paper_verifier", "via": "re-derivation from C's returned outputs"},
+      {"actor": "sub_d", "blind_spot": "instance-d reports a coherent-and-wrong result", "caught_by": "paper_verifier", "via": "re-derivation from D's returned outputs"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": "human_reviewer (external/human review closes the reflexive soft side; the automation alone does not)"
+  }
+}
