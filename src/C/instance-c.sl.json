@@ -1,0 +1,58 @@
+{
+  "sl_version": "1.0",
+  "id": "instance-c",
+  "kind": "base",
+  "terrain": ["C"],
+  "monitors": null,
+  "description": "Instance C (Split planes): an API where the document plane (OpenAPI contract) and the runtime plane (live HTTP server) are forced into exact lockstep. Dominant coherent-and-wrong: blending — a clean schema masking broken runtime behaviour (id leaks, tracebacks, missing auth), or a clean runtime escaping stale documentation.",
+  "sources": [
+    {"id": "api_policy", "name": "API governance policy (API_POLICY_081)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "runtime-plane authority; CLAUSE_1 auth, CLAUSE_2 uuid-only, CLAUSE_3 clean errors"},
+    {"id": "base_schema", "name": "Canonical OpenAPI contract", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "/opt/squeeze/shared/base_schema.json (0444); document-plane authority both bands read independently"},
+    {"id": "schema_linter", "name": "Document-plane linter (oracle)", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "ground-truth linter.py; lints the implementer's openapi.json"},
+    {"id": "app_db", "name": "Frozen app state DB", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "app_state.db, read-only 0444"},
+    {"id": "ty0_baseline", "name": "Legacy route-signature regression oracle", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "ty0_baseline.json; re-runnable signature hash check"},
+    {"id": "impl_server", "name": "Implementer's server source", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "main.py (source — barriered from the exerciser)"},
+    {"id": "impl_openapi", "name": "Implementer's published OpenAPI schema", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": false, "notes": "openapi.json (barriered from the exerciser)"},
+    {"id": "runtime_oracle", "name": "Live server runtime behaviour (oracle)", "type": "executable_oracle", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "the running server on 127.0.0.1:8000 — RUN over HTTP, never read as source; the formal 'run, don't read' channel"},
+    {"id": "conformance_matrix", "name": "Exerciser's conformance test matrix", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": false, "notes": "test_matrix.json (5 cases mapped to clauses)"}
+  ],
+  "actors": [
+    {
+      "id": "sentinel", "name": "Gate sentinel / no-blend referee", "role": "coordinator",
+      "builds": "the gate sequence (isolation, coverage, runtime, document plane, ty0) and the loop's SL-1.0 instance-c.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "both plane authorities it refuses to let blend", "sources": ["api_policy", "base_schema"]},
+      "lower_bound": {"text": "linter on the schema, runtime HTTP behaviour, frozen DB, legacy-signature regression, both bands' artifacts", "sources": ["schema_linter", "app_db", "ty0_baseline", "runtime_oracle", "impl_openapi", "conformance_matrix"], "executable": true},
+      "forbidden_moves": ["edit the server, schema, or tests", "let one plane's check stand in for the other", "rubber-stamp"],
+      "must_not_see": []
+    },
+    {
+      "id": "implementer", "name": "API implementer", "role": "implementer",
+      "builds": "the HTTP server and its published OpenAPI schema",
+      "produces": ["impl_server", "impl_openapi", "runtime_oracle"],
+      "upper_bound": {"text": "the governance policy and the canonical contract it must satisfy and align to", "sources": ["api_policy", "base_schema"]},
+      "lower_bound": {"text": "the frozen DB it serves over, and the linter its published schema must pass", "sources": ["app_db", "schema_linter"], "executable": true},
+      "forbidden_moves": ["leak internal ids or tracebacks on the wire", "read the conformance matrix"],
+      "must_not_see": ["conformance_matrix"]
+    },
+    {
+      "id": "exerciser", "name": "Conformance exerciser", "role": "exerciser",
+      "builds": "the conformance test matrix derived from the policy and the contract",
+      "produces": ["conformance_matrix"],
+      "upper_bound": {"text": "the governance policy and the canonical contract, read independently of the implementation", "sources": ["api_policy", "base_schema"]},
+      "lower_bound": {"text": "what the live server actually returns when run over HTTP (run, never read the source)", "sources": ["runtime_oracle"], "executable": true},
+      "forbidden_moves": ["read the server source or the implementer's openapi.json"],
+      "must_not_see": ["impl_server", "impl_openapi"]
+    }
+  ],
+  "disjointness": {
+    "rationale": "The implementer is bound by both plane authorities but reads only the frozen DB and the linter below; the exerciser is bound by the same authorities but its lower bound is the running server observed over HTTP — it RUNS the implementation without ever reading its source. The sentinel certifies only when both planes pass separately and agree, so neither plane's check can mask the other (no-blend).",
+    "load_bearing_barrier": "the exerciser runs the server (runtime_oracle) but is physically denied the server source and the implementer's schema (zero-import isolation); the run-vs-read distinction is what keeps the barrier physical",
+    "catchability": [
+      {"actor": "implementer", "blind_spot": "a blend: a clean schema or happy-path runtime hiding an id leak / missing auth on an untested route", "caught_by": "exerciser", "via": "Gate B runtime assertions (status, exact keys, no forbidden patterns) + the document-plane route cross-check"},
+      {"actor": "exerciser", "blind_spot": "a weak happy-path matrix that misses a clause corner", "caught_by": "sentinel", "via": "Gate C clause coverage + seeded coherent-and-wrong negative controls"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": null
+  }
+}

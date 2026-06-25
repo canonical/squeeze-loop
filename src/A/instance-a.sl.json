@@ -1,0 +1,54 @@
+{
+  "sl_version": "1.0",
+  "id": "instance-a",
+  "kind": "base",
+  "terrain": ["A"],
+  "monitors": null,
+  "description": "Instance A (Transcription / 'every number recomputes'): verified business metrics (net revenue, active users per quarter) computed from a frozen warehouse against a binding metric handbook. Dominant coherent-and-wrong: a query that returns an internally consistent, numerically valid figure that violates a handbook clause (gross instead of net; login-only users counted as active).",
+  "sources": [
+    {"id": "metric_handbook", "name": "Metric Handbook (binding clauses)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "/opt/squeeze/shared/metric_handbook.md, root:root 0444; obligation clauses CLAUSE_1..5"},
+    {"id": "warehouse_db", "name": "Frozen SQLite warehouse (storage plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "base_warehouse.db, read-only (?mode=ro)"},
+    {"id": "history_ledger", "name": "Certified baseline + signature (invariant plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "history_ledger.json + .sig; total-additivity invariant, re-verified each run"},
+    {"id": "impl_query", "name": "Implementer's metric query/result", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "compute_metric.py"},
+    {"id": "validation_matrix", "name": "Exerciser's positive/negative validation matrix", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": false, "notes": "validation_matrix.*.json"}
+  ],
+  "actors": [
+    {
+      "id": "sentinel", "name": "Gate sentinel / orchestrator", "role": "coordinator",
+      "builds": "approvals, gate verdicts, and the loop's SL-1.0 instance-a.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "the handbook obligation clauses it gates plans and coverage against", "sources": ["metric_handbook"]},
+      "lower_bound": {"text": "gate machine output: warehouse re-execution, the additivity invariant, and the two bands' results compared", "sources": ["warehouse_db", "history_ledger", "impl_query", "validation_matrix"], "executable": true},
+      "forbidden_moves": ["edit the query or the validation matrix", "approve a plan it has not editorially judged", "rubber-stamp"],
+      "must_not_see": []
+    },
+    {
+      "id": "implementer", "name": "Analytical implementer", "role": "implementer",
+      "builds": "the metric query that computes a value over the window",
+      "produces": ["impl_query"],
+      "upper_bound": {"text": "the handbook clause for the metric (strongest mandated claim)", "sources": ["metric_handbook"]},
+      "lower_bound": {"text": "the value the frozen warehouse actually returns when the query runs", "sources": ["warehouse_db"], "executable": true},
+      "forbidden_moves": ["weaken a clause or a gate to land", "read the validation matrix"],
+      "must_not_see": ["validation_matrix"]
+    },
+    {
+      "id": "exerciser", "name": "Independent exerciser", "role": "exerciser",
+      "builds": "the positive expected values and clause-violating negative mutations",
+      "produces": ["validation_matrix"],
+      "upper_bound": {"text": "the handbook acceptance clauses, read independently", "sources": ["metric_handbook"]},
+      "lower_bound": {"text": "values recomputed over the warehouse, seeded from the certified invariant ledger", "sources": ["warehouse_db", "history_ledger"], "executable": true},
+      "forbidden_moves": ["read the implementation / query code"],
+      "must_not_see": ["impl_query"]
+    }
+  ],
+  "disjointness": {
+    "rationale": "Implementer and exerciser read the same handbook but are physically barriered from each other's products and produce independently; the exerciser additionally anchors to the invariant ledger the implementer never reads, and the sentinel certifies only by comparing both bands plus the invariant — no single band's evidence base certifies the metric.",
+    "load_bearing_barrier": "implementer and exerciser cannot see each other's artifacts (Unix 0700 homedirs + AST/import isolation in the LXC container)",
+    "catchability": [
+      {"actor": "implementer", "blind_spot": "a coherent-and-wrong query: a consistent number that violates a handbook clause", "caught_by": "exerciser", "via": "independently recomputed expected value; Gate B value mismatch"},
+      {"actor": "exerciser", "blind_spot": "a vacuous negative mutation that fails to diverge from the correct value", "caught_by": "sentinel", "via": "Gate B negatives require each named mutation to actually diverge; Gate C clause-coverage"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": null
+  }
+}

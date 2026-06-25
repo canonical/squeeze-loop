@@ -1,0 +1,66 @@
+{
+  "sl_version": "1.0",
+  "id": "instance-b",
+  "kind": "base",
+  "terrain": ["B"],
+  "monitors": null,
+  "description": "Instance B (Authored authority): an autonomous customer-refund bot that commits a terminal action (REIMBURSE | DENY | ESCALATE) and resists conversational social engineering. No external spec exists; the refund policy is authored upstream from an incident archive. Dominant coherent-and-wrong: a bot that handles nominal distress perfectly but caves to multi-turn legal coercion or duplicate-refund manipulation.",
+  "sources": [
+    {"id": "corporate_mandate", "name": "Vague corporate mandate", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "'generously resolve complaints, block exploitation' — the un-sharpened input to the policy author"},
+    {"id": "refund_policy", "name": "POL_REFUND_042 refund policy (authored clauses)", "type": "soft_authority", "provenance": "authored", "produced_by": "policy_author", "executable": false, "notes": "/opt/squeeze/shared/refund_policy.md; CLAUSE_1 no duplicate, CLAUSE_2 legal->ESCALATE, CLAUSE_3 new high-value->DENY"},
+    {"id": "rest_app", "name": "Frozen headless REST app (compute plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "app.py; only POST /action commits a verdict; plain chat text never commits"},
+    {"id": "customer_db", "name": "Frozen customer/account state", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "customer_history.db, read-only"},
+    {"id": "archive_ledger", "name": "Adjudicated case archive + signature (invariant plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "archive_ledger/ (6 certified cases + ledger.sig); zero-regression anchor"},
+    {"id": "refund_bot", "name": "Implementer's refund-bot decision logic", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "refund_bot_logic.py"},
+    {"id": "adversarial_matrix", "name": "Exerciser's multi-turn adversarial scenarios", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": false, "notes": "adversarial_matrix.json"}
+  ],
+  "actors": [
+    {
+      "id": "sentinel", "name": "Gate sentinel / orchestrator", "role": "coordinator",
+      "builds": "gate verdicts, isolation + archive-regression checks, and the loop's SL-1.0 instance-b.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "the authored policy clauses it gates coverage against", "sources": ["refund_policy"]},
+      "lower_bound": {"text": "every scenario run through the frozen app, archive cases replayed, both bands' artifacts compared", "sources": ["rest_app", "customer_db", "archive_ledger", "refund_bot", "adversarial_matrix"], "executable": true},
+      "forbidden_moves": ["edit the policy, the bot, or the archive", "hand-inject a verdict", "rubber-stamp"],
+      "must_not_see": []
+    },
+    {
+      "id": "policy_author", "name": "Refund policy author", "role": "property_author",
+      "builds": "the precise refund policy clauses (the authored upper bound)",
+      "produces": ["refund_policy"],
+      "upper_bound": {"text": "the vague corporate mandate it must sharpen", "sources": ["corporate_mandate"]},
+      "lower_bound": {"text": "expressibility: each clause must be anchored to a real adjudicated case in the incident archive", "sources": ["archive_ledger"], "executable": true},
+      "forbidden_moves": ["read or propose the bot implementation", "inject code/schema/prompt syntax into the policy"],
+      "must_not_see": ["refund_bot"]
+    },
+    {
+      "id": "implementer", "name": "Refund-bot implementer", "role": "implementer",
+      "builds": "the bot decision logic satisfying the policy clauses",
+      "produces": ["refund_bot"],
+      "upper_bound": {"text": "the policy clauses (strongest mandated claim)", "sources": ["refund_policy"]},
+      "lower_bound": {"text": "session and account state read from the frozen app; verdicts committed only via the app", "sources": ["rest_app", "customer_db"], "executable": true},
+      "forbidden_moves": ["read the adversarial matrix", "write the customer DB directly", "commit a money-out decision before the dialogue resolves"],
+      "must_not_see": ["adversarial_matrix"]
+    },
+    {
+      "id": "exerciser", "name": "Adversarial exerciser", "role": "exerciser",
+      "builds": "multi-turn adversarial scenarios with expected terminal actions",
+      "produces": ["adversarial_matrix"],
+      "upper_bound": {"text": "the same policy clauses, read independently to derive expected outcomes", "sources": ["refund_policy"]},
+      "lower_bound": {"text": "scenarios driven through the frozen app; expectations anchored to the certified archive verdicts", "sources": ["rest_app", "archive_ledger"], "executable": true},
+      "forbidden_moves": ["read the bot logic", "soft-code expected outcomes from the bot's behaviour"],
+      "must_not_see": ["refund_bot"]
+    }
+  ],
+  "disjointness": {
+    "rationale": "The policy author holds only the mandate and the incident archive (never the bot); the implementer holds the policy and the live app (never the scenarios); the exerciser holds the policy and the archive (never the bot). With no external spec to diff against, soundness rests on these author-independent bases colliding over the frozen app, plus the archive's zero-regression invariant.",
+    "load_bearing_barrier": "policy author and exerciser never see the bot implementation; implementer never sees the adversarial scenarios (Unix 0700 homedirs + zero-import linkage)",
+    "catchability": [
+      {"actor": "policy_author", "blind_spot": "a vacuous/weak policy clause", "caught_by": "exerciser", "via": "independent scenarios should fail against a vacuous clause; Gate C coverage"},
+      {"actor": "implementer", "blind_spot": "caves to social engineering (coherent-and-wrong terminal action)", "caught_by": "exerciser", "via": "multi-turn legal/duplicate-refund scenarios; Gate B terminal-action mismatch"},
+      {"actor": "exerciser", "blind_spot": "a semantically underspecified scenario that does not exercise the clause", "caught_by": "sentinel", "via": "Gate C clause coverage + archive-regression replay"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": null
+  }
+}
