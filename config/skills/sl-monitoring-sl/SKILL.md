@@ -72,6 +72,25 @@ between its own bounds:
 So "a squeeze loop monitors a squeeze loop" = the monitor squeezes the base loop's
 *skills* between the base loop's *own* `U` and `L`, from outside the base loop's actors.
 
+## Run the observed loop as a sub-agent (the barrier made physical)
+
+The monitor's forbidden move — *reading the deciding actor's rationale* — is only
+honorary unless the rationale is physically absent from the monitor's context. Make
+it physical by **launching the observed loop as a sub-agent, one delegation level
+deeper — never running it inline.** The base loop's reasoning, oracle runs, and
+deliberation then live and die in the sub-agent's context and never cross back; only
+its *soft outputs* (a consolidated skill, an inferred bound, a verdict) return. The
+monitor literally cannot read the rationale, so it cannot judge against it — **the
+sub-agent boundary *is* the barrier**, the runtime twin of forwarding only the
+registry (the rationale never crosses because it never leaves the sub-agent).
+
+This also keeps the monitor's context **bounded** — only the small returned outputs
+accumulate — so one monitor can audit a long base run without overflowing. Bounded,
+not zero: summarize-and-forget between batches, or move the coordinator off any
+context window entirely, for very large runs. *Blocks: honorary author-separation —
+the monitor holding the base loop's rationale in context and eventually judging
+against it.*
+
 ## Forwarding the self-description — the cross-loop source-of-truth check
 
 A monitor's disjointness from its base loop is, at bottom, a **claim about sources**:
@@ -194,6 +213,16 @@ The crucial asymmetry between the two kinds — the reason a monitor needs both 
 So a healthy monitor over a *suite* of base loops **discriminates**: it leaves the
 defer-to-oracle skills untouched and flags only the ignore-signal skills that suppress a
 live signal. A monitor that flags everything — or nothing — is miscalibrated.
+
+**The coordinator's triage rule is an ignore-signal heuristic too.** A "skip the cheap
+inputs" fast-path triages by one signal and can systematically drop a whole class of
+real work because it ignores a *second* signal the input carries. So the monitor's remit
+extends past the producers' learned skills to the **coordinator's own triage rule**: run
+the trigger test as a comparison against a ground-truth **reference set** — wherever the
+triage said "nothing to do" but the reference shows real work, carve the rule to honor
+the missed signal (accepting the wider fan-out that buys back the lost coverage). This is
+the same ignore-signal → trigger-test → carve-out, applied one level up; the executable
+form is `sl-internal/scripts/triage_audit.py`.
 
 ## Check 1 — ignore-signal skills (trigger test → carve-out)
 

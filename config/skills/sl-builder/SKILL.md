@@ -145,6 +145,16 @@ Walk the collapse modes and pick the ones this problem is prone to:
 - **Coherent-and-wrong / weakened clause** → Gate C + "where authority is
   authored, independence is the soundness argument" + "strictness has a safe
   direction" (stricter than `U` is legitimate; weaker is a bug).
+- **Relabel-to-exempt** (a producer meets a principle by parking in-scope work in an
+  exempt bucket — `residual`/`out-of-scope`/`BLOCKED`/`PARTIAL`/"tool limitation") →
+  enumerate the exempt buckets each problem offers and make each evidence-bearing via
+  the **refutation probe** (supply the claimed-impossible piece, re-run the oracle;
+  verdict flips ⇒ REJECT). An exemption verdict without attached probe evidence is a
+  gate failure.
+- **Emergent obligation absorbed by the residue bucket** (the producer's move-set is
+  all *local* moves, so a cross-cutting obligation that must be invented and threaded
+  across many items has no move and gets exempted) → name the emergent obligation
+  class explicitly as a first-class move in the producer's move-set before dispatch.
 - **Absorbed surprise** → route surprises to a gap document, never patch locally.
 - **Rubber-stamp approval** → Gate A must amend/cut/sharpen.
 - **Unpinned reality / unspecified base** → pilot first; transcribe the de facto

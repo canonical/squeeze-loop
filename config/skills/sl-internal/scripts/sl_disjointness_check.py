@@ -174,6 +174,16 @@ def check(sl):
         if ack:
             emit("ENDO", "-", "INFO",
                  f"{a['id']} endogenous U {sorted(ack)} declared: PASS certifies self-consistency, not conformance")
+        # B4 strengthening: if the actor's U is ENTIRELY endogenous — no grounding
+        # (exogenous/authored/external/human) bound coexists — then even declared, a
+        # PASS can never be read as conformance, only self-consistency. Supply an
+        # exogenous bound before any conformance claim (addendum spec B4).
+        grounding = {s for s in a["upper_bound"]["sources"]
+                     if src.get(s, {}).get("provenance") in ("exogenous", "authored", "external_tool", "human")}
+        if not grounding:
+            emit("ENDO", "MAJOR", "INFO",
+                 f"{a['id']} U is ALL-endogenous (no grounding bound): a PASS is self-consistency "
+                 f"only, never conformance — supply an exogenous bound before any conformance claim")
     # stale flags: an entry that names neither a known source nor a known actor
     known = set(src) | {a["id"] for a in actors}
     stale = {d for d in declared if d not in known}
