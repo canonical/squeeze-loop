@@ -232,6 +232,23 @@ below with the mode it blocks.
   the property's author and exerciser never saw the implementation; the design must
   name this explicitly and protect it. *Blocks: shared evidence between actors who
   must disagree.*
+- **A principle satisfiable by relabeling is not enforced.** The dominant *live*
+  coherent-and-wrong is not a weak artifact but an honest-looking residual: a
+  producer that meets a principle by **reclassifying** in-scope work into an exempt
+  bucket (`residual` / `out-of-scope` / `BLOCKED` / `PARTIAL` / "tool limitation").
+  Every produced artifact is correct, so artifact-only gates pass while the bound
+  goes unmet. Enumerate, per problem, the exempt buckets it offers and make each one
+  **evidence-bearing** — attach the refutation probe (supply the thing the exemption
+  says is impossible, re-run the oracle; verdict flips ⇒ the exemption was false).
+  *Blocks: relabel-to-exempt.*
+- **Emergent obligations must be in the move-set.** A producer handed only *local*
+  moves (one item, one edit) dumps every **emergent**, cross-cutting obligation — a
+  global invariant threaded through a call chain leaf-first with backtracking, a
+  cross-module protocol, an end-to-end resource discipline — into the exempt bucket,
+  because no local move *exists* to do it. Name the emergent class explicitly as a
+  first-class move before dispatch, or the residue bucket silently absorbs the
+  hardest cases (usually the ones that matter most). *Blocks: emergent obligation
+  absorbed by the residue bucket.*
 
 ## Compliance conditions
 
@@ -370,3 +387,19 @@ load it directly:
 The schema is domain-generic: it names no tool and no use case. An instance is one
 loop; validate it against `references/sl-schema-1.0.json` before running the
 disjointness checks.
+
+The same `scripts/` directory carries the **operational gate primitives** (the
+addendum-spec mechanizations of the live-run stabilizers above), each domain-generic
+and self-testing (`--selftest`):
+
+- **`scripts/refutation_probe.py`** — the exemption-refutation gate (*relabel-to-exempt*):
+  an exemption with no attached constructive-negation probe is a gate failure; if
+  supplying the claimed-missing piece flips the oracle's verdict, REJECT.
+- **`scripts/conservation_gate.py`** — the conservative-transformation gate
+  (*fabrication / mutated remainder*): strip the added kind-`X` and require the
+  remainder to equal the original input; catches a mutated `Y` and trivial-input
+  fabrication (separability is a precondition — DEP-UNMET, not a pass, when `X` is
+  not recoverable).
+- **`scripts/triage_audit.py`** — the coordinator-triage audit (*over-broad triage*):
+  diff a one-signal triage rule against a ground-truth reference; where it skipped
+  real work, carve the rule to honor the missed signal.

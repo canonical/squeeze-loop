@@ -263,9 +263,16 @@ monitor **discriminates** — it flags a *strict, nonempty subset*.
    adjacent / weaker property; a doc-vs-runtime blend (compliant documentation over
    broken behaviour); an over-stated comparative claim that survives an abstract
    read but not a full-text read; a result that holds on one seed but not on a
-   perturbed one. (Concrete primitives in this repo: `verify/perturbation.py`
-   perturbs the anchor/seed; `verify/category_overreach.py` tests a generated
-   category on every instance.)
+   perturbed one; **a relabeling** (hard in-scope work parked in an exempt bucket)
+   and **a fabrication** (work invented on a trivial input). (Concrete primitives in
+   this repo: `verify/perturbation.py` perturbs the anchor/seed;
+   `verify/category_overreach.py` tests a generated category on every instance.
+   Generic addendum gates in `sl-internal/scripts/`: `refutation_probe.py` (A2 — an
+   exemption without an attached constructive-negation probe is a gate failure;
+   verdict flips when the claimed-missing piece is supplied ⇒ REJECT) and
+   `conservation_gate.py` (A6 — strip the added kind-`X` and require the remainder to
+   equal the original input; catches a mutated/fabricated `Y` and trivial-input
+   fabrication). Each carries a `--selftest`.)
 2. **Run the loop on the seeds.** Every seed must be caught with the *right verdict
    and the right localization* — a verification run that would not have caught a
    planted falsehood has not verified anything. A missed seed *voids the run*.
@@ -366,6 +373,10 @@ and confirm it is real:
 | Vacuous acceptance | a proof of a vacuous / adjacent theorem; an empty obligation set passes | Gate C axiom/coverage audit (each obligation clause maps to a passing check) |
 | Unpinned reality | design built on assumed tool behaviour | pin reality before building on it |
 | Scope blur | silent over-claiming; unclassified escape hatches | honest scope is a deliverable (NOT-claims, residual ledger) |
+| Relabel-to-exempt | in-scope work parked in `residual`/`out-of-scope`/`BLOCKED`/"tool limitation"; artifact-only gates pass | each exemption is evidence-bearing; `scripts/refutation_probe.py` (supply the claimed-impossible piece, re-run; flip ⇒ REJECT) |
+| Emergent obligation exempted | a cross-cutting obligation with no local move silently lands in the residue bucket | name the emergent class as a first-class move before dispatch (Dim 1 / sl-builder) |
+| Trivial-input fabrication | a trivial/empty input yields a non-trivial deliverable; `Y` mutated | `scripts/conservation_gate.py` (strip `X`, remainder must equal input); triage trivial inputs away from producers |
+| Over-broad coordinator triage | a one-signal "skip the cheap inputs" fast-path drops a whole real-work class | `scripts/triage_audit.py` (triage vs ground-truth reference; carve on dropped real work) — the monitor's remit covers the coordinator's triage, not just producers' skills |
 | Orphan change | an edit with no plan, no gap, no authority behind it | traceability is an acceptance criterion |
 
 **The barrier ablation is the master stabilizer test.** Run the target with the
