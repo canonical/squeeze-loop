@@ -50,7 +50,8 @@ cannot share it. Barriers are **physical** (in the delegation context), not
 honorary. **Done** is gate-defined, never self-declared.
 
 The canonical cast (five roles; add a role only for a *new evidence base*):
-**coordinator** (judge/sequencer; never edits source or rubber-stamps),
+**coordinator** (judge/sequencer; never edits source or rubber-stamps; **owns the
+loop's machine-checkable SL-1.0 `*.sl.json` representation** — see `sl-internal`),
 **property/spec author** (writes `U` from the requirement; never sees the
 implementation), **implementer** (builds the artifact to satisfy `U`; never
 touches the acceptance evidence), **exerciser/verifier** (authors acceptance
@@ -167,8 +168,11 @@ Walk the collapse modes and pick the ones this problem is prone to:
 
 ## 2. How to draft the plan (template)
 
-Once the slots are filled, emit the plan in this shape. Keep `ASSUMPTION:` and
-`OPEN QUESTION:` markers where the human under-specified.
+Once the slots are filled, emit the plan in this shape, **plus the SL-1.0
+`<id>.sl.json`** that encodes the same actors/bounds/barriers machine-checkably
+(§9). The `*.sl.json` is **owned by the coordinator** — it is one of the
+coordinator's build products, alongside approvals and gate verdicts. Keep
+`ASSUMPTION:` and `OPEN QUESTION:` markers where the human under-specified.
 
 ```
 # SL Plan: <deliverable>
@@ -186,7 +190,7 @@ Once the slots are filled, emit the plan in this shape. Keep `ASSUMPTION:` and
 ## 2. Actors and their disjoint (U,L) pairs
 | Actor | Builds | U (above) | L (below) | Forbidden move | Must NOT see |
 |-------|--------|-----------|-----------|----------------|--------------|
-| coordinator | ... | binding spec sections | gate machine output | edit source; rubber-stamp | — |
+| coordinator | approvals, sequencing, gate verdicts, **the loop's SL-1.0 `*.sl.json`** | binding spec sections | gate machine output | edit source; rubber-stamp | — |
 | spec author | ... | <U_spec> | <L_spec> | read the implementation | the implementation |
 | implementer | ... | <U_impl> | <L_impl> | touch acceptance evidence | acceptance evidence |
 | exerciser/verifier | ... | <U_exer> | <L_exer> | read the implementation/diff | the implementation |
@@ -222,6 +226,31 @@ Catchability (C2): <blind spot → who catches it> for each actor.
 
 ## 8. Execution order
 <pilot/oracle first; sequence by mechanism reuse; parallel only across independence>
+
+## 9. SL-1.0 representation (coordinator-owned)
+- Emit `<id>.sl.json` conforming to `sl-internal/references/sl-schema-1.0.json`:
+  a `sources[]` registry (every U/L authority, artifact, rationale, terminus) +
+  one `actors[]` row per actor above (each with `upper_bound.sources`,
+  `lower_bound.sources`, `must_not_see`, `produces`) + the `disjointness` block.
+- **Owner: the coordinator.** It is the coordinator's build product and the
+  artifact a downstream `sl-auditor` / `sl-monitoring-sl` monitor reads. The
+  coordinator authoring the loop's *self-description* is NOT self-certification:
+  the JSON is not a bound any actor judges its deliverable against — it is checked
+  from a disjoint base (the auditor/monitor), exactly as self-description drift is
+  routed in `sl-internal`.
+- Validate it with `sl-internal/scripts/sl_disjointness_check.py <id>.sl.json`
+  before delivering (this is the C1/C2/C3 + endogeneity set-algebra check).
+- **Nested designs (a controlling SL over a base SL):** disjointness extends
+  *across levels*. The controlling coordinator requests the base coordinator's
+  `*.sl.json` (request/response; only the registry crosses, never the base's
+  implementation or rationale) and runs the **cross-loop source-of-truth check**
+  (see `sl-monitoring-sl`): `controlling.bound_sources ∩ base.internal_sources = ∅`
+  (base-internal = `produced_by != null` or `provenance ∈ {endogenous, internal}`;
+  the only sanctioned base→controller link is a `sub_loop` bridge row), and no
+  shared source id carries a conflicting `(type, provenance, produced_by)`. A
+  shared id is legitimate only for the genuinely-same exogenous authority both
+  levels cite. Flag any collision as an `OPEN QUESTION:` — a controller bounding
+  itself on base-internal evidence is not disjoint.
 ```
 
 ---
@@ -249,7 +278,7 @@ not the property intended.
 
 | Actor | Builds | U (above) | L (below) | Forbidden move | Must NOT see |
 |-------|--------|-----------|-----------|----------------|--------------|
-| coordinator | approvals, sequencing, gate verdicts | the requirement + plan sections | gate output (WP logs, test logs) | edit C/ACSL; approve an unjudged plan | — |
+| coordinator | approvals, sequencing, gate verdicts, the SL-1.0 `framac.sl.json` | the requirement + plan sections | gate output (WP logs, test logs) | edit C/ACSL; approve an unjudged plan | — |
 | contract/spec author | the ACSL contracts from the requirement | the requirement + coding standard | expressibility: each clause dischargeable by *some* WP/test mechanism | propose or read the implementation | the C implementation |
 | implementer | the C code satisfying the contracts | the ACSL contracts (strongest mandated claim) | WP discharge + standing test suite | weaken a contract/gate to land; touch acceptance properties | the acceptance/adversarial properties |
 | exerciser/verifier | runs WP; authors adversarial properties from the spec only | the requirement's acceptance clauses + the documented surface | what actually discharges/proves when WP is run | read the implementation or any diff | the C implementation |
@@ -349,7 +378,7 @@ requirement; its `L` = WP discharge + unit tests.
 | Level | Actor | Builds | U | L | Must NOT see |
 |-------|-------|--------|---|---|--------------|
 | base (per CU) | base coordinator / contract author / implementer / verifier | per-CU proofs (Example A) | local contracts + requirement | per-CU WP discharge + unit tests | (Example A barriers) |
-| top | top coordinator | the bottom-up schedule; cross-CU gate verdicts; the contract-reconciliation ledger | global/interface spec | cross-unit WP verdicts + integration tests | the CU implementations |
+| top | top coordinator | the bottom-up schedule; cross-CU gate verdicts; the contract-reconciliation ledger; the top loop's SL-1.0 `*.sl.json` (each base loop owns its own) | global/interface spec | cross-unit WP verdicts + integration tests | the CU implementations |
 | top | interface-spec author | the global interface contracts (what each boundary must guarantee) | the global requirement | expressibility across units | any CU implementation |
 | top | **base-SL monitor** | per-contract verdicts on the base SLs' inferred/strengthened contracts | `U_top` (global spec the contract must not contradict) | `L_top` (cross-unit WP + integration tests, used as differential comparator) | the base SL's *rationale* for the contract; the CU code |
 
@@ -374,7 +403,11 @@ requirement; its `L` = WP discharge + unit tests.
 1. Topo-sort the call graph; schedule **leaves first** (bottom-up).
 2. For each function: run its **base SL** (Example A) to prove it against its
    contract. The base SL emits the proven `ensures` (and any contract it had to
-   strengthen to discharge).
+   strengthen to discharge). The top coordinator **requests each base loop's
+   `*.sl.json`** from its base coordinator and runs the **cross-loop
+   source-of-truth check** (`U_top`/`L_top` bound sources disjoint from any
+   base-internal/endogenous source; no conflicting shared ids) — so the two levels
+   are verified-disjoint before any base output is trusted, not merely asserted.
 3. **Propagate:** the top coordinator installs each proven callee `ensures` as
    the caller's `assumes`, and records the binding in the reconciliation ledger.
 4. **Audit (monitor):** before accepting a *strengthened* contract, the base-SL
@@ -420,10 +453,15 @@ monitor verdict (PASS or carved); no global-spec clause unmapped.
    what diverges from it.
 3. **ASK** the MISSING questions, grouped, with one-line rationale each. If the
    human wants the plan now, proceed with `ASSUMPTION:` markers.
-4. **DRAFT** the plan in the §2 template.
+4. **DRAFT** the plan in the §2 template, and emit the coordinator-owned SL-1.0
+   `<id>.sl.json` (§9) encoding the same actors/bounds/barriers.
 5. Run the two checks before delivering: **(C1) disjointness** (no shared pair;
    no actor relieves its own constraint) and **(C2) catchability** (every blind
-   spot has a catcher). Surface any unmet check as an `OPEN QUESTION:`.
+   spot has a catcher) — mechanically via
+   `sl-internal/scripts/sl_disjointness_check.py <id>.sl.json`. For a **nested**
+   design, also run the **cross-loop source-of-truth check** (§9) between the
+   controlling and controlled `*.sl.json` — no shared base-internal sources, no
+   conflicting shared ids. Surface any unmet check as an `OPEN QUESTION:`.
 
 Do not run git, commit, or edit files other than producing the plan in your
 reply. This skill produces a *plan*, not the implementation.

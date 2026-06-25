@@ -1,6 +1,6 @@
 ---
 name: sl-internal
-description: A self-contained explainer of how the Squeeze Loop (SL) strategy works — the construction that makes a multi-actor loop converge on a correct deliverable rather than on a plausible-looking one. It defines the squeeze (every actor pinned between a soft upper bound and a hard, executable lower bound), the coherent-and-wrong failure it targets, the load-bearing disjointness principle (each actor answers to a different authority pair, with physical context barriers), the canonical cast of roles, the gates (A editorial, B machine-checked, C coverage / no-blend / coherent-and-wrong, S skill-consistency), the loop mechanics (DRAFT→APPROVED→DONE handshake, gap documents, gate-defined done), the terrain archetypes (where truth lives), the stabilizers against collapse, and the compliance conditions. It is domain-generic and stands alone — no external sources. Use it whenever you need to understand or explain the strategy from first principles. Trigger phrasings include "how does a squeeze loop work", "explain the squeeze loop strategy", "what is the disjointness principle", "what are the gates / the canonical cast", "what is coherent-and-wrong", "why is done gate-defined", "what are the terrain archetypes", "what are the stabilizers".
+description: A self-contained explainer of how the Squeeze Loop (SL) strategy works — the construction that makes a multi-actor loop converge on a correct deliverable rather than on a plausible-looking one. It defines the squeeze (every actor pinned between a soft upper bound and a hard, executable lower bound), the coherent-and-wrong failure it targets, the load-bearing disjointness principle (each actor answers to a different authority pair, with physical context barriers), the canonical cast of roles, the gates (A editorial, B machine-checked, C coverage / no-blend / coherent-and-wrong, S skill-consistency), the loop mechanics (DRAFT→APPROVED→DONE handshake, gap documents, gate-defined done), the terrain archetypes (where truth lives), the stabilizers against collapse, and the compliance conditions. It is domain-generic and stands alone — no external sources. Use it whenever you need to understand or explain the strategy from first principles. Trigger phrasings include "how does a squeeze loop work", "explain the squeeze loop strategy", "what is the disjointness principle", "what are the gates / the canonical cast", "what is coherent-and-wrong", "why is done gate-defined", "what are the terrain archetypes", "what are the stabilizers". It also specifies SL-1.0, a compact machine-checkable representation of a loop (a sources-of-truth registry + actor tables + a disjointness rationale) and the JSON schema for it, so disjointness becomes a set-algebra check an auditor or monitor can run. Additional trigger phrasings: "compact SL representation", "SL JSON schema", "standardize a squeeze loop", "machine-checkable disjointness", "sources-of-truth registry", "encode a loop as JSON".
 ---
 
 # The Squeeze Loop (SL) strategy
@@ -252,3 +252,121 @@ A workflow is **squeeze-loop compliant** when all four hold:
 Disjointness is the centerpiece and the condition most often missing from ordinary
 pipelines. Under disjointness plus catchability, no single corrupted source or
 blind spot can propagate silently — which is the entire point of the strategy.
+
+## Compact representation (SL-1.0)
+
+A squeeze loop can be written down in a compact, **machine-checkable** form. The
+representation keeps the three parts you would otherwise draw by hand — a short
+**description**, the **actor tables**, and a **disjointness rationale** — but makes
+disjointness *checkable* rather than only narrated. The same artifact is what an
+audit of a loop and a monitor of a loop both read to confirm the sources of truth
+are genuinely independent.
+
+### The one design decision that matters
+
+Every **source of truth** — an authority, an executable oracle, a produced
+artifact, a producer's rationale, or a human terminus — is declared once in a
+`sources[]` registry with a stable `id`. Each actor then references sources **by
+id** in its bounds (`upper_bound.sources`, `lower_bound.sources`), its barriers
+(`must_not_see`), and what it authors (`produces`). Disjointness stops being prose
+and becomes set algebra over ids — exactly what an audit (the disjointness and
+barrier conditions) and a monitor need in order to verify that no actor reads from
+a source it should not.
+
+A source carries a `type` — `soft_authority` (upper-bound material) ·
+`executable_oracle` (lower-bound material) · `artifact` (a thing produced or under
+test) · `rationale` (a producer's private reasoning a judge must never read) ·
+`human_judgment` (a terminus) — and a `provenance` — `exogenous` (independent of
+the artifact under test; the gold case) · `endogenous` (read off the artifact
+under test; a disjointness violation *at the bound level*) · `authored` ·
+`external_tool` · `human` · `internal`. `produced_by` records which actor authors
+the source inside the loop.
+
+### The three-part shape (the same table, made relational)
+
+1. `description` — the short paragraph: what the loop delivers and the dominant
+   coherent-and-wrong it guards.
+2. `actors[]` — one object per table row, carrying the five rows of the canonical
+   table — `builds`, `upper_bound`, `lower_bound`, `forbidden_moves`,
+   `must_not_see` — plus `produces` (which sources it authors), so
+   self-certification is detectable.
+3. `disjointness` — `rationale` + `load_bearing_barrier` + `catchability[]` (the
+   catchability condition made explicit: each blind spot and the *other* actor
+   that catches it) + `endogeneity_flags` + `terminus`.
+
+### What a validator checks (the executable lower bound of an audit)
+
+The representation turns the compliance conditions into set operations a tool runs
+over the registry:
+
+| check | condition | predicate over the registry |
+|---|---|---|
+| self-certification | C1 | `(produces ∪ {s : s.produced_by = actor}) ∩ (U.sources ∪ L.sources) = ∅` for every actor |
+| shared evidence | C1 | no two actors hold an identical `(U.sources, L.sources)` pair |
+| single-pair-suffices | C1 | no substantive actor's bound sources *strictly superset* every other actor's (structural floor; confirm manually) |
+| barrier consistency | C3 | `must_not_see ∩ (U.sources ∪ L.sources) = ∅`; no bound reads a `rationale` source |
+| missing-required barrier | C3 | every `property_author` / `exerciser` lists each `implementer`-produced artifact in `must_not_see` (else honorary-by-omission) |
+| endogenous upper bound | bound-level disjointness | an `upper_bound` source with `provenance: endogenous` must be *declared* in `endogeneity_flags` — declared ⇒ PASS certifies self-consistency, not conformance; undeclared ⇒ fail |
+| terminus | the irreducible limit | a `human_terminus` / `disjoint_base` carries **no** executable `L` |
+| catchability | C2 | every declared blind spot is `caught_by` a *different* actor |
+| cross-loop sources | C1 across levels | a monitor's bound sources are disjoint from its base's *internal* sources, and any shared id is the same exogenous authority (two-file / nested mode) |
+
+The load-bearing subtlety the representation preserves: a judge may **run** an
+`executable_oracle` over an artifact it is barriered from (that is how a verifier
+learns how the implementation behaves without ever reading its internals); it may
+**never** list that artifact as a bound source. That distinction is the formal
+version of *physical, not honorary*.
+
+**What SL-1.0 v1.0 does *not* encode — C4 (gate-defined done).** The compliance
+conditions are C1–C4; SL-1.0 mechanizes the three *structural* ones (C1
+disjointness, C2 catchability, C3 barriers) plus the endogeneity and terminus
+predicates. It deliberately does **not** model the gates (A/B/C/S) or **C4
+(gate-defined done)**: whether an item is *done* lives in the **gate evidence** — the
+machine-checked acceptance run, the standing invariant rerun, the editorial approval
+on file — not in the source registry. A validator PASS therefore certifies that the
+loop's *authorities are disjoint*, **never** that any deliverable is *done*; reading a
+green disjointness check as "the work is accepted" is itself the self-declared-done
+collapse. C4 stays out of band for v1.0 — a manual, gate-driven check (a later
+version may add an optional `gates` block to bring part of it into the registry).
+
+### Special rows the schema supports
+
+- **human terminus / disjoint base** — `lower_bound.sources: []` plus an
+  `absent_reason`; `role: human_terminus | disjoint_base`. The missing oracle is
+  the point — it is where the soft side is closed by a disjoint reviewer, not by a
+  machine.
+- **borrowed / invoked actor** — `invokes: {loop, row}` with bounds
+  `borrowed_from` the observed loop (e.g. a skill sub-monitor that *is* the monitor
+  row of a monitoring loop, invoked rather than re-derived).
+- **bridge row** — `role: sub_loop`, `expands_to: "<loop-id>"`: an entire base
+  loop collapsed to a single row inside its monitor; the base loop's real cast
+  lives in its own document, and the monitor's `L` references this row's returned
+  outputs.
+- **endogeneity** — when a loop seeds its upper bound by reading the very artifact
+  it will later judge (an architectural audit of the implementation, an inferred
+  specification), mark those authorities `provenance: endogenous` so the
+  endogenous-upper-bound check fires automatically and the PASS is recorded as
+  self-consistency rather than conformance.
+
+### Conventions
+
+- File suffix `*.sl.json`; one loop per file; `id` matches the filename stem.
+- A loop family (a base loop, its monitor, its onboarding loop) is a directory of
+  `*.sl.json` files; a monitor links down via `monitors` and via a `sub_loop`
+  bridge row whose `expands_to` names the base file.
+
+## The SL-1.0 JSON schema
+
+The schema (JSON Schema draft 2020-12) that defines the representation above lives
+as a standalone, loadable file rather than inline, so a validator can `$ref` and
+load it directly:
+
+- **`references/sl-schema-1.0.json`** — the canonical, machine-readable schema.
+- **`scripts/sl_disjointness_check.py`** — the executable lower bound of an audit:
+  walks `sources[]` and `actors[]` and runs the set-algebra checks in the table
+  above (self-certification, shared-evidence, barrier consistency, endogeneity,
+  terminus, catchability).
+
+The schema is domain-generic: it names no tool and no use case. An instance is one
+loop; validate it against `references/sl-schema-1.0.json` before running the
+disjointness checks.
