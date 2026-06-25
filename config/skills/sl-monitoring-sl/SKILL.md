@@ -72,6 +72,46 @@ between its own bounds:
 So "a squeeze loop monitors a squeeze loop" = the monitor squeezes the base loop's
 *skills* between the base loop's *own* `U` and `L`, from outside the base loop's actors.
 
+## Forwarding the self-description — the cross-loop source-of-truth check
+
+A monitor's disjointness from its base loop is, at bottom, a **claim about sources**:
+the monitor must judge from `U_top`/`L_top` and the base's *returned outputs*, never
+from a source the base produced or read off its own artifact. SL-1.0 (see
+`sl-internal`) makes that claim *checkable* — but only if the controlling loop can see
+the base's **source registry** (the ids, types, provenances and `produced_by` of the
+base's sources), without seeing the sources' *contents*. That registry is exactly what
+the base coordinator owns: it owns the base loop's `*.sl.json` (see `sl-builder`).
+
+- **On request from the controlling loop, the base coordinator forwards its
+  `*.sl.json`.** It is request/response: the base coordinator *chooses* to expose its
+  self-description; nothing crosses unbidden. If it declines or cannot, the monitor
+  records the cross-loop disjointness as **asserted, not verified** — never a silent
+  PASS.
+- **Only the registry crosses, never the artifacts.** The forwarded JSON carries
+  source *metadata* (id, type, provenance, `produced_by`, bounds-by-id) — not the
+  implementation, not the deciding actor's rationale. The monitor's forbidden move
+  (reading the base's implementation or rationale) is preserved intact: it learns
+  *that* the base owns source `X` produced by actor `Y`, never *what `X` contains*.
+- **The controlling loop then runs the cross-loop source-of-truth check.** Holding
+  both registries, the monitor's coordinator verifies the two evidence bases do not
+  collide:
+  - `M.bound_sources ∩ B.internal_sources = ∅`, where `B.internal_sources` are base
+    sources with `produced_by != null` or `provenance ∈ {endogenous, internal}`. A
+    non-empty intersection means the monitor is bounding itself on something the base
+    *produced* — the cross-level form of self-certification / blend. The **only**
+    sanctioned base→monitor channel is the `sub_loop` bridge row (`expands_to:
+    <base-id>`) whose returned outputs `L_top` references — a mediated link, not a
+    direct read of base-internal sources.
+  - Any **shared source id** whose `(type, provenance, produced_by)` disagree across
+    the two registries is a genuine *conflict in the sources of truth* — the same name
+    denoting two different things across levels — and is flagged. A shared id is
+    legitimate **only** when it denotes the genuinely-same **exogenous** authority both
+    levels cite (e.g. one global spec); a shared *internal* id never is.
+
+This is the no-blend rule at loop scope: a *claimed* cross-level separation may never
+stand in for a *checked* one. The same check is run at build time by `sl-builder` when
+it drafts a nested design, so the conflict is caught before the loops ever run.
+
 ## Why a loop is nested at all: the un-squeezed coordinator (and where the regress stops)
 
 Skills are the most visible soft output a monitor audits, but they are not the deepest

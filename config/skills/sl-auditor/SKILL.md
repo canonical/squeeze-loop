@@ -14,11 +14,17 @@ description: >-
   accumulated learned skills VIA the sl-monitoring-sl pattern; checks each known
   collapse mode is blocked by a stabilizer; and routes whatever an internal audit
   cannot self-certify to a disjoint base (external / cross-provider / human reviewer).
-  Emits a per-dimension findings report with severities. Use when asked to "audit a
+  Emits a per-dimension findings report with severities. Where the target carries an
+  SL-1.0 `*.sl.json` self-description (owned by its coordinator), it ingests that and
+  runs `sl-internal/scripts/sl_disjointness_check.py` as the mechanical floor of the
+  disjointness/barrier/oracle dimensions (a floor, not a ceiling), and runs the
+  cross-loop source-of-truth check when the target is itself a monitor of another
+  loop. Use when asked to "audit a
   squeeze loop", "review an existing SL", "is this squeeze loop sound", "check my SL
   for collapse", "does this loop actually have disjoint authorities", "is the barrier
   real or honorary", "who certifies the certifier", "is done gate-defined or self-
-  reported", "is this monitor a rubber stamp", or "is my loop quietly collapsing".
+  reported", "is this monitor a rubber stamp", "validate an sl.json / run the
+  disjointness checker", or "is my loop quietly collapsing".
 ---
 
 # sl-auditor — auditing an existing Squeeze Loop
@@ -79,6 +85,30 @@ pointed at the target. Dimension 8 is the irreducible limit (the disjoint base).
 Dimension 9 is the output form. Run them in order: a loop that fails Dimension 1
 (no real disjointness) cannot be rescued by passing the later ones.
 
+**The audit's structured input and mechanical floor.** A target loop built or
+maintained under the current SL skills carries its own **SL-1.0 `*.sl.json`**
+self-description, owned by its coordinator (see `sl-builder` / `sl-internal`). Ask
+for it first: it is the registry of sources, actor bounds-by-id, and barriers the
+later dimensions interrogate. Run `sl-internal/scripts/sl_disjointness_check.py
+<target>.sl.json` to mechanize the floor of **D1 (self-certification incl. a
+self-owned oracle, shared evidence, single-pair-suffices), D2 (barrier consistency
++ missing-required barrier), C2 (catchability)** and the endogeneity / terminus
+predicates. In two-file mode (`<controlling> <base>`) it also runs **D6 cross-loop
+source-of-truth**. The checker's dimension tags match this skill's numbering. Two
+cautions, both load-bearing:
+
+- **The `*.sl.json` is a *claim*, not the territory.** It is the loop's
+  self-description, and a loop can be coherent-and-wrong *about itself* (Dimension
+  8). A checker PASS is **necessary, not sufficient** — you still map the real pairs
+  against the actual delegation prompts and tool permissions (Dimension 1, step 1),
+  exactly as you would distrust an org chart.
+- **The checker is a floor, not a ceiling.** It mechanizes the structural
+  dimensions above; it does **not** decide **D3** (oracle existence / immutability /
+  runnability), **D4** (gates / done), **D5** (coherent-and-wrong seeding) or **D7**
+  (stabilizer ablation) — those stay manual. And it cannot credit a barrier that is
+  real but undeclared, nor judge whether the registry matches the actual delegation
+  prompts. Never read a green as the whole audit.
+
 ---
 
 ## Dimension 1 — Disjointness audit (C1)
@@ -88,10 +118,19 @@ does any actor answer to a bound it can itself relieve or edit?
 
 **Procedure.**
 
+0. **Ingest the self-description and run the checker.** Obtain the
+   coordinator-owned `*.sl.json` and run `sl-internal/scripts/sl_disjointness_check.py`
+   over it. This mechanizes the floor of steps 2–3 (shared-evidence and
+   self-certification, the latter as `produces ∪ produced_by ∩ bound_sources`) plus
+   referential integrity. Record its verdicts — then keep going: a PASS here is the
+   floor, and the registry is a *claim* to be checked against reality in step 1.
 1. **Map the real pairs.** For every actor in the target loop, write down its
    actual `(U_i, L_i)` — the authority that squeezes it from above and the
    executable that squeezes it from below — *as enforced*, not as documented.
-   Distrust the org chart; read the delegation prompts and tool permissions.
+   Distrust the org chart **and the `*.sl.json`**; read the delegation prompts and
+   tool permissions, and flag any divergence between the registry and what the
+   prompts actually contain (that divergence is itself a self-description-drift
+   finding — Dimension 8).
 2. **Pairwise-distinctness check.** Compare pairs. Two actors holding the *same*
    `(U, L)` is the **shared-evidence** collapse: an error in that base propagates
    unchecked because no actor reads from a different one. Flag any duplicate pair.
@@ -160,7 +199,10 @@ sign of implementation-anchoring in the exerciser/verifier.
    actor can tune is not a lower bound.
 3. **Disjointness of `L`.** The oracle must be authored/held by someone *other*
    than the actor it bounds. The implementer's own unit tests are not a lower bound
-   for the implementer; they share its blind spot.
+   for the implementer; they share its blind spot. In the `*.sl.json` this is the
+   `executable_oracle` source's `produced_by`: if it equals the actor that reads it
+   as `lower_bound`, the checker flags it (self-owned `L`). Confirm `executable` is
+   set and the verdict is genuinely re-runnable, not a recorded assertion.
 4. **Honesty of availability.** If a sub-loop's `L` is not actually runnable in the
    audit environment, say so — `DEPENDENCY UNMET` — and do **not** record a pass for
    that sub-loop. Never fake a green for an unaudited oracle. (This mirrors the
@@ -275,6 +317,21 @@ silently wrong on a governed exception)?
    traceable to a monitor finding. If a base loop's `L` is not runnable, report
    `DEPENDENCY UNMET` — never fake a PASS for an unaudited loop.
 
+**Cross-loop source-of-truth check (when the target is itself a monitor / nested
+loop).** If the target controls a base loop, its disjointness *from that base* is
+auditable as a set operation, not just narrated. Have the target's coordinator
+**request the base loop's `*.sl.json`** (request/response; only the registry
+crosses — never the base's implementation or rationale, so the monitor's forbidden
+move stays intact) and verify: `target.bound_sources ∩ base.internal_sources = ∅`
+(base-internal = `produced_by != null` or `provenance ∈ {endogenous, internal}`; the
+only sanctioned base→target link is a `sub_loop` bridge row), and no shared source id
+carries a conflicting `(type, provenance, produced_by)` (legitimate only for the
+genuinely-same exogenous authority both levels cite). A non-empty intersection is the
+**cross-level form of self-certification/blend** — the monitor bounding itself on
+evidence the base produced — and is a CRITICAL finding. If the base coordinator does
+not forward its registry, record the cross-level disjointness as **asserted, not
+verified** — never a silent PASS. See `sl-monitoring-sl` for this check's definition.
+
 See `sl-monitoring-sl/SKILL.md` for the full Gate S procedure, the two worked
 examples, and the non-negotiable discipline. **Do not re-derive it here — invoke
 it.**
@@ -363,13 +420,18 @@ Produce a structured report, not a verdict. Form:
 ```
 SL AUDIT — <target loop name>           date: <YYYY-MM-DD>
 
+SL-1.0 INPUT
+  *.sl.json present?          YES | NO (audit by inspection only)
+  sl_disjointness_check.py    PASS | FAIL | N/A       — mechanical floor (D1/D2/D3 + endogeneity); floor, not ceiling
+
 PER-DIMENSION FINDINGS
-  D1 Disjointness (C1)        PASS | FAIL | PARTIAL   — <one line + evidence>
+  D1 Disjointness (C1)        PASS | FAIL | PARTIAL   — <one line + evidence>; registry-vs-prompts drift?
   D2 Barrier (C3)             PASS | FAIL | PARTIAL   — physical or honorary? <probe result>
   D3 Lower bound (oracle)     PASS | FAIL | DEP-UNMET — disjoint, immutable, runnable?
   D4 Gates / done (C4)        PASS | FAIL             — Gate A/B/C present & load-bearing?
   D5 Coherent-and-wrong       PASS | FAIL             — seeds caught? flag rate in band?
   D6 Skills (via sl-monitoring-sl)  PASS | CARVE | REJECT  — Gate S verdicts per skill
+     cross-loop sources       PASS | FAIL | ASSERTED  — if target is a monitor: registries verified-disjoint?
   D7 Stabilizers              PASS | FAIL             — collapse modes blocked? barrier ablation moved?
   C2 Catchability             (implied by D1+D5)      — every char. failure caught by another actor?
 

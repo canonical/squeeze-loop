@@ -1,0 +1,330 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/sl/sl-schema-1.0.json",
+  "title": "Squeeze Loop (SL) \u2014 compact standardized representation",
+  "description": "A machine-checkable encoding of a single squeeze loop. The load-bearing idea: every source of truth has a stable id, and each actor references sources by id in its bounds and barriers, so disjointness (C1), barrier consistency (C3) and endogeneity become set operations a tool can run.",
+  "type": "object",
+  "required": [
+    "sl_version",
+    "id",
+    "kind",
+    "description",
+    "sources",
+    "actors",
+    "disjointness"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "sl_version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Stable slug for the loop, e.g. 'my-loop'."
+    },
+    "kind": {
+      "enum": [
+        "base",
+        "monitor",
+        "meta"
+      ],
+      "description": "base = produces a deliverable through a cast; monitor = squeezes another loop's soft outputs (sl-monitoring-sl); meta = an audit methodology with no 5-actor cast (sl-auditor)."
+    },
+    "description": {
+      "type": "string",
+      "description": "One short paragraph: what the loop delivers and the dominant coherent-and-wrong it guards."
+    },
+    "terrain": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "description": "Terrain archetype(s): A transcription / B authored authority / C split planes."
+    },
+    "monitors": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "For kind=monitor/meta: the id of the loop this one observes (null otherwise)."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The registry of every source of truth, artifact, oracle, rationale and terminus in the loop. This registry is what makes disjointness checkable.",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The rows of the compact table, one object per actor.",
+      "items": {
+        "$ref": "#/$defs/actor"
+      }
+    },
+    "disjointness": {
+      "$ref": "#/$defs/disjointness"
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]*$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name as it appears in the prose tables."
+        },
+        "type": {
+          "enum": [
+            "soft_authority",
+            "executable_oracle",
+            "artifact",
+            "rationale",
+            "human_judgment"
+          ],
+          "description": "soft_authority = U-material (spec/standard/policy). executable_oracle = L-material (runnable, interpretation-free). artifact = a thing produced or under test (impl, contracts, tests). rationale = a producer's private reasoning (a judge must never read it). human_judgment = a terminus judgment, no executable oracle."
+        },
+        "provenance": {
+          "enum": [
+            "exogenous",
+            "endogenous",
+            "authored",
+            "external_tool",
+            "human",
+            "internal"
+          ],
+          "description": "exogenous = independent of the artifact under test (gold). endogenous = read off the artifact under test (a disjointness violation at the bound level; a PASS against it is only self-consistency). authored = an upstream-authored U (terrain B). external_tool = a prover/checker/runtime. human = a human terminus. internal = produced inside this loop (set automatically by produced_by)."
+        },
+        "produced_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "actor id that creates this source inside the loop, or null if it enters from outside. Drives the self-certification check: no actor may judge against a source it produced."
+        },
+        "executable": {
+          "type": "boolean",
+          "description": "True only for sources whose verdict is mechanical and re-runnable."
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "bound": {
+      "type": "object",
+      "description": "An (upper or lower) bound: prose + the set of source ids it rests on.",
+      "required": [
+        "text",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The bound as written in the compact table."
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ids into sources[] this bound reads from. EMPTY + absent_reason set => a terminus with no executable L."
+        },
+        "executable": {
+          "type": "boolean",
+          "description": "For L: is this bound a runnable oracle?"
+        },
+        "borrowed_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For monitor/meta loops whose bound IS the observed loop's bound: the observed loop id."
+        },
+        "absent_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "If sources is empty: why (e.g. 'no executable oracle \u2014 that absence is why it is the terminus')."
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "role",
+        "builds",
+        "upper_bound",
+        "lower_bound",
+        "forbidden_moves",
+        "must_not_see"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_.-]*$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "coordinator",
+            "property_author",
+            "implementer",
+            "exerciser",
+            "probe",
+            "human_terminus",
+            "monitor",
+            "sub_loop",
+            "auditor",
+            "disjoint_base",
+            "other"
+          ],
+          "description": "Canonical cast plus the meta/monitor roles. human_terminus / disjoint_base carry no executable L. monitor borrows the observed loop's bounds. sub_loop is a bridge row: an entire base loop collapsed to one row."
+        },
+        "optional": {
+          "type": "boolean",
+          "default": false
+        },
+        "builds": {
+          "type": "string",
+          "description": "The 'Builds' row \u2014 the deliverable this actor produces."
+        },
+        "produces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "source ids this actor authors (must match sources[].produced_by). Used by the self-certification check."
+        },
+        "upper_bound": {
+          "$ref": "#/$defs/bound"
+        },
+        "lower_bound": {
+          "$ref": "#/$defs/bound"
+        },
+        "forbidden_moves": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The role-crossing actions that would relieve this actor's own pressure."
+        },
+        "must_not_see": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "source ids that must be ABSENT from this actor's context (physical barrier, not honorary). A judge runs an oracle over an artifact; it never reads the artifact in must_not_see."
+        },
+        "invokes": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "description": "For a borrowed/invoked actor (e.g. the skill sub-monitor = the sl-monitoring-sl Monitor row, invoked not re-derived).",
+          "properties": {
+            "loop": {
+              "type": "string"
+            },
+            "row": {
+              "type": "string"
+            }
+          }
+        },
+        "expands_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For a bridge row: the loop id this single row collapses (e.g. 'base-loop' inside its monitor). Its real cast lives in that loop's own document."
+        }
+      }
+    },
+    "disjointness": {
+      "type": "object",
+      "required": [
+        "rationale",
+        "load_bearing_barrier",
+        "catchability"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "rationale": {
+          "type": "string",
+          "description": "The 'at a glance' prose: why no actor can certify its own work."
+        },
+        "load_bearing_barrier": {
+          "type": "string",
+          "description": "The one separation the whole loop rests on."
+        },
+        "catchability": {
+          "type": "array",
+          "description": "C2 made explicit: for each actor's characteristic blind spot, the OTHER actor that catches it.",
+          "items": {
+            "type": "object",
+            "required": [
+              "actor",
+              "blind_spot",
+              "caught_by"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "actor": {
+                "type": "string"
+              },
+              "blind_spot": {
+                "type": "string"
+              },
+              "caught_by": {
+                "type": "string",
+                "description": "actor id of the catcher (must differ from 'actor')."
+              },
+              "via": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "endogeneity_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Sources/actors where U is endogenous: a PASS there certifies self-consistency, not conformance. Empty = none."
+        },
+        "terminus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For soft-side loops: who supplies the human/cross-provider close (the disjoint base). null for fully mechanical loops."
+        }
+      }
+    }
+  }
+}
