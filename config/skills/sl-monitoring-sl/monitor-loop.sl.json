@@ -1,0 +1,65 @@
+{
+  "sl_version": "1.0",
+  "id": "monitor-loop",
+  "kind": "monitor",
+  "terrain": ["B"],
+  "monitors": null,
+  "description": "The generic monitor loop specified by sl-monitoring-sl: a squeeze loop that audits a BASE loop's soft outputs (chiefly its accumulated skills) against the base loop's OWN upper and lower bounds, from an evidence base the base loop's actors do not hold. Dominant coherent-and-wrong: an over-generalized skill (right on the common case, silently wrong on a governed exception), or a mis-calibrated monitor that rubber-stamps (flags nothing) or saturates (flags everything). Gate S returns PASS / CARVE-OUT / REJECT. The base loop is run as a sub-agent (the sub_base bridge); only its soft outputs cross, never its rationale. The coordinator's editorial judgment — the one soft-side hole — closes at the human/external reviewer terminus. Generic: no domain, no instance (monitors: null; the bridge expands to a placeholder base-loop).",
+  "sources": [
+    {"id": "base_u", "name": "Base loop's upper bound (the spec the skill must not contradict)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "the monitor's U IS the base loop's U; the skill under test is judged against it, not read off it"},
+    {"id": "base_l", "name": "Base loop's executable oracle (differential comparator)", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "the monitor's L IS the base loop's L; trigger/validity tests run it and watch whether the verdict moves"},
+    {"id": "skill_under_test", "name": "The base loop's consolidated skill (the soft output under test)", "type": "artifact", "provenance": "internal", "produced_by": "sub_base", "executable": false, "notes": "the learned heuristic the monitor decomposes and differential-tests; read as the artifact under test, never a bound"},
+    {"id": "producer_rationale", "name": "The deciding actor's rationale for the skill", "type": "rationale", "provenance": "internal", "produced_by": "sub_base", "executable": false, "notes": "WHY the base actor learned the skill — stays in the sub-agent; the monitor must never read it (its forbidden move)"},
+    {"id": "gate_s_verdict", "name": "Gate S verdict (PASS / CARVE-OUT / REJECT)", "type": "artifact", "provenance": "internal", "produced_by": "monitor", "executable": false, "notes": "the per-skill verdict, with any bound-deferring carve-out cited to U"},
+    {"id": "human_review", "name": "External / human reviewer judgment", "type": "human_judgment", "provenance": "human", "produced_by": "human_reviewer", "executable": false, "notes": "closes the coordinator's editorial soft side; no executable refuter"}
+  ],
+  "actors": [
+    {
+      "id": "coordinator", "name": "Monitor-loop coordinator", "role": "coordinator",
+      "builds": "the Gate S handshake, the verdict ledger, the flag-rate calibration, and the loop's SL-1.0 monitor-loop.sl.json",
+      "produces": [],
+      "upper_bound": {"text": "the base loop's U it adjudicates carve-outs against", "sources": ["base_u"], "borrowed_from": "base-loop"},
+      "lower_bound": {"text": "the base oracle and the monitor's emitted verdicts (gate output it reconciles and flag-rate-calibrates)", "sources": ["base_l", "gate_s_verdict"], "executable": true},
+      "forbidden_moves": ["read the deciding actor's rationale", "edit the base loop's implementation", "rubber-stamp a carve-out it has not editorially judged"],
+      "must_not_see": ["producer_rationale"]
+    },
+    {
+      "id": "monitor", "name": "Skill monitor (Gate S)", "role": "monitor",
+      "builds": "the per-skill verdict via the trigger test (ignore-signal) or validity test (defer-to-oracle)",
+      "produces": ["gate_s_verdict"],
+      "upper_bound": {"text": "the base loop's U the skill must not contradict on any reachable input", "sources": ["base_u"], "borrowed_from": "base-loop"},
+      "lower_bound": {"text": "the base loop's executable oracle, used as a differential-testing comparator against the skill", "sources": ["base_l"], "borrowed_from": "base-loop", "executable": true},
+      "forbidden_moves": ["read the producer's rationale for the skill", "edit the base loop's implementation", "emit a silent fix instead of a verdict"],
+      "must_not_see": ["producer_rationale"]
+    },
+    {
+      "id": "sub_base", "name": "Bridge -> the observed base loop (run as a sub-agent)", "role": "sub_loop", "expands_to": "base-loop",
+      "builds": "the base loop collapsed to one row; returns only its soft outputs (the skill), never its rationale",
+      "produces": ["skill_under_test", "producer_rationale"],
+      "upper_bound": {"text": "the base loop's own bounds (see its document)", "sources": [], "borrowed_from": "base-loop"},
+      "lower_bound": {"text": "the base loop's machine verdict, returned", "sources": [], "borrowed_from": "base-loop", "executable": true},
+      "forbidden_moves": ["leak the base loop's rationale or implementation across the sub-agent boundary"],
+      "must_not_see": []
+    },
+    {
+      "id": "human_reviewer", "name": "External / human reviewer (terminus)", "role": "human_terminus",
+      "builds": "the terminal judgment that closes the monitor coordinator's editorial soft side",
+      "produces": ["human_review"],
+      "upper_bound": {"text": "the base loop's U: is the coordinator's carve-out genuinely a faithful reading of it?", "sources": ["base_u"]},
+      "lower_bound": {"text": "no executable oracle — soft-vs-soft faithfulness of a carve-out has no hard refuter; this absence is why the reviewer is the terminus", "sources": [], "absent_reason": "the carve-out's faithfulness to U is not mechanically decidable; closed by a disjoint human/external reviewer, not a machine"},
+      "forbidden_moves": ["claim the automation alone closed the soft side"],
+      "must_not_see": []
+    }
+  ],
+  "disjointness": {
+    "rationale": "The monitor holds the base loop's U and L (a disjoint evidence base from the deciding actor, which holds only 'what I was caught doing'); the carve-out can only be derived by the actor holding U and L, never by the skill's producer. The base loop runs as a sub-agent so its rationale is physically absent from the monitor's context — the must_not_see on producer_rationale is real, not honorary. The coordinator's editorial judgment is the one soft-side hole and is closed by disjoint authority at the human reviewer terminus, not mechanically.",
+    "load_bearing_barrier": "the monitor and coordinator never see the producer's rationale (it never leaves the sub-agent); they judge the skill only against the base loop's U and L",
+    "catchability": [
+      {"actor": "sub_base", "blind_spot": "the base loop emits a coherent-and-wrong skill — over-generalized, right on the common case, silently wrong on a governed exception", "caught_by": "monitor", "via": "the trigger test (perturb the ignored signal, watch L's verdict move) or validity test"},
+      {"actor": "monitor", "blind_spot": "mis-calibration — rubber-stamping (flags nothing) or saturating (flags everything)", "caught_by": "coordinator", "via": "flag-rate calibration: a healthy monitor discriminates, leaving defer-to-oracle skills untouched and flagging only over-reaching ignore-signal skills"},
+      {"actor": "coordinator", "blind_spot": "its own un-squeezed editorial judgment of whether a carve-out is faithful to the base loop's U", "caught_by": "human_reviewer", "via": "external/human review — the terminus that closes the soft side"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": "human_reviewer (external/human review closes the soft side; the automation alone does not)"
+  }
+}
