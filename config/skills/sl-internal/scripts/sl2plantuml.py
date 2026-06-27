@@ -9,6 +9,10 @@ Usage:
     sl2plantuml.py LOOP.json -o diagram.png  # validate, then render to a chosen path
     sl2plantuml.py LOOP.json --direction tb  # top-to-bottom layout (clearer for dense loops)
     sl2plantuml.py LOOP.json --svg           # render LOOP.svg (scalable vector) instead of PNG
+    sl2plantuml.py LOOP.json -o docs/img/LOOP.png   # convention: rendered images live in docs/img/
+
+Convention: write rendered images to `docs/img/` (PNG and SVG), so a loop's companion
+`docs/<id>.md` embeds them as `img/<id>.svg`.
 
 Rendering shells out to `plantuml` (which needs Java + Graphviz). Validation needs
 the `jsonschema` package:  pip install jsonschema

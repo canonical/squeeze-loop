@@ -49,7 +49,7 @@ rubber stamp:
 ![The `sl-auditor` SL — the auditor (orange) squeezed between the compliance contract
 (green, U) and the inspected-reality oracles (pink, L), barriered (red dashed) from the
 target's internals, and caught at the disjoint-base terminus
-(lavender)](sl-auditor.svg)
+(lavender)](img/sl-auditor.svg)
 
 *Rendered from `sl-auditor.sl.json` with
 `config/skills/sl-internal/scripts/sl2plantuml.py … --svg`. Solid edges are bounds
@@ -113,7 +113,7 @@ Regenerate the diagrams with:*
 
 ```sh
 python config/skills/sl-internal/scripts/sl2plantuml.py \
-    config/skills/sl-auditor/sl-auditor.sl.json -o docs/sl-auditor.png
+    config/skills/sl-auditor/sl-auditor.sl.json -o docs/img/sl-auditor.png
 python config/skills/sl-internal/scripts/sl2plantuml.py \
-    config/skills/sl-auditor/sl-auditor.sl.json --svg -o docs/sl-auditor.svg
+    config/skills/sl-auditor/sl-auditor.sl.json --svg -o docs/img/sl-auditor.svg
 ```

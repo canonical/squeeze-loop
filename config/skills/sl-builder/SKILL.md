@@ -273,14 +273,17 @@ four artifacts, all carrying the same kebab-case `<name>` = the loop `id`:
 - **Companion doc.** `docs/<name>.md` with three sections: (1) the **rationale**
   behind the SL (the deliverable, the dominant coherent-and-wrong it guards, why
   the bounds are what they are); (2) the **graphical representation**, embedding
-  the SVG; (3) a **Disjointness at a glance** section — the disjointness
-  hypothesis, the load-bearing barrier, the catchability table (each blind spot →
-  the *other* actor that catches it), and the terminus.
-- **Both renderings in `docs/`.** Generate a PNG *and* an SVG from the `.sl.json`:
-      python sl-internal/scripts/sl2plantuml.py <name>.sl.json -o docs/<name>.png
-      python sl-internal/scripts/sl2plantuml.py <name>.sl.json --svg -o docs/<name>.svg
+  the SVG as `img/<name>.svg`; (3) a **Disjointness at a glance** section — the
+  disjointness hypothesis, the load-bearing barrier, the catchability table (each
+  blind spot → the *other* actor that catches it), and the terminus.
+- **Both renderings in `docs/img/`.** Generate a PNG *and* an SVG from the
+  `.sl.json`, written to the `docs/img/` directory (the standing convention for all
+  SL diagrams):
+      python sl-internal/scripts/sl2plantuml.py <name>.sl.json -o docs/img/<name>.png
+      python sl-internal/scripts/sl2plantuml.py <name>.sl.json --svg -o docs/img/<name>.svg
   (add `--direction tb` for large, dense loops). Embed the SVG in `docs/<name>.md`
-  (scalable, zoom-lossless); keep the PNG for renderers that do not display SVG.
+  as `img/<name>.svg` (scalable, zoom-lossless); keep the PNG for renderers that do
+  not display SVG.
 ```
 
 ---
@@ -494,9 +497,9 @@ monitor verdict (PASS or carved); no global-spec clause unmapped.
    conflicting shared ids. Surface any unmet check as an `OPEN QUESTION:`.
 6. **Specify packaging (§10).** The plan must name the SL's four delivery
    artifacts — the `config/skills/<name>/` skill dir, the `<name>.sl.json`, the
-   `docs/<name>.md` companion, and both `docs/<name>.{png,svg}` renderings — with
-   the `sl2plantuml.py` commands that produce the diagrams. This is the standing
-   convention for *every* new SL, single or nested.
+   `docs/<name>.md` companion, and both `docs/img/<name>.{png,svg}` renderings —
+   with the `sl2plantuml.py` commands that produce the diagrams. This is the
+   standing convention for *every* new SL, single or nested.
 
 Do not run git or commit. This skill produces a *plan* (plus the coordinator-owned
 `<id>.sl.json` it is asked to emit), not the loop's implementation. When the human

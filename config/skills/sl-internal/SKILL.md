@@ -383,6 +383,12 @@ load it directly:
   walks `sources[]` and `actors[]` and runs the set-algebra checks in the table
   above (self-certification, shared-evidence, barrier consistency, endogeneity,
   terminus, catchability).
+- **`scripts/sl2plantuml.py`** — validate a `*.sl.json` against the schema, then
+  emit PlantUML or render a diagram (`--svg` for scalable SVG, `--direction tb` for
+  large dense loops). **Convention: write rendered images to `docs/img/`** — e.g.
+  `sl2plantuml.py <loop>.sl.json -o docs/img/<id>.png` and `--svg -o
+  docs/img/<id>.svg` — so a loop's companion `docs/<id>.md` embeds them as
+  `img/<id>.svg`.
 
 The schema is domain-generic: it names no tool and no use case. An instance is one
 loop; validate it against `references/sl-schema-1.0.json` before running the
