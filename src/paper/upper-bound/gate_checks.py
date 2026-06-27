@@ -18,7 +18,7 @@ def main():
     g = L.Gate()
 
     # Gate A: the binding spec + the editorial plan trail exist
-    specs = list((L.REPO / "docs").glob("*-paper-spec-*.md"))
+    specs = list((L.REPO / "docs" / "specs").glob("*-paper-spec-*.md"))
     g.check("Gate A: paper-impl spec present", (L.REPO / "paper-impl.md").exists())
     g.check("Gate A: per-circle plans exist (editorial trail)", len(specs) > 0,
             f"{len(specs)} spec docs")

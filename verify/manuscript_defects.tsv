@@ -8,7 +8,7 @@ D6	evidence	F7	app:worker	FIXED	happy-threat-agent block was abridged yet presen
 D7	literature	F3	sec:sota 2.4	FIXED	Clover: "reducing correctness to consistency" stated as fact, not as the authors' hypothesis (caught at full-text read)
 D8	evidence	F6	fig:pipeline caption vs sec:mechanics	FIXED	Figure 1 caption claimed "Gates A-B are machine-checked acceptance" but Gate A is the coordinator's editorial judgment (sec:mechanics + fig body); caught by EXTERNAL review (review1.md), not by the internal gates
 # Defects the squeeze-loop gates caught in THIS manuscript's own claims, before it shipped.
-# Sourced from docs/12-0930-paper-gap-1.md, the evidence-plane Gate C
+# Sourced from docs/specs/12-0930-paper-gap-1.md, the evidence-plane Gate C
 # (verify/reports/evidence-verification-2026-06-12.md), and the full-text pass
 # (verify/reports/fulltext-verification-2026-06-12.md). The baudin_acsl empty-year
 # fix is a metadata correction, not a coherent-and-wrong claim, so it is not listed here.

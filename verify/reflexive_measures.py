@@ -9,8 +9,8 @@ Sources (all committed):
   verify/manuscript_defects.tsv  defects the gates caught in the paper's own claims
   bib/records/*.md               reading records (and their access level)
   claims/ledger.tsv              the claim ledger (CITE / RESULT rows)
-  docs/*-paper-spec-*.md         per-circle plan docs
-  docs/*-paper-gap-*.md          gap (divergence) docs
+  docs/specs/*-paper-spec-*.md   per-circle plan docs
+  docs/specs/*-paper-gap-*.md    gap (divergence) docs
 """
 
 import json
@@ -76,8 +76,8 @@ def main():
     d_total, d_lit, d_evid = count_defects()
     rec_total, rec_full = count_records()
     cite, result = count_ledger()
-    spec_docs = len(list(DOCS.glob("*-paper-spec-*.md")))
-    gap_docs = len(list(DOCS.glob("*-paper-gap-*.md")))
+    spec_docs = len(list((DOCS / "specs").glob("*-paper-spec-*.md")))
+    gap_docs = len(list((DOCS / "specs").glob("*-paper-gap-*.md")))
 
     macro = {
         "ResReflexTerrains": count_terrains(),

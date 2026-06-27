@@ -289,7 +289,7 @@ bib/          records/<bibkey>.md          one reading record per source
               archive/<bibkey>.pdf  SHA256SUMS
 evidence/     E-k/run.sh  data/  seeds  logs/  results/
 verify/       rerun.sh  seed_falsifications.py  .seeds/  reports/
-docs/         DD-HHMM-paper-spec-N.md / DD-HHMM-paper-gap-N.md
+docs/specs/   DD-HHMM-paper-spec-N.md / DD-HHMM-paper-gap-N.md
 ```
 
 **Ledger rows** (one per claim; bindings are the verifier's map):
