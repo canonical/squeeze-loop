@@ -31,26 +31,135 @@ from pathlib import Path
 #  Visual mapping (matches the slide legend)
 # --------------------------------------------------------------------------- #
 ACTOR_COLOR = "#E8541E"          # agents
+BRIDGE_COLOR = "#4E8FE8"         # sub_loop bridge rows (a whole monitored loop, not an agent)
 DEFAULT_SOURCE_COLOR = "#E2E2E2"  # fallback / artifact grey
 SOURCE_COLORS = {
     "soft_authority":    "#C9E7CB",  # upper-bound material  (green)
     "executable_oracle": "#F3CBD0",  # runnable oracle       (pink)
     "artifact":          "#E2E2E2",  # produced / under test (grey)
-    "rationale":         "#F4CCCC",  # must-not-see material  (light red)
+    "rationale":         "#D98080",  # must-not-see material  (muted red, distinct from the oracle pink)
     "human_judgment":    "#D9D2E9",  # terminus judgment     (lavender)
 }
 
-LEGEND = "\n".join([
-    "legend right",
-    "|= Colour |= Meaning |",
-    "|<#E8541E>| Agent (actor) |",
-    "|<#C9E7CB>| Upper-bound material |",
-    "|<#F3CBD0>| Executable oracle |",
-    "|<#E2E2E2>| Artifact |",
-    "|<#F4CCCC>| Rationale (must-not-see) |",
-    "|<#D9D2E9>| Human judgment |",
-    "endlegend",
-])
+# A second, colour-independent channel: a small OpenIconic glyph (<&name>) tags each
+# node by kind, so the near-identical reds (oracle vs rationale) stay distinguishable
+# even in greyscale or on a dark background.
+SOURCE_GLYPH = {
+    "soft_authority":    "<&document>",   # a spec/norm page
+    "executable_oracle": "<&cog>",        # a runnable oracle (the lower bound)
+    "artifact":          "<&box>",        # a produced thing / under test
+    "rationale":         "<&ban>",        # must-not-see (forbidden)
+    "human_judgment":    "<&person>",     # a human terminus
+}
+ACTOR_GLYPH = "<&person>"        # an agent
+BRIDGE_GLYPH = "<&fork>"         # a sub_loop bridge (a whole loop collapsed to a row)
+INVARIANT_GLYPH = "<&loop-circular>"  # an executable_oracle with subtype "invariant"
+                                      # (a standing baseline re-run each cycle for zero
+                                      # regression) vs the default point/recompute cog
+AUTHORED_GLYPH = "<&pencil>"     # a soft_authority with provenance "authored" (terrain B,
+                                 # no external referent) vs the default transcribed/external
+ENDO_GLYPH = "<&warning>"        # overlay badge: provenance "endogenous" (read off the
+                                 # artifact under test — a disjointness violation at the bound)
+
+# A glyph per canonical role, so the five-actor cast is legible (not all one orange dot).
+ROLE_GLYPH = {
+    "coordinator":     "<&compass>",          # orchestrates / judges
+    "property_author": "<&script>",           # authors the property/spec (the upper bound)
+    "implementer":     "<&wrench>",            # builds the work product
+    "exerciser":       "<&magnifying-glass>",  # authors acceptance evidence
+    "probe":           "<&beaker>",            # one experiment, one verdict
+    "monitor":         "<&eye>",               # watches another loop's soft outputs
+    "auditor":         "<&clipboard>",         # runs the audit dimensions
+    "human_terminus":  "<&person>",            # the human/external terminus
+    "disjoint_base":   "<&person>",            # the disjoint reviewer
+    "sub_loop":        "<&fork>",              # a whole loop collapsed to a bridge row
+    "other":           "<&person>",
+}
+
+
+def source_glyph(s: dict) -> str:
+    """The kind-glyph for a source — a colour-independent channel.
+    Two provenance/subtype refinements get their own glyph: an executable_oracle
+    marked subtype 'invariant' (a standing-invariant / regression baseline) vs the
+    default point/recompute oracle, and an 'authored' soft_authority (terrain B) vs
+    the default transcribed/external one."""
+    t = s.get("type")
+    if t == "executable_oracle" and s.get("subtype") == "invariant":
+        return INVARIANT_GLYPH
+    if t == "soft_authority" and s.get("provenance") == "authored":
+        return AUTHORED_GLYPH
+    return SOURCE_GLYPH.get(t, "")
+
+ROLE_LABEL = {
+    "coordinator": "Coordinator", "property_author": "Property/spec author",
+    "implementer": "Implementer", "exerciser": "Exerciser", "probe": "Probe",
+    "monitor": "Monitor", "auditor": "Auditor", "human_terminus": "Human terminus",
+    "disjoint_base": "Disjoint base", "other": "Agent",
+}
+_ROLE_ORDER = ["coordinator", "property_author", "implementer", "exerciser", "probe",
+               "monitor", "auditor", "human_terminus", "disjoint_base", "other"]
+
+
+def _wrap(text: str, width: int = 42) -> str:
+    """Word-wrap to <=width chars/line, joined by PlantUML line breaks (\\n)."""
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        if cur and len(cur) + 1 + len(w) > width:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = f"{cur} {w}" if cur else w
+    if cur:
+        lines.append(cur)
+    return "\\n".join(lines)
+
+
+def dominant_failure(doc: dict) -> str:
+    """The one-clause dominant coherent-and-wrong, pulled from the description (the
+    text after the 'coherent-and-wrong:' marker, up to the end of that clause)."""
+    m = re.search(r"coherent-and-wrong:\s*(.*)", doc.get("description", ""), re.I | re.S)
+    if not m:
+        return ""
+    rest = m.group(1).strip()
+    cut = re.search(r"\.\s+(?=[A-Z])", rest)   # first sentence boundary ends the clause
+    if cut:
+        rest = rest[: cut.start() + 1]
+    return rest.strip()
+
+
+def build_legend(actors: list, sources: list) -> str:
+    """A legend listing only the kinds actually present in this loop (so a base loop
+    doesn't advertise bridges / rationale / human-judgment it doesn't have)."""
+    rows: list[tuple[str, str, str]] = []   # (colour, glyph, meaning)
+    roles = {a.get("role") for a in actors}
+    for r in _ROLE_ORDER:
+        if r in roles:
+            rows.append((ACTOR_COLOR, ROLE_GLYPH.get(r, ACTOR_GLYPH), ROLE_LABEL.get(r, "Agent")))
+    if "sub_loop" in roles:
+        rows.append((BRIDGE_COLOR, BRIDGE_GLYPH, "Monitored sub-loop (bridge)"))
+    types = {s.get("type") for s in sources}
+    if "soft_authority" in types:
+        provs = {s.get("provenance") for s in sources if s.get("type") == "soft_authority"}
+        if any(p != "authored" for p in provs):
+            rows.append((SOURCE_COLORS["soft_authority"], "<&document>", "Soft authority — transcribed/external"))
+        if "authored" in provs:
+            rows.append((SOURCE_COLORS["soft_authority"], AUTHORED_GLYPH, "Soft authority — authored"))
+    if "executable_oracle" in types:
+        subs = {s.get("subtype") for s in sources if s.get("type") == "executable_oracle"}
+        if any(x != "invariant" for x in subs):
+            rows.append((SOURCE_COLORS["executable_oracle"], "<&cog>", "Executable oracle — point/recompute"))
+        if "invariant" in subs:
+            rows.append((SOURCE_COLORS["executable_oracle"], INVARIANT_GLYPH, "Executable oracle — standing invariant"))
+    if "artifact" in types:
+        rows.append((SOURCE_COLORS["artifact"], "<&box>", "Artifact"))
+    if "rationale" in types:
+        rows.append((SOURCE_COLORS["rationale"], "<&ban>", "Rationale (must-not-see)"))
+    if "human_judgment" in types:
+        rows.append((SOURCE_COLORS["human_judgment"], "<&person>", "Human judgment"))
+    if any(s.get("provenance") == "endogenous" for s in sources):
+        rows.append(("#FFFFFF", ENDO_GLYPH, "Endogenous overlay (dashed red border — bound read off the artifact)"))
+    body = "\n".join(f"|<{c}>| {g} | {m} |" for c, g, m in rows)
+    return "legend right\n|= Colour |=  |= Meaning |\n" + body + "\nendlegend"
 
 
 # --------------------------------------------------------------------------- #
@@ -120,7 +229,18 @@ def to_plantuml(doc: dict, direction: str = "lr") -> tuple[str, list[str]]:
     out.append(f'@startuml {doc.get("id", "sl")}')
     title = doc.get("id", "squeeze-loop")
     kind = doc.get("kind")
-    out.append(f"title {title}" + (f" ({kind})" if kind else ""))
+    title_line = f"{title}" + (f" ({kind})" if kind else "")
+    failure = dominant_failure(doc)
+    if failure:
+        # caption under the title — the dominant coherent-and-wrong the loop guards.
+        # Each wrapped line gets its OWN <size> wrapper: a single size tag spanning
+        # \n-separated lines in a title renders its closing tag literally. No _esc —
+        # the descriptions contain no creole-breaking characters.
+        lines = _wrap("guards against: " + failure, 80).replace('"', "'").split("\\n")
+        cap = "\\n".join(f"<size:11><i>{ln}</i></size>" for ln in lines)
+        out.append(f"title {title_line}\\n{cap}")
+    else:
+        out.append(f"title {title_line}")
     out.append(DIRECTIVE[direction])
     out.append("skinparam rectangleBorderColor #555")
     out.append("skinparam shadowing false")
@@ -134,14 +254,26 @@ def to_plantuml(doc: dict, direction: str = "lr") -> tuple[str, list[str]]:
     # --- nodes: actors -----------------------------------------------------
     out.append("' --- actors (agents) ---")
     for a in actors:
-        out.append(f'rectangle "{_esc(a["name"])}" as {a_alias(a["id"])} {ACTOR_COLOR}')
+        role = a.get("role")
+        color = BRIDGE_COLOR if role == "sub_loop" else ACTOR_COLOR
+        glyph = ROLE_GLYPH.get(role, ACTOR_GLYPH)
+        out.append(f'rectangle "{glyph} {_esc(a["name"])}" as {a_alias(a["id"])} {color}')
     out.append("")
 
     # --- nodes: sources ----------------------------------------------------
     out.append("' --- sources ---")
     for s in sources:
         color = SOURCE_COLORS.get(s.get("type"), DEFAULT_SOURCE_COLOR)
-        out.append(f'rectangle "{_esc(s["name"])}" as {s_alias(s["id"])} {color}')
+        glyph = source_glyph(s)
+        # Endogeneity is a cross-cutting OVERLAY, never a fill change: the node keeps
+        # its kind colour (all ground truth stays one red), and an endogenous bound —
+        # read off the artifact under test, a disjointness violation — is flagged by a
+        # warning badge + a red dashed border on top.
+        endo = s.get("provenance") == "endogenous"
+        badge = (ENDO_GLYPH + " ") if endo else ""
+        label = badge + (glyph + " " if glyph else "") + _esc(s["name"])
+        style = f"{color};line:red;line.dashed" if endo else color
+        out.append(f'rectangle "{label}" as {s_alias(s["id"])} {style}')
     out.append("")
 
     def bound_edge(actor_id: str, sid: str, style: str, label: str) -> None:
@@ -179,10 +311,15 @@ def to_plantuml(doc: dict, direction: str = "lr") -> tuple[str, list[str]]:
         if caught not in actor_ids or catcher not in actor_ids:
             warnings.append(f'catchability references unknown actor(s): {catcher} -> {caught}')
             continue
-        out.append(f"{a_alias(catcher)} -[#blue]-> {a_alias(caught)} : catches")
+        # label the squeeze edge with WHAT blind spot is caught and VIA what
+        parts = ["catches: " + c["blind_spot"]] if c.get("blind_spot") else ["catches"]
+        if c.get("via"):
+            parts.append("via " + c["via"])
+        label = _wrap(" — ".join(parts), 46).replace('"', "'")
+        out.append(f"{a_alias(catcher)} -[#blue]-> {a_alias(caught)} : {label}")
     out.append("")
 
-    out.append(LEGEND)
+    out.append(build_legend(actors, sources))
     out.append("@enduml")
     return "\n".join(out), warnings
 
@@ -288,6 +425,7 @@ SCHEMA_JSON = r'''{
         "provenance": {"enum": ["exogenous","endogenous","authored","external_tool","human","internal"],"description": "exogenous = independent of the artifact under test (gold). endogenous = read off the artifact under test (a disjointness violation at the bound level; a PASS against it is only self-consistency). authored = an upstream-authored U (terrain B). external_tool = a prover/checker/runtime. human = a human terminus. internal = produced inside this loop (set automatically by produced_by)."},
         "produced_by": {"type": ["string","null"],"description": "actor id that creates this source inside the loop, or null if it enters from outside. Drives the self-certification check: no actor may judge against a source it produced."},
         "executable": {"type": "boolean","description": "True only for sources whose verdict is mechanical and re-runnable."},
+        "subtype": {"type": "string","description": "Optional finer kind within a type. For executable_oracle: 'invariant' marks a standing-invariant / regression baseline re-run each cycle for zero regression (vs the default point/recompute oracle)."},
         "notes": {"type": "string"}
       }
     },

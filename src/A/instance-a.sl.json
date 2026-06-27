@@ -8,7 +8,7 @@
   "sources": [
     {"id": "metric_handbook", "name": "Metric Handbook (binding clauses)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "/opt/squeeze/shared/metric_handbook.md, root:root 0444; obligation clauses CLAUSE_1..5"},
     {"id": "warehouse_db", "name": "Frozen SQLite warehouse (storage plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "base_warehouse.db, read-only (?mode=ro)"},
-    {"id": "history_ledger", "name": "Certified baseline + signature (invariant plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "history_ledger.json + .sig; total-additivity invariant, re-verified each run"},
+    {"id": "history_ledger", "name": "Certified baseline + signature (invariant plane)", "type": "executable_oracle", "subtype": "invariant", "provenance": "exogenous", "executable": true, "notes": "history_ledger.json + .sig; total-additivity invariant, re-verified each run"},
     {"id": "impl_query", "name": "Implementer's metric query/result", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "compute_metric.py"},
     {"id": "validation_matrix", "name": "Exerciser's positive/negative validation matrix", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": false, "notes": "validation_matrix.*.json"}
   ],
