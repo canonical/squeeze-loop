@@ -124,6 +124,11 @@ def to_plantuml(doc: dict, direction: str = "lr") -> tuple[str, list[str]]:
     out.append(DIRECTIVE[direction])
     out.append("skinparam rectangleBorderColor #555")
     out.append("skinparam shadowing false")
+    # Edge labels (U / L / produces / catches / must not see) and the title in
+    # mid-grey so they read on both white and dark backgrounds (pure black
+    # vanishes on dark).
+    out.append("skinparam ArrowFontColor #888888")
+    out.append("skinparam TitleFontColor #888888")
     out.append("")
 
     # --- nodes: actors -----------------------------------------------------
