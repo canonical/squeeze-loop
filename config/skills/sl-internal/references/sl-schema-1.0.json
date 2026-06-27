@@ -123,6 +123,10 @@
           "type": "boolean",
           "description": "True only for sources whose verdict is mechanical and re-runnable."
         },
+        "subtype": {
+          "type": "string",
+          "description": "Optional finer kind within a type. For executable_oracle: 'invariant' marks a standing-invariant / regression baseline re-run each cycle for zero regression (vs the default point/recompute oracle)."
+        },
         "notes": {
           "type": "string"
         }

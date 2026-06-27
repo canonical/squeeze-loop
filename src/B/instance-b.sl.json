@@ -10,7 +10,7 @@
     {"id": "refund_policy", "name": "POL_REFUND_042 refund policy (authored clauses)", "type": "soft_authority", "provenance": "authored", "produced_by": "policy_author", "executable": false, "notes": "/opt/squeeze/shared/refund_policy.md; CLAUSE_1 no duplicate, CLAUSE_2 legal->ESCALATE, CLAUSE_3 new high-value->DENY"},
     {"id": "rest_app", "name": "Frozen headless REST app (compute plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "app.py; only POST /action commits a verdict; plain chat text never commits"},
     {"id": "customer_db", "name": "Frozen customer/account state", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "customer_history.db, read-only"},
-    {"id": "archive_ledger", "name": "Adjudicated case archive + signature (invariant plane)", "type": "executable_oracle", "provenance": "exogenous", "executable": true, "notes": "archive_ledger/ (6 certified cases + ledger.sig); zero-regression anchor"},
+    {"id": "archive_ledger", "name": "Adjudicated case archive + signature (invariant plane)", "type": "executable_oracle", "subtype": "invariant", "provenance": "exogenous", "executable": true, "notes": "archive_ledger/ (6 certified cases + ledger.sig); zero-regression anchor"},
     {"id": "refund_bot", "name": "Implementer's refund-bot decision logic", "type": "artifact", "provenance": "internal", "produced_by": "implementer", "executable": true, "notes": "refund_bot_logic.py"},
     {"id": "adversarial_matrix", "name": "Exerciser's multi-turn adversarial scenarios", "type": "artifact", "provenance": "internal", "produced_by": "exerciser", "executable": false, "notes": "adversarial_matrix.json"}
   ],

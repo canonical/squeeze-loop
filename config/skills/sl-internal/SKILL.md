@@ -297,7 +297,12 @@ test) · `rationale` (a producer's private reasoning a judge must never read) ·
 the artifact under test; the gold case) · `endogenous` (read off the artifact
 under test; a disjointness violation *at the bound level*) · `authored` ·
 `external_tool` · `human` · `internal`. `produced_by` records which actor authors
-the source inside the loop.
+the source inside the loop. An optional `subtype` records a finer kind within a
+type: for `executable_oracle`, `subtype: "invariant"` marks a **standing-invariant /
+regression baseline** re-run each cycle for zero regression (the conservation-law
+ground truth — "did anything previously true change?") as distinct from the default
+**point/recompute** oracle ("does *this* claim hold when re-executed?"); both are
+lower bounds but answer different questions.
 
 ### The three-part shape (the same table, made relational)
 
@@ -388,7 +393,15 @@ load it directly:
   large dense loops). **Convention: write rendered images to `docs/img/`** — e.g.
   `sl2plantuml.py <loop>.sl.json -o docs/img/<id>.png` and `--svg -o
   docs/img/<id>.svg` — so a loop's companion `docs/<id>.md` embeds them as
-  `img/<id>.svg`.
+  `img/<id>.svg`. Each node carries a colour-independent kind-glyph (a distinct glyph
+  per canonical `role`, so the five-actor cast is legible); it also renders the finer
+  registry distinctions: `subtype: invariant` oracle vs the default point oracle,
+  `authored` vs transcribed/external soft authority (by `provenance`), and an
+  **endogenous overlay** (a red dashed border + ⚠) on any source with
+  `provenance: endogenous`. The title caption shows the loop's **dominant
+  coherent-and-wrong** (parsed from `description`), each `catches` edge is labelled
+  with the `blind_spot`/`via` it carries, and the legend lists only the kinds actually
+  present in the loop.
 
 The schema is domain-generic: it names no tool and no use case. An instance is one
 loop; validate it against `references/sl-schema-1.0.json` before running the
