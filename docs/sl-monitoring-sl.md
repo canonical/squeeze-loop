@@ -50,7 +50,7 @@ rationale, so it cannot judge against it — the sub-agent boundary *is* the bar
 
 ![The `monitor-loop` SL — actors (orange), upper-bound material (green), executable
 oracle (pink), artifacts (grey), must-not-see rationale (red), human terminus
-(lavender)](monitor-loop.svg)
+(lavender)](img/monitor-loop.svg)
 
 *Rendered from `monitor-loop.sl.json` with
 `config/skills/sl-internal/scripts/sl2plantuml.py … --svg`. Solid edges are bounds
@@ -113,5 +113,5 @@ Regenerate the diagram with:*
 
 ```sh
 python config/skills/sl-internal/scripts/sl2plantuml.py \
-    config/skills/sl-monitoring-sl/monitor-loop.sl.json --svg -o docs/monitor-loop.svg
+    config/skills/sl-monitoring-sl/monitor-loop.sl.json --svg -o docs/img/monitor-loop.svg
 ```
