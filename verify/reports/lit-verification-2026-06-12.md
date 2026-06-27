@@ -56,7 +56,7 @@ flagged as such.
 ## Outcome
 
 - 2 OVERCLAIMED (F3) → fixed in `tex/paper.tex`, recorded in
-  `docs/12-0930-paper-gap-1.md`.
+  `docs/specs/12-0930-paper-gap-1.md`.
 - 1 precision tightening (CAI), applied.
 - 0 phantom, 0 misattributed metadata, 0 unsupported. Bibliographic metadata
   correct for all entries.

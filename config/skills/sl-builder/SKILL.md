@@ -261,6 +261,26 @@ Catchability (C2): <blind spot → who catches it> for each actor.
   shared id is legitimate only for the genuinely-same exogenous authority both
   levels cite. Flag any collision as an `OPEN QUESTION:` — a controller bounding
   itself on base-internal evidence is not disjoint.
+
+## 10. Packaging — ship the SL as a skill (standing convention)
+Every new SL is delivered as a **skill**, not a loose plan. The convention has
+four artifacts, all carrying the same kebab-case `<name>` = the loop `id`:
+- **Skill directory.** `config/skills/<name>/SKILL.md` — the SL written up as a
+  triggerable skill (the `.claude/skills/<name>` path is a symlink into
+  `config/skills/`, so author under `config/skills/` only).
+- **SL-1.0 self-description.** `<name>.sl.json` — the §9 coordinator-owned
+  registry, validated by `sl_disjointness_check.py` before delivery.
+- **Companion doc.** `docs/<name>.md` with three sections: (1) the **rationale**
+  behind the SL (the deliverable, the dominant coherent-and-wrong it guards, why
+  the bounds are what they are); (2) the **graphical representation**, embedding
+  the SVG; (3) a **Disjointness at a glance** section — the disjointness
+  hypothesis, the load-bearing barrier, the catchability table (each blind spot →
+  the *other* actor that catches it), and the terminus.
+- **Both renderings in `docs/`.** Generate a PNG *and* an SVG from the `.sl.json`:
+      python sl-internal/scripts/sl2plantuml.py <name>.sl.json -o docs/<name>.png
+      python sl-internal/scripts/sl2plantuml.py <name>.sl.json --svg -o docs/<name>.svg
+  (add `--direction tb` for large, dense loops). Embed the SVG in `docs/<name>.md`
+  (scalable, zoom-lossless); keep the PNG for renderers that do not display SVG.
 ```
 
 ---
@@ -472,6 +492,13 @@ monitor verdict (PASS or carved); no global-spec clause unmapped.
    design, also run the **cross-loop source-of-truth check** (§9) between the
    controlling and controlled `*.sl.json` — no shared base-internal sources, no
    conflicting shared ids. Surface any unmet check as an `OPEN QUESTION:`.
+6. **Specify packaging (§10).** The plan must name the SL's four delivery
+   artifacts — the `config/skills/<name>/` skill dir, the `<name>.sl.json`, the
+   `docs/<name>.md` companion, and both `docs/<name>.{png,svg}` renderings — with
+   the `sl2plantuml.py` commands that produce the diagrams. This is the standing
+   convention for *every* new SL, single or nested.
 
-Do not run git, commit, or edit files other than producing the plan in your
-reply. This skill produces a *plan*, not the implementation.
+Do not run git or commit. This skill produces a *plan* (plus the coordinator-owned
+`<id>.sl.json` it is asked to emit), not the loop's implementation. When the human
+moves from plan to build, the deliverable is packaged per §10: as a skill with its
+`.sl.json` and its `docs/<name>.md` companion carrying both the SVG and PNG.

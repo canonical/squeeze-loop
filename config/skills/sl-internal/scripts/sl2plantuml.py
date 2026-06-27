@@ -7,6 +7,8 @@ Usage:
     sl2plantuml.py LOOP.json                 # validate, then render LOOP.png
     sl2plantuml.py LOOP.json --plant out.puml  # validate, then write PlantUML source
     sl2plantuml.py LOOP.json -o diagram.png  # validate, then render to a chosen path
+    sl2plantuml.py LOOP.json --direction tb  # top-to-bottom layout (clearer for dense loops)
+    sl2plantuml.py LOOP.json --svg           # render LOOP.svg (scalable vector) instead of PNG
 
 Rendering shells out to `plantuml` (which needs Java + Graphviz). Validation needs
 the `jsonschema` package:  pip install jsonschema
@@ -94,7 +96,10 @@ def validate(doc: dict) -> None:
 # --------------------------------------------------------------------------- #
 #  PlantUML generation
 # --------------------------------------------------------------------------- #
-def to_plantuml(doc: dict) -> tuple[str, list[str]]:
+DIRECTIVE = {"lr": "left to right direction", "tb": "top to bottom direction"}
+
+
+def to_plantuml(doc: dict, direction: str = "lr") -> tuple[str, list[str]]:
     actors = doc.get("actors", []) or []
     sources = doc.get("sources", []) or []
     source_ids = {s["id"] for s in sources}
@@ -112,8 +117,8 @@ def to_plantuml(doc: dict) -> tuple[str, list[str]]:
     title = doc.get("id", "squeeze-loop")
     kind = doc.get("kind")
     out.append(f"title {title}" + (f" ({kind})" if kind else ""))
-    out.append("left to right direction")
-    out.append("skinparam rectangle { BorderColor #555 }")
+    out.append(DIRECTIVE[direction])
+    out.append("skinparam rectangleBorderColor #555")
     out.append("skinparam shadowing false")
     out.append("")
 
@@ -174,9 +179,12 @@ def to_plantuml(doc: dict) -> tuple[str, list[str]]:
 
 
 # --------------------------------------------------------------------------- #
-#  PNG rendering
+#  Rendering (PNG / SVG)
 # --------------------------------------------------------------------------- #
-def render_png(puml: str, out_path: Path) -> None:
+RENDER_FLAG = {"png": "-tpng", "svg": "-tsvg"}
+
+
+def render(puml: str, out_path: Path, fmt: str = "png") -> None:
     plantuml = shutil.which("plantuml")
     if not plantuml:
         die("'plantuml' was not found on PATH.\n"
@@ -185,7 +193,7 @@ def render_png(puml: str, out_path: Path) -> None:
             "         macOS (brew)  : brew install plantuml\n"
             "       or download plantuml.jar and wrap it in a 'plantuml' shim.")
     proc = subprocess.run(
-        [plantuml, "-tpng", "-charset", "UTF-8", "-pipe"],
+        [plantuml, RENDER_FLAG[fmt], "-charset", "UTF-8", "-pipe"],
         input=puml.encode("utf-8"),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -194,7 +202,7 @@ def render_png(puml: str, out_path: Path) -> None:
         detail = proc.stderr.decode("utf-8", "replace").strip()
         die("plantuml failed to render:\n" + (detail or "(no stderr)"))
     out_path.write_bytes(proc.stdout)
-    print(f"wrote PNG → {out_path}")
+    print(f"wrote {fmt.upper()} → {out_path}")
 
 
 # --------------------------------------------------------------------------- #
@@ -207,7 +215,12 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--plant", metavar="FILE", type=Path,
                         help="write PlantUML source to FILE instead of rendering a PNG")
     parser.add_argument("-o", "--output", metavar="FILE", type=Path,
-                        help="PNG output path (default: <input>.png)")
+                        help="image output path (default: <input>.png, or .svg with --svg)")
+    parser.add_argument("--svg", action="store_true",
+                        help="render SVG (scalable vector) instead of PNG")
+    parser.add_argument("--direction", choices=("lr", "tb"), default="lr",
+                        help="layout orientation: lr = left-to-right (default), "
+                             "tb = top-to-bottom (clearer for large, dense loops)")
     args = parser.parse_args(argv)
 
     if not args.json_file.is_file():
@@ -219,7 +232,7 @@ def main(argv: list[str] | None = None) -> None:
 
     validate(doc)
 
-    puml, warnings = to_plantuml(doc)
+    puml, warnings = to_plantuml(doc, direction=args.direction)
     for w in warnings:
         print(f"warning: {w}", file=sys.stderr)
 
@@ -227,8 +240,9 @@ def main(argv: list[str] | None = None) -> None:
         args.plant.write_text(puml + "\n", encoding="utf-8")
         print(f"wrote PlantUML → {args.plant}")
     else:
-        out_path = args.output or args.json_file.with_suffix(".png")
-        render_png(puml, out_path)
+        fmt = "svg" if args.svg else "png"
+        out_path = args.output or args.json_file.with_suffix("." + fmt)
+        render(puml, out_path, fmt)
 
 
 # --------------------------------------------------------------------------- #

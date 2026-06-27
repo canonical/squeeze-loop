@@ -1,0 +1,56 @@
+{
+  "sl_version": "1.0",
+  "id": "sl-auditor",
+  "kind": "meta",
+  "terrain": ["A"],
+  "monitors": null,
+  "description": "The generic audit methodology specified by sl-auditor: the squeeze turned on a TARGET squeeze loop to decide whether it is actually sound or only looks sound. The auditor judges the target against an upper bound (the compliance contract C1-C4 + the stabilizer set the target is supposed to satisfy) and a lower bound (the target's inspected, executable reality: the sl_disjointness_check.py run as the mechanical floor, plus the barrier ablation and the seeded coherent-and-wrong probes). The target's own SL-1.0 self-description is read as a CLAIM to test against reality, never as ground truth; the auditor is barriered from the target's implementation internals and its actors' rationale and learns target behaviour by RUNNING the target's oracle. Dominant coherent-and-wrong: a target that is quietly collapsing into a rubber stamp (self-certifying actor, honorary barrier, self-declared done) while its self-description still reads as compliant. The one residual the auditor cannot self-certify — its own soft-vs-soft judgments (framing faithfulness, self-description accuracy) — is routed to a disjoint human / cross-provider base (Dimension 8). Generic: no domain, no instance (monitors: null; the bridge expands to a placeholder audited-loop).",
+  "sources": [
+    {"id": "compliance_contract", "name": "Compliance contract (C1-C4 + stabilizer set)", "type": "soft_authority", "provenance": "exogenous", "executable": false, "notes": "the fixed standard of soundness the target must satisfy; the auditor's and the disjoint base's upper bound"},
+    {"id": "disjointness_checker", "name": "sl_disjointness_check.py over the target's .sl.json (mechanical floor)", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "set-algebra check of self-certification / shared-evidence / barriers / endogeneity / terminus — a floor, not a ceiling"},
+    {"id": "calibration_probes", "name": "Barrier ablation + seeded coherent-and-wrong probes + flag-rate band", "type": "executable_oracle", "provenance": "external_tool", "executable": true, "notes": "the inspected, executable reality for the dimensions the checker cannot decide: does the catch rate move when the barrier is removed; are planted falsehoods caught; is each monitor in the discriminating band"},
+    {"id": "target_self_description", "name": "The target loop's SL-1.0 self-description (the claim under audit)", "type": "artifact", "provenance": "internal", "produced_by": "target_loop", "executable": false, "notes": "read as a CLAIM to test against reality (an org chart to distrust), never as ground truth; not a bound source"},
+    {"id": "target_internals", "name": "The target loop's implementation internals + its actors' rationale", "type": "rationale", "provenance": "internal", "produced_by": "target_loop", "executable": false, "notes": "must stay inside the target; the auditor learns target behaviour by RUNNING its oracle, never by reading these — its forbidden move"},
+    {"id": "audit_report", "name": "Per-dimension findings report (D1-D9, with severities)", "type": "artifact", "provenance": "internal", "produced_by": "auditor", "executable": false, "notes": "the auditor's deliverable; loud-fail on any undecidable dimension, never a quiet pass"},
+    {"id": "disjoint_review", "name": "Disjoint base judgment (cross-provider / human review)", "type": "human_judgment", "provenance": "human", "produced_by": "disjoint_base", "executable": false, "notes": "closes the residual the auditor cannot self-certify; no executable refuter"}
+  ],
+  "actors": [
+    {
+      "id": "auditor", "name": "SL auditor (runs Dimensions 1-9)", "role": "auditor",
+      "builds": "the per-dimension findings report: ingest the target's .sl.json and run the mechanical floor (D1/D2/C2), then the manual dimensions (D3 oracle, D4 gates, D5 coherent-and-wrong seeding, D7 stabilizer ablation), routing D6 to sl-monitoring-sl and D8 to the disjoint base",
+      "produces": ["audit_report"],
+      "upper_bound": {"text": "the compliance contract C1-C4 + the stabilizer set the target is supposed to satisfy", "sources": ["compliance_contract"]},
+      "lower_bound": {"text": "the target's inspected, executable reality: the disjointness checker run plus the barrier ablation and the seeded coherent-and-wrong probes", "sources": ["disjointness_checker", "calibration_probes"], "executable": true},
+      "forbidden_moves": ["self-certify its own soft-vs-soft residual (framing faithfulness, self-description accuracy)", "pass an undecidable dimension silently instead of DEPENDENCY-UNMET / routing to the disjoint base", "inflate the target's claimed soundness (safe direction: downgrade when unsure)", "read the target's internals instead of running its oracle"],
+      "must_not_see": ["target_internals"]
+    },
+    {
+      "id": "target_loop", "name": "Bridge -> the audited loop (run / inspected as a sub-agent)", "role": "sub_loop", "expands_to": "audited-loop",
+      "builds": "the audited loop collapsed to one row; forwards its SL-1.0 self-description registry and exposes its runnable oracles, never its implementation internals or its actors' rationale",
+      "produces": ["target_self_description", "target_internals"],
+      "upper_bound": {"text": "the audited loop's own bounds (see its document)", "sources": [], "borrowed_from": "audited-loop"},
+      "lower_bound": {"text": "the audited loop's own machine verdicts / oracles, exposed for the auditor to run", "sources": [], "borrowed_from": "audited-loop", "executable": true},
+      "forbidden_moves": ["forward a self-description that flatters the apparatus (self-description drift)", "present a stale self-description as current", "expose internals in place of a runnable oracle"],
+      "must_not_see": []
+    },
+    {
+      "id": "disjoint_base", "name": "Disjoint base (cross-provider / human reviewer, terminus)", "role": "disjoint_base",
+      "builds": "the terminal review of what an internal audit cannot self-certify: soft-vs-soft faithfulness and self-description accuracy (Dimension 8)",
+      "produces": ["disjoint_review"],
+      "upper_bound": {"text": "the compliance contract: is the auditor's residual judgment genuinely faithful, or does it share the target's blind spot?", "sources": ["compliance_contract"]},
+      "lower_bound": {"text": "no executable oracle — soft-vs-soft faithfulness has no hard refuter; this absence is why the reviewer is the terminus", "sources": [], "absent_reason": "framing faithfulness / self-description accuracy is not mechanically decidable; closed by a disjoint cross-provider or human reviewer, not a machine"},
+      "forbidden_moves": ["count a same-provider-family judge as full disjointness (that is only partial)", "certify without first passing the known-contradiction / known-consistent controls"],
+      "must_not_see": []
+    }
+  ],
+  "disjointness": {
+    "rationale": "The auditor judges the target only against the compliance contract (U) and the target's inspected, executable reality (L) — the disjointness-checker run, the barrier ablation, the seeded coherent-and-wrong probes — never against the target's account of itself: it reads the target's .sl.json as a CLAIM to test against reality, and is barriered from the target's implementation internals and its actors' rationale (it runs the target's oracle to learn behaviour). The auditor's own soft-vs-soft judgments (is the framing faithful? is the self-description accurate?) share the target's blind spot and are the one residual it cannot self-certify; that residual is closed by a disjoint cross-provider / human base, not by the auditor. An internal audit that claims to have certified everything has demonstrated the failure it was hunting for.",
+    "load_bearing_barrier": "the auditor never reads the target's implementation internals or its actors' rationale (it runs the target's oracle to learn behaviour), and never self-certifies its own soft-vs-soft residual — that is routed to the disjoint base",
+    "catchability": [
+      {"actor": "target_loop", "blind_spot": "the loop is coherent-and-wrong ABOUT ITSELF — its self-description has drifted from its actual apparatus, or it is quietly collapsing into a rubber stamp (self-certifying actor, honorary barrier, self-declared done) while still reading as compliant", "caught_by": "auditor", "via": "the mechanical floor (sl_disjointness_check.py) + barrier ablation (does the catch rate move?) + seeded coherent-and-wrong probes — inspected reality vs the claimed self-description"},
+      {"actor": "auditor", "blind_spot": "its own soft-vs-soft judgments — framing faithfulness, self-description accuracy — on which it shares the target's blind spot and cannot self-certify", "caught_by": "disjoint_base", "via": "external / cross-provider or human review (Dimension 8) — the disjoint base that closes the residual"}
+    ],
+    "endogeneity_flags": [],
+    "terminus": "disjoint_base (cross-provider or human review closes the residual the auditor cannot self-certify; the automation alone does not)"
+  }
+}

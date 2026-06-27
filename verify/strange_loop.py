@@ -7,7 +7,7 @@ strange-loop claim, so the numbers recompute:
   - O2 level-crossings (a self-representation forced a substrate change)
                                                      <- claims/level_crossings.tsv
   - O5 persistence (iterations of the self-applying loop)
-                                                     <- docs/*-paper-spec-*.md
+                                                     <- docs/specs/*-paper-spec-*.md
 The admissible TIER is the disposition recorded in paper_upper_bound.md §8 (Tier 2:
 O2 and O3 DISCHARGED -- claims/level_crossings.tsv + verify/closure_check.py; O1/O5
 partial, no live self-model; O4 logged but not Tier-1-strong). It is a documented

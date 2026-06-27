@@ -9,7 +9,7 @@ verify/self_model_check.py asserts (b) and the redirect (the O1+O5 discharge wit
 
 Derivation (idempotent -- re-running reproduces the JSON byte-identically):
   - clause discharge  <- presence of the discharging artifact in the repo
-  - history           <- the `TARGET:` header of each docs/*-paper-spec-*.md
+  - history           <- the `TARGET:` header of each docs/specs/*-paper-spec-*.md
   - next_target       <- the highest-priority still-open gap (a pure function of the
                          clause statuses), NOT hand-set (the anti-gaming guard)
 """
@@ -43,7 +43,7 @@ def clause_status():
 
 def history():
     h = []
-    for f in sorted(DOCS.glob("*-paper-spec-*.md")):
+    for f in sorted((DOCS / "specs").glob("*-paper-spec-*.md")):
         m = re.search(r"-paper-spec-(\d+)\.md$", f.name)
         if not m:
             continue
