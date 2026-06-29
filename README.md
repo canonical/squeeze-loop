@@ -12,22 +12,18 @@ this archive.
 
 Instead of trying to instruct or prompt agents to be better, we propose a structural, organizational solution. The **Squeeze Loop Strategy** traps every agent between two immovable walls:
 
-* 
-**Upper Bound ($U$):** A soft, normative standard (like a human-written specification or handbook) that sets the maximum claim an agent can make.
+- **Upper Bound ($U$):** A soft, normative standard (like a human-written specification or handbook) that sets the maximum claim an agent can make.
 
-* 
-**Lower Bound ($L$):** A hard, interpretation-free executable ground truth (like a compiler, test suite, or proof kernel) that the agent cannot alter or game.
+- **Lower Bound ($L$):** A hard, interpretation-free executable ground truth (like a compiler, test suite, or proof kernel) that the agent cannot alter or game.
 
 
 
 ### Core Architectural Pillars
 
-* 
-**The Disjointness Principle:** Every agent in the multi-agent loop answers to a completely different pair of upper/lower bounds. Correctness is found purely at the intersection of these bounds, ensuring that one agent's blind spot is caught by another's evidence base.
+- **The Disjointness Principle:** Every agent in the multi-agent loop answers to a completely different pair of upper/lower bounds. Correctness is found purely at the intersection of these bounds, ensuring that one agent's blind spot is caught by another's evidence base.
 
 
-* 
-**Gate-Defined Done:** An item is only complete when independent, machine-checked gates pass—never when an agent self-reports success.
+- **Gate-Defined Done:** An item is only complete when independent, machine-checked gates pass—never when an agent self-reports success.
 
 ## Recomputing the numbers in the paper
 
