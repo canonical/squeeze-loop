@@ -15,6 +15,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
 \usetikzlibrary{arrows.meta,positioning}
+\usepackage{graphicx}
+\usepackage{rotating}
 \usepackage{url}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!60!black]{hyperref}
 
@@ -113,7 +115,7 @@ because a competent model handed an explicit authority simply follows it. The un
 catches a fluent-but-wrong artifact is an \emph{independent executable check} --- not a smarter model,
 not more agents, not hiding the code from the judge. Four executable seeded instances over three terrains (analytics and Rocq proofs, a refund
 agent, an API guard) demonstrate that the construction instantiates and its gate fires on each ---
-existence demonstrations, not efficacy measurements, so a powered comparison remains future work.
+existence demonstrations, not efficacy measurements, so a powered efficacy comparison remains future work.
 \end{abstract}
 
 % ===========================================================================
@@ -740,6 +742,44 @@ to ship, but the gates are machine output it cannot edit. Correctness is the fix
 satisfying all squeezes at once: the catchability of condition~(C2), which
 Section~\ref{sec:synthesis} makes measurable rather than asserted.
 
+\paragraph{A machine-checkable representation (SL-1.0).}\label{par:slone}
+The squeeze table need not stay prose. Each loop serialises to a compact registry in
+which every source of truth --- an upper-bound authority, an executable oracle, a
+produced artifact, a producer's private rationale, a human terminus --- is declared once
+with a stable identifier, and every actor names the sources it reads as bounds and the
+sources it is denied, by identifier. Disjointness then stops being narrated and becomes
+set algebra a checker runs: no actor's bound sources may intersect what it produces
+(self-certification), an actor's denied set must be disjoint from its bounds (this checks
+the \emph{declared} forbidden-set; the barrier's physical enforcement lives in the
+prompts, not the registry), and every characteristic blind spot must be \emph{assigned a
+different catcher} (condition~(C2)). The load-bearing subtlety survives the encoding:
+a judge may \emph{run} an oracle over an artifact it is barriered from --- that is how it
+learns the implementation's behaviour without reading its internals --- but it may never
+list that artifact among its bounds. The same registry renders to a labelled diagram
+(Figure~\ref{fig:slone}) and is the artifact an auditor or a monitoring loop reads. What
+a green check certifies is bounded: that the \emph{declared} authorities are pairwise
+disjoint --- set algebra over the registry, not a verdict that the registry faithfully
+describes the delegation contexts it summarises. The registry is a claim, distrusted like
+an org chart and checked against the actual prompts, not the territory. The check is a
+floor, not a ceiling along the other axis too: a green verdict certifies that the loop's
+\emph{authorities are disjoint as declared}, never that any deliverable is \emph{done} ---
+gate-defined done (condition~(C4)) stays deliberately out of the registry, in the gate
+evidence.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/sl-instance-a.pdf}
+\caption{The SL-1.0 rendering of the tabular-analytics base loop
+(Archetype~A, \S\ref{sec:caseD}): each actor (orange) is squeezed between its
+upper-bound authority (green, the metric handbook) and its executable lower bounds
+(pink, the frozen warehouse and the standing-invariant ledger); dashed edges are the
+physical \emph{must-not-see} barriers, and the blue catchability edges name which
+coherent-and-wrong each actor catches. Generated from the loop's \texttt{*.sl.json} by
+one renderer shared across every instance in this paper; the disjointness checker reads
+the same file.}
+\label{fig:slone}
+\end{figure}
+
 % ===========================================================================
 \section{A Real-World Application: Trustworthy Proofs (and Real Bugs) in a UEFI Bootloader}
 \label{sec:realworld}
@@ -779,12 +819,14 @@ input-restricting precondition. An unproved verification condition is then not a
 but a pointer at a real, reachable bug, and the guard that discharges it is the fix.
 
 \textbf{The two nested squeeze loops.} The application is built as two loops instantiating the
-strategy of Section~\ref{sec:strategy}. \emph{\code{creusot-sl}} verifies one file: its upper
+strategy of Section~\ref{sec:strategy}. \emph{\code{creusot-sl}} verifies one file
+(Figure~\ref{fig:creusot-sl}): its upper
 bound is an external requirement made precise as Pearlite, its lower bound is \code{cargo
 creusot} discharge plus tests plus a mutation probe, and it runs the canonical cast with the
 implementer (Table~\ref{tab:cast}) recast as an \emph{annotator} that adds proof scaffolding but
 never rewrites behaviour. \emph{\code{creusot-monitoring}} verifies a whole crate by driving a
-\code{creusot-sl} sub-loop per file and monitoring its soft outputs: a loop monitoring a loop,
+\code{creusot-sl} sub-loop per file and monitoring its soft outputs: a loop monitoring a loop
+(Figure~\ref{fig:creusot-mon}),
 the Gate~S pattern of Section~\ref{sec:mechanics}, with the mission guidance as upper bound and
 \code{creusot-sl}'s machine verdicts as lower bound. ``Applied unchanged'' means the topology
 and squeeze are fixed while the gate \emph{materials} are rebuilt per terrain. Two
@@ -1534,6 +1576,45 @@ Orphan change & an edit with no plan, no gap, no authority behind it & 12 \\
 disjointness audit of Definition~\ref{def:compliance}.}
 \label{tab:collapse}
 \end{table}
+
+% ===========================================================================
+\section{SL-1.0 diagrams for the Creusot application}
+\label{app:creusotfig}
+
+The two nested loops of the Creusot application (Section~\ref{sec:realworld}) are shown
+here, rendered from their SL-1.0 registries by the same tool that draws every diagram in
+this paper. They are placed in the appendix, rotated to full page, because the renders are
+dense; the repository SVGs (\texttt{docs/img/creusot-*.svg}) are the lossless, zoomable
+form. Figure~\ref{fig:creusot-sl} is the per-file object loop; Figure~\ref{fig:creusot-mon}
+is the crate-level loop that drives and monitors it.
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\textheight]{figures/creusot-sl.pdf}
+\caption{The \code{creusot-sl} base loop (one Rust file), rendered from its SL-1.0
+registry. The annotator (the implementer recast) is squeezed between the Pearlite
+requirement above and \code{cargo creusot} discharge plus tests plus a mutation probe
+below; the exerciser is barriered (\texttt{must-not-see}) from the annotated source and
+judges only by re-running. This is the object loop the monitor of
+Figure~\ref{fig:creusot-mon} drives once per file. (The figure is generated by the same
+renderer as the constructed instances; the SVG in the repository is the legible,
+zoomable form.)}
+\label{fig:creusot-sl}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+\centering
+\includegraphics[width=\textheight]{figures/creusot-monitoring.pdf}
+\caption{A loop driving and monitoring another loop: \code{creusot-monitoring} verifies a whole
+crate by driving a \code{creusot-sl} sub-loop per file (the blue \emph{bridge} row) and
+monitoring its soft outputs with the Gate~S pattern --- mission guidance as upper bound,
+the sub-loops' machine verdicts as lower bound, and a cross-provider/human reviewer as
+the terminus that closes the soft side. The dashed red overlay marks the one endogenous
+authority (the Phase-0 self-audit the system makes about itself); a green check there
+certifies self-consistency, not conformance. Applied \emph{unchanged} to Canonical's
+\code{lace}.}
+\label{fig:creusot-mon}
+\end{sidewaysfigure}
 
 % ===========================================================================
 \bibliographystyle{plainnat}

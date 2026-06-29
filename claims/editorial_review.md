@@ -4,15 +4,19 @@ Checked by `verify/editorial_gate.py`. The gate enforces that a *current* disjoi
 editorial judgment is on file for the exact manuscript; it does NOT perform the judgment
 (that would be the author grading itself). See paper-impl.md, "Completing the gates."
 
-paper-sha256: 69d064cafc79b94b204d9f2d9e6c02137c0d58f6e866d0a927bb634e09523cdb
-judge: claude-sonnet-4-6 (Claude Code sub-agent, independent context)
-disjoint-from-author: PARTIAL -- author is claude-opus-4-8; judge is a different model but
-  the SAME provider family. R3 (Section 7) shows same-family casts share the author's blind
-  spot, so this is partial disjointness. Gold standard: cross-provider model or human review.
-verdict: ACCEPT-WITH-FIXES
-date: 2026-06-18
-scope: cross-section framing consistency and faithfulness to evidence (the interpretive
-  residual the machine gates cannot verify). NOT grammar/citations/build/page-count.
+paper-sha256: 7a5bbcd5cf2e9776f4e81043837bb9d2ec49db7a59f4e031d5ba1b158c2acfb8
+judge: claude (Claude Code general-purpose sub-agent, independent FRESH context; circle 78 / 2026-06-28)
+disjoint-from-author: PARTIAL -- same provider family (R3). Gold cross-provider/human close still owed
+  (local Ollama exposes only qwen2.5-coder:1.5b-base, too weak).
+verdict: ACCEPT
+date: 2026-06-28
+scope: circle 78 moved the two Creusot figures from sec:realworld to a new appendix
+  (app:creusotfig). The figure CAPTIONS are byte-identical to the circle-76 reviewed text; the
+  only NEW prose is the appendix's navigational orienting paragraph. The disjoint judge reviewed
+  that new paragraph FRESH and returned ACCEPT (no fixes): every factual hook -- the SVG paths,
+  'per-file object loop' = creusot-sl, 'crate-level loop that drives and monitors it' =
+  creusot-monitoring, 'lossless zoomable' SVG -- is supported; it introduces no result or efficacy
+  claim. Body cross-refs to the figures resolve into the appendix (Fig 4 p26, Fig 5 p27).
 cross-provider-check: see claims/cross_provider_review.md. GOLD STANDARD NOW MET on the
   editorial (framing-consistency) axis. A CAPABLE, genuinely cross-provider judge --
   qwen3.6:27b-mlx (Alibaba, independent pretraining from the Anthropic author), run via Ollama
