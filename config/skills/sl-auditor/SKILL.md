@@ -94,8 +94,21 @@ later dimensions interrogate. Run `sl-internal/scripts/sl_disjointness_check.py
 self-owned oracle, shared evidence, single-pair-suffices), D2 (barrier consistency
 + missing-required barrier), C2 (catchability)** and the endogeneity / terminus
 predicates. In two-file mode (`<controlling> <base>`) it also runs **D6 cross-loop
-source-of-truth**. The checker's dimension tags match this skill's numbering. Two
-cautions, both load-bearing:
+source-of-truth**. The checker's dimension tags match this skill's numbering.
+
+**Render the loop while you are here (idempotent).** For each loop you ingest, if
+`docs/img/<id>.{png,svg}` are not already on disk, generate them —
+`sl-internal/scripts/sl2plantuml.py <target>.sl.json -o docs/img/<id>.png` and the same
+with `--svg -o docs/img/<id>.svg` (add `--direction tb` for a large, dense loop); `<id>`
+is the loop's `id` (the `*.sl.json` filename stem). The diagram is a durable visual the
+audit reads at a glance: the colour/glyph channel surfaces the cast roles, the
+point-vs-invariant oracles, an **endogenous bound** (red dashed `⚠` overlay — a
+bound-level D1 finding), the `✗ must-not-see` barriers (D2), and the catchability edges
+(C2). **Skip if both files already exist** — do not clobber a coordinator's committed
+diagram; the render is a convenience artifact, never an authority. In two-file / nested
+mode render the base loop too (`docs/img/<base-id>.{png,svg}`).
+
+Two cautions, both load-bearing:
 
 - **The `*.sl.json` is a *claim*, not the territory.** It is the loop's
   self-description, and a loop can be coherent-and-wrong *about itself* (Dimension
@@ -124,6 +137,9 @@ does any actor answer to a bound it can itself relieve or edit?
    self-certification, the latter as `produces ∪ produced_by ∩ bound_sources`) plus
    referential integrity. Record its verdicts — then keep going: a PASS here is the
    floor, and the registry is a *claim* to be checked against reality in step 1.
+   While ingesting, **render the loop's diagram to `docs/img/<id>.{png,svg}` if not
+   already present** (see *the mechanical floor* above) — a visual that surfaces the
+   cast, the barriers, and any endogenous bound for the dimensions that follow.
 1. **Map the real pairs.** For every actor in the target loop, write down its
    actual `(U_i, L_i)` — the authority that squeezes it from above and the
    executable that squeezes it from below — *as enforced*, not as documented.
@@ -434,6 +450,7 @@ SL AUDIT — <target loop name>           date: <YYYY-MM-DD>
 SL-1.0 INPUT
   *.sl.json present?          YES | NO (audit by inspection only)
   sl_disjointness_check.py    PASS | FAIL | N/A       — mechanical floor (D1/D2/D3 + endogeneity); floor, not ceiling
+  diagram rendered            docs/img/<id>.{png,svg}  RENDERED | ALREADY-PRESENT | N/A (no *.sl.json)
 
 PER-DIMENSION FINDINGS
   D1 Disjointness (C1)        PASS | FAIL | PARTIAL   — <one line + evidence>; registry-vs-prompts drift?
