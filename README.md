@@ -1,7 +1,9 @@
 # Loops in the Age of AI — the Squeeze Loop Strategy
 
 
-This repository is the associated repo of technical report *The Squeeze Loop Strategy: Catching Coherent-and-Wrong Artifacts with an Author-Independent Executable Oracle* (`tex/paper.tex`), its four executable
+This repository is the associated repo of technical report [The Squeeze Loop Strategy: Catching Coherent-and-Wrong Artifacts with an Author-Independent Executable Oracle](report.pdf). You can look at [all the editorial reviews](https://github.com/canonical/squeeze-loop/blob/main/claims/editorial_review.md) that lead to the report as it is now.
+
+The repo also holds, the four executable
 instances (`src/A`, `src/B`, `src/C`, `src/D`), the evaluation harnesses (`eval/`,
 `verify/`), the claim ledger (`claims/ledger.tsv`), and the reading records
 (`bib/records/`). The paper's discipline is that **every reported number is
