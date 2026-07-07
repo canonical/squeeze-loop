@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.org/sl/sl-schema-1.0.json",
+  "$id": "https://github.com/canonical/squeeze-loop/blob/main/config/skills/sl-internal/references/sl-schema-1.0.json",
   "title": "Squeeze Loop (SL) \u2014 compact standardized representation",
   "description": "A machine-checkable encoding of a single squeeze loop. The load-bearing idea: every source of truth has a stable id, and each actor references sources by id in its bounds and barriers, so disjointness (C1), barrier consistency (C3) and endogeneity become set operations a tool can run.",
   "type": "object",
